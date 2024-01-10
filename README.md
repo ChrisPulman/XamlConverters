@@ -1,6 +1,8 @@
 # XamlConverters
 Converters for WPF
 
+![Nuget](https://img.shields.io/nuget/v/CP.Xaml.Converters) ![Nuget](https://img.shields.io/nuget/dt/CP.Xaml.Converters)
+
 Converters available are:
 
 -  ArithmeticConverter
