@@ -18,7 +18,7 @@ namespace CP.Xaml.Converters;
 [UsableDuringInitialization(true)]
 public class ConvertersDictionary : ResourceDictionary
 {
-    private const string DictionaryUri = "pack://application:,,,/XamlConverters;component/Resources/Converters.xaml";
+    private const string DictionaryUri = "pack://application:,,,/CP.Xaml.Converters;component/Resources/Converters.xaml";
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ConvertersDictionary"/> class.
