@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\XamlConverters\XamlConverters.csproj" />
+    <ProjectReference Include="..\XamlConverters\CP.Xaml.Converters.csproj" />
   </ItemGroup>
 
 </Project>
