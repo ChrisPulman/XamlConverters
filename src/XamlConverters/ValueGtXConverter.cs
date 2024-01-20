@@ -44,5 +44,5 @@ public class ValueGtXConverter : IValueConverter
     /// <param name="parameter">The parameter is not used.</param>
     /// <param name="culture">The parameter is not used.</param>
     /// <returns>The parameter is not used.</returns>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => value;
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Binding.DoNothing;
 }

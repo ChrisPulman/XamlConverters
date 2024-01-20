@@ -40,5 +40,5 @@ public sealed class ValueNotNullToBoolConverter : IValueConverter
     /// <param name="culture">The culture to use in the converter.</param>
     /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
     /// <exception cref="NotImplementedException">Not Implemented Exception.</exception>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => value;
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Binding.DoNothing;
 }

@@ -43,5 +43,5 @@ public sealed class ValueNotNullToVisibilityConverter : IValueConverter
     /// <exception cref="NotImplementedException">
     /// The method or operation is not implemented.
     /// </exception>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => value;
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Binding.DoNothing;
 }
