@@ -42,5 +42,5 @@ public sealed class VisibilityFromNumberEqualsConverter : IValueConverter
     /// <param name="culture">The culture to use in the converter.</param>
     /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
     /// <exception cref="Exception">The method or operation is not implemented.</exception>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new Exception("The method or operation is not implemented.");
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Binding.DoNothing;
 }

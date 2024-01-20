@@ -91,5 +91,5 @@ public class ArithmeticConverter : IValueConverter
     /// <param name="culture">The parameter is not used.</param>
     /// <returns>The parameter is not used.</returns>
     /// <exception cref="Exception">An Exception.</exception>
-    object IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new Exception("The method or operation is not implemented.");
+    object IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Binding.DoNothing;
 }

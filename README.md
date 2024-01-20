@@ -44,6 +44,8 @@ Converters available are:
 -  VisibilityFromNumberConverter
 -  VisibilityFromNumberEqualsConverter
 -  ZeroToVisibilityConverter
+ - BrushToColorConverter
+ - FallbackBrushConverter
 
 ## Usage
 
