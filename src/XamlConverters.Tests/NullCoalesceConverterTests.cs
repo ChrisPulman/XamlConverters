@@ -3,8 +3,14 @@
 
 namespace CP.Xaml.Converters.Tests;
 
+/// <summary>
+/// NullCoalesceConverterTests.
+/// </summary>
 public class NullCoalesceConverterTests
 {
+    /// <summary>
+    /// Returnses the parameter if null.
+    /// </summary>
     [Fact]
     public void ReturnsParameterIfNull()
     {
@@ -13,6 +19,9 @@ public class NullCoalesceConverterTests
         Assert.Equal("fallback", result);
     }
 
+    /// <summary>
+    /// Returnses the value if not null.
+    /// </summary>
     [Fact]
     public void ReturnsValueIfNotNull()
     {

@@ -3,8 +3,14 @@
 
 namespace CP.Xaml.Converters.Tests;
 
+/// <summary>
+/// CountConvertersTests.
+/// </summary>
 public class CountConvertersTests
 {
+    /// <summary>
+    /// Counts to boolean greater than zero.
+    /// </summary>
     [Fact]
     public void CountToBoolean_GreaterThanZero()
     {
@@ -13,6 +19,9 @@ public class CountConvertersTests
         Assert.True((bool)result);
     }
 
+    /// <summary>
+    /// Counts to visibility equals zero collapsed.
+    /// </summary>
     [Fact]
     public void CountToVisibility_EqualsZeroCollapsed()
     {

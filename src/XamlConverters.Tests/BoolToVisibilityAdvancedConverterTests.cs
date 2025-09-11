@@ -3,8 +3,14 @@
 
 namespace CP.Xaml.Converters.Tests;
 
+/// <summary>
+/// BoolToVisibilityAdvancedConverterTests.
+/// </summary>
 public class BoolToVisibilityAdvancedConverterTests
 {
+    /// <summary>
+    /// Trues the visible.
+    /// </summary>
     [Fact]
     public void TrueVisible()
     {
@@ -13,6 +19,9 @@ public class BoolToVisibilityAdvancedConverterTests
         Assert.Equal(Visibility.Visible, result);
     }
 
+    /// <summary>
+    /// Falses the collapsed.
+    /// </summary>
     [Fact]
     public void FalseCollapsed()
     {
@@ -21,6 +30,9 @@ public class BoolToVisibilityAdvancedConverterTests
         Assert.Equal(Visibility.Collapsed, result);
     }
 
+    /// <summary>
+    /// Falses the hidden when h.
+    /// </summary>
     [Fact]
     public void FalseHiddenWhenH()
     {

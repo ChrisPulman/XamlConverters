@@ -3,8 +3,16 @@
 
 namespace CP.Xaml.Converters.Tests;
 
+/// <summary>
+/// BoolToVisibilityConverterTests.
+/// </summary>
 public class BoolToVisibilityConverterTests
 {
+    /// <summary>
+    /// Convertses the bool to visibility.
+    /// </summary>
+    /// <param name="input">if set to <c>true</c> [input].</param>
+    /// <param name="expected">The expected.</param>
     [Theory]
     [InlineData(true, Visibility.Visible)]
     [InlineData(false, Visibility.Collapsed)]
@@ -15,6 +23,11 @@ public class BoolToVisibilityConverterTests
         Assert.Equal(expected, result);
     }
 
+    /// <summary>
+    /// Convertses the bool to visibility inverted.
+    /// </summary>
+    /// <param name="input">if set to <c>true</c> [input].</param>
+    /// <param name="expected">The expected.</param>
     [Theory]
     [InlineData(true, Visibility.Collapsed)]
     [InlineData(false, Visibility.Visible)]

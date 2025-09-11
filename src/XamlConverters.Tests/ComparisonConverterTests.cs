@@ -3,8 +3,17 @@
 
 namespace CP.Xaml.Converters.Tests;
 
+/// <summary>
+/// ComparisonConverterTests.
+/// </summary>
 public class ComparisonConverterTests
 {
+    /// <summary>
+    /// Compareses the values.
+    /// </summary>
+    /// <param name="value">The value.</param>
+    /// <param name="param">The parameter.</param>
+    /// <param name="expected">if set to <c>true</c> [expected].</param>
     [Theory]
     [InlineData(5, ">3", true)]
     [InlineData(3, ">3", false)]

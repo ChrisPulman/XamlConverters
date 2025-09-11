@@ -3,10 +3,17 @@
 
 namespace CP.Xaml.Converters.Tests;
 
-public enum TestState { One, Two }
-
+/// <summary>
+/// EnumToBooleanConverterTests.
+/// </summary>
 public class EnumToBooleanConverterTests
 {
+    /// <summary>
+    /// Enums the matches.
+    /// </summary>
+    /// <param name="state">The state.</param>
+    /// <param name="param">The parameter.</param>
+    /// <param name="expected">if set to <c>true</c> [expected].</param>
     [Theory]
     [InlineData(TestState.One, "One", true)]
     [InlineData(TestState.One, "Two", false)]
