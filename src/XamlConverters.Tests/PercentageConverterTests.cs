@@ -3,8 +3,17 @@
 
 namespace CP.Xaml.Converters.Tests;
 
+/// <summary>
+/// PercentageConverterTests.
+/// </summary>
 public class PercentageConverterTests
 {
+    /// <summary>
+    /// Applieses the percentage.
+    /// </summary>
+    /// <param name="input">The input.</param>
+    /// <param name="param">The parameter.</param>
+    /// <param name="expected">The expected.</param>
     [Theory]
     [InlineData(200, "50%", 100)]
     [InlineData(10, "0.5", 5)]

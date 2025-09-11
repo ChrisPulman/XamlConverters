@@ -8,7 +8,6 @@
     <IsTestProject>$(MSBuildProjectName.Contains('Tests'))</IsTestProject>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <LangVersion>preview</LangVersion>
-    <Configuration>$(TargetFramework)</Configuration>
     <Company>ChrisPulman</Company>
     <NoWarn>CS1591;IDE0190;IDE1006</NoWarn>
     <Nullable>enable</Nullable>
@@ -54,9 +53,9 @@
 
   <ItemGroup>
     <!--<Compile Update="**\*.cs" DependentUpon="I%(Filename).cs" />-->
-    <PackageReference Include="Nerdbank.GitVersioning" Version="3.6.146" PrivateAssets="all" />
+    <PackageReference Include="Nerdbank.GitVersioning" Version="3.7.115" PrivateAssets="all" />
     <PackageReference Include="stylecop.analyzers" Version="1.2.0-beta.556" PrivateAssets="all" />
-    <PackageReference Include="Roslynator.Analyzers" Version="4.12.9" PrivateAssets="All" />
+    <PackageReference Include="Roslynator.Analyzers" Version="4.14.0" PrivateAssets="All" />
     <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json" Link="stylecop.json" />
   </ItemGroup>
 </Project>

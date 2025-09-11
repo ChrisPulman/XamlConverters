@@ -3,8 +3,14 @@
 
 namespace CP.Xaml.Converters.Tests;
 
+/// <summary>
+/// ThicknessUniformConverterTests.
+/// </summary>
 public class ThicknessUniformConverterTests
 {
+    /// <summary>
+    /// Alls the sides.
+    /// </summary>
     [Fact]
     public void AllSides()
     {
@@ -13,6 +19,9 @@ public class ThicknessUniformConverterTests
         Assert.Equal(new Thickness(5), t);
     }
 
+    /// <summary>
+    /// Horizontals the only.
+    /// </summary>
     [Fact]
     public void HorizontalOnly()
     {
