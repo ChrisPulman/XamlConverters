@@ -15,6 +15,7 @@
     <Configurations>Debug;Release</Configurations>
     <PackageReleaseNotes>Expanded common converter coverage, WPF support from .NET Framework 4.6.2 through .NET 11, and a companion Avalonia package.</PackageReleaseNotes>
     <PackageTags>XAML;converters;binding;WPF;Avalonia</PackageTags>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
     <EnableNETAnalyzers>True</EnableNETAnalyzers>
     <AnalysisLevel>latest</AnalysisLevel>
 
