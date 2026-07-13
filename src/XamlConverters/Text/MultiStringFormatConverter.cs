@@ -1,5 +1,6 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Globalization;
 using System.Windows;
@@ -28,7 +29,7 @@ public sealed class MultiStringFormatConverter : IMultiValueConverter
         var format = parameter as string;
         if (string.IsNullOrEmpty(format))
         {
-            return string.Join(" ", values.Where(v => v != DependencyProperty.UnsetValue && v != null));
+            return string.Join(" ", values.Where(v => v != DependencyProperty.UnsetValue && v is not null));
         }
 
         var safeValues = values.Select(v => v == DependencyProperty.UnsetValue ? null : v).ToArray();
@@ -42,9 +43,7 @@ public sealed class MultiStringFormatConverter : IMultiValueConverter
         }
     }
 
-    /// <summary>
-    /// Converts a binding target value to the source binding values.
-    /// </summary>
+    /// <summary>Converts a binding target value to the source binding values.</summary>
     /// <param name="value">The value that the binding target produces.</param>
     /// <param name="targetTypes">The array of types to convert to. The array length indicates the number and types of values that are suggested for the method to return.</param>
     /// <param name="parameter">The converter parameter to use.</param>

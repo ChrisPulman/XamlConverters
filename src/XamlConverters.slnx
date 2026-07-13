@@ -1,0 +1,19 @@
+<Solution>
+  <Folder Name="/Config/">
+    <File Path="../.editorconfig" />
+    <File Path="../.gitignore" />
+    <File Path="../Directory.Build.props" />
+    <File Path="../Directory.Packages.props" />
+    <File Path="../global.json" />
+    <File Path="../LICENSE" />
+    <File Path="../README.md" />
+  </Folder>
+  <Project Path="../build/_build.csproj">
+    <Build Project="false" />
+  </Project>
+  <Project Path="XamlConverters.Avalonia.Tests/CP.Xaml.Converters.Avalonia.Tests.csproj" />
+  <Project Path="XamlConverters.Avalonia/CP.Xaml.Converters.Avalonia.csproj" />
+  <Project Path="XamlConverters.TestApp/XamlConverters.TestApp.csproj" />
+  <Project Path="XamlConverters.Tests/CP.Xaml.Converters.Tests.csproj" />
+  <Project Path="XamlConverters/CP.Xaml.Converters.csproj" />
+</Solution>

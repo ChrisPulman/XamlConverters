@@ -1,5 +1,6 @@
-﻿// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Globalization;
 using System.Windows;
@@ -7,14 +8,10 @@ using System.Windows.Data;
 
 namespace CP.Xaml.Converters;
 
-/// <summary>
-/// A converter for performing is greater than or equal to comparisons between two specified values.
-/// </summary>
+/// <summary>A converter for performing is greater than or equal to comparisons between two specified values.</summary>
 public class IsGreaterThanOrEqualToConverter : IValueConverter, IMultiValueConverter
 {
-    /// <summary>
-    /// Converts a value.
-    /// </summary>
+    /// <summary>Converts a value.</summary>
     /// <param name="value">The value produced by the binding source.</param>
     /// <param name="targetType">The type of the binding target property.</param>
     /// <param name="parameter">The converter parameter to use.</param>
@@ -22,15 +19,15 @@ public class IsGreaterThanOrEqualToConverter : IValueConverter, IMultiValueConve
     /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (value != null && parameter != null)
+        if (value is null || parameter is null)
         {
-            var first = System.Convert.ToDouble(value);
-            var second = System.Convert.ToDouble(parameter);
-
-            return first >= second;
+            return false;
         }
 
-        return false;
+        var first = System.Convert.ToDouble(value);
+        var second = System.Convert.ToDouble(parameter);
+
+        return first >= second;
     }
 
     /// <summary>
@@ -59,20 +56,18 @@ public class IsGreaterThanOrEqualToConverter : IValueConverter, IMultiValueConve
     /// </returns>
     public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
     {
-        if (values?.Length >= 2 && values.All(x => x != DependencyProperty.UnsetValue))
+        if (values is null || values.Length < 2 || !values.All(x => x != DependencyProperty.UnsetValue))
         {
-            var first = System.Convert.ToDouble(values[0]);
-            var second = System.Convert.ToDouble(values[1]);
-
-            return first >= second;
+            return false;
         }
 
-        return false;
+        var first = System.Convert.ToDouble(values[0]);
+        var second = System.Convert.ToDouble(values[1]);
+
+        return first >= second;
     }
 
-    /// <summary>
-    /// Converts a value.
-    /// </summary>
+    /// <summary>Converts a value.</summary>
     /// <param name="value">The value that is produced by the binding target.</param>
     /// <param name="targetType">The type to convert to.</param>
     /// <param name="parameter">The converter parameter to use.</param>
@@ -80,9 +75,7 @@ public class IsGreaterThanOrEqualToConverter : IValueConverter, IMultiValueConve
     /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Binding.DoNothing;
 
-    /// <summary>
-    /// Converts a binding target value to the source binding values.
-    /// </summary>
+    /// <summary>Converts a binding target value to the source binding values.</summary>
     /// <param name="value">The value that the binding target produces.</param>
     /// <param name="targetTypes">
     /// The array of types to convert to. The array length indicates the number and types of
@@ -93,5 +86,5 @@ public class IsGreaterThanOrEqualToConverter : IValueConverter, IMultiValueConve
     /// <returns>
     /// An array of values that have been converted from the target value back to the source values.
     /// </returns>
-    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) => new object[] { value };
+    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) => [value];
 }

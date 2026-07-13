@@ -1,19 +1,19 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Globalization;
 using System.Windows.Data;
 
 namespace CP.Xaml.Converters;
 
-/// <summary>
-/// Multiplies a numeric value by the percentage supplied in the parameter. Parameter may be '50%' or '0.5'.
-/// </summary>
+/// <summary>Multiplies a numeric value by the percentage supplied in the parameter. Parameter may be '50%' or '0.5'.</summary>
 public sealed class PercentageConverter : IValueConverter
 {
-    /// <summary>
-    /// Applies the percentage factor.
-    /// </summary>
+    /// <summary>The divisor used to convert a percentage to a factor.</summary>
+    private const double PercentageDivisor = 100d;
+
+    /// <summary>Applies the percentage factor.</summary>
     /// <param name="value">The value produced by the binding source.</param>
     /// <param name="targetType">The type of the binding target property.</param>
     /// <param name="parameter">The converter parameter to use.</param>
@@ -23,7 +23,7 @@ public sealed class PercentageConverter : IValueConverter
     /// </returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (value == null || parameter == null)
+        if (value is null || parameter is null)
         {
             return 0d;
         }
@@ -38,7 +38,7 @@ public sealed class PercentageConverter : IValueConverter
                 return baseVal;
             }
 
-            factor = pct / 100d;
+            factor = pct / PercentageDivisor;
         }
         else
         {
@@ -48,9 +48,7 @@ public sealed class PercentageConverter : IValueConverter
         return baseVal * factor;
     }
 
-    /// <summary>
-    /// Convert back not supported.
-    /// </summary>
+    /// <summary>Convert back not supported.</summary>
     /// <param name="value">The value that is produced by the binding target.</param>
     /// <param name="targetType">The type to convert to.</param>
     /// <param name="parameter">The converter parameter to use.</param>

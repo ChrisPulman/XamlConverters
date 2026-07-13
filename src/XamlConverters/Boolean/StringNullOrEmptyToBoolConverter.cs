@@ -1,5 +1,6 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Globalization;
 using System.Windows.Data;
@@ -12,9 +13,7 @@ namespace CP.Xaml.Converters;
 /// </summary>
 public sealed class StringNullOrEmptyToBoolConverter : IValueConverter
 {
-    /// <summary>
-    /// Converts the string value to a boolean indicating IsNullOrEmpty.
-    /// </summary>
+    /// <summary>Converts the string value to a boolean indicating IsNullOrEmpty.</summary>
     /// <param name="value">The bound value.</param>
     /// <param name="targetType">The target type.</param>
     /// <param name="parameter">Optional parameter: invert.</param>
@@ -23,13 +22,11 @@ public sealed class StringNullOrEmptyToBoolConverter : IValueConverter
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         var isNullOrEmpty = string.IsNullOrEmpty(value as string);
-        var invert = parameter != null && (parameter.ToString()?.Equals("invert", StringComparison.OrdinalIgnoreCase) == true || parameter.ToString()?.Equals("true", StringComparison.OrdinalIgnoreCase) == true);
+        var invert = parameter is not null && (parameter.ToString()?.Equals("invert", StringComparison.OrdinalIgnoreCase) == true || parameter.ToString()?.Equals("true", StringComparison.OrdinalIgnoreCase) == true);
         return invert ? !isNullOrEmpty : isNullOrEmpty;
     }
 
-    /// <summary>
-    /// Convert back not supported.
-    /// </summary>
+    /// <summary>Convert back not supported.</summary>
     /// <param name="value">The value that is produced by the binding target.</param>
     /// <param name="targetType">The type to convert to.</param>
     /// <param name="parameter">The converter parameter to use.</param>

@@ -3,19 +3,19 @@
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Authors>Chris Pulman</Authors>
-    <Description>A collection of XAML Converters</Description>
+    <Description>Comprehensive value converters for WPF and Avalonia XAML applications.</Description>
     <Copyright>Copyright © https://github.com/ChrisPulman $([System.DateTime]::Now.ToString(yyyy))</Copyright>
     <IsTestProject>$(MSBuildProjectName.Contains('Tests'))</IsTestProject>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <LangVersion>preview</LangVersion>
     <Company>ChrisPulman</Company>
-    <NoWarn>CS1591;IDE0190;IDE1006</NoWarn>
     <Nullable>enable</Nullable>
     <PackageIcon>logo.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <Configurations>Debug;Release</Configurations>
-    <PackageReleaseNotes>Compatability with Net 6/7/8 and netstandard2.0</PackageReleaseNotes>
-    <PackageTags>XAML;converters;net;netstandard</PackageTags>
+    <PackageReleaseNotes>Expanded common converter coverage, WPF support from .NET Framework 4.6.2 through .NET 11, and a companion Avalonia package.</PackageReleaseNotes>
+    <PackageTags>XAML;converters;binding;WPF;Avalonia</PackageTags>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
     <EnableNETAnalyzers>True</EnableNETAnalyzers>
     <AnalysisLevel>latest</AnalysisLevel>
 
@@ -37,8 +37,22 @@
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
 
+  <PropertyGroup Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net11.0'))">
+    <Features>$(Features);runtime-async=on</Features>
+  </PropertyGroup>
+
+  <!-- MinVer (versioning) — replaces Nerdbank.GitVersioning. Floor at 1.2
+       so untagged builds produce 1.2.x-alpha.0.<height> until a v1.2.x
+       (or later) tag is reachable. -->
+  <PropertyGroup>
+    <MinVerAutoIncrement>minor</MinVerAutoIncrement>
+    <MinVerDefaultPreReleaseIdentifiers>alpha.0</MinVerDefaultPreReleaseIdentifiers>
+    <MinVerTagPrefix>v</MinVerTagPrefix>
+    <MinVerMinimumMajorMinor>1.2</MinVerMinimumMajorMinor>
+  </PropertyGroup>
+
   <ItemGroup Condition="'$(IsTestProject)' != 'true'">
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
@@ -52,10 +66,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!--<Compile Update="**\*.cs" DependentUpon="I%(Filename).cs" />-->
-    <PackageReference Include="Nerdbank.GitVersioning" Version="3.7.115" PrivateAssets="all" />
-    <PackageReference Include="stylecop.analyzers" Version="1.2.0-beta.556" PrivateAssets="all" />
-    <PackageReference Include="Roslynator.Analyzers" Version="4.14.0" PrivateAssets="All" />
-    <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json" Link="stylecop.json" />
+    <PackageReference Include="MinVer" PrivateAssets="all" />
+    <PackageReference Include="StyleSharp.Analyzers" PrivateAssets="all" />
+    <PackageReference Include="Roslynator.Analyzers" PrivateAssets="All" />
   </ItemGroup>
 </Project>

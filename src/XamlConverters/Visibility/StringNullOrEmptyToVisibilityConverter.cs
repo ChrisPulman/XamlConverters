@@ -1,5 +1,6 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Globalization;
 using System.Windows;
@@ -13,9 +14,7 @@ namespace CP.Xaml.Converters;
 /// </summary>
 public sealed class StringNullOrEmptyToVisibilityConverter : IValueConverter
 {
-    /// <summary>
-    /// Converts the bound string to a Visibility.
-    /// </summary>
+    /// <summary>Converts the bound string to a Visibility.</summary>
     /// <param name="value">The bound value.</param>
     /// <param name="targetType">Target type.</param>
     /// <param name="parameter">Parameter tokens (invert, hidden, hiddeninvert).</param>
@@ -44,9 +43,7 @@ public sealed class StringNullOrEmptyToVisibilityConverter : IValueConverter
         return useHidden ? Visibility.Hidden : Visibility.Collapsed;
     }
 
-    /// <summary>
-    /// Convert back not supported.
-    /// </summary>
+    /// <summary>Convert back not supported.</summary>
     /// <param name="value">Ignored.</param>
     /// <param name="targetType">The type to convert to.</param>
     /// <param name="parameter">The converter parameter to use.</param>

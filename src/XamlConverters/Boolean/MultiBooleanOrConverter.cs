@@ -1,5 +1,6 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Globalization;
 using System.Windows;
@@ -7,14 +8,10 @@ using System.Windows.Data;
 
 namespace CP.Xaml.Converters;
 
-/// <summary>
-/// Multi-binding converter that returns true if ANY input is true. Parameter "invert" to invert final result.
-/// </summary>
+/// <summary>Multi-binding converter that returns true if ANY input is true. Parameter "invert" to invert final result.</summary>
 public sealed class MultiBooleanOrConverter : IMultiValueConverter
 {
-    /// <summary>
-    /// Aggregates values using logical OR.
-    /// </summary>
+    /// <summary>Aggregates values using logical OR.</summary>
     /// <param name="values">The array of values that the source bindings in the <see cref="T:System.Windows.Data.MultiBinding" /> produces. The value <see cref="F:System.Windows.DependencyProperty.UnsetValue" /> indicates that the source binding has no value to provide for conversion.</param>
     /// <param name="targetType">The type of the binding target property.</param>
     /// <param name="parameter">The converter parameter to use.</param>
@@ -25,7 +22,7 @@ public sealed class MultiBooleanOrConverter : IMultiValueConverter
     /// <exception cref="ArgumentNullException">values.</exception>
     public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
     {
-        if (values == null)
+        if (values is null)
         {
             throw new ArgumentNullException(nameof(values));
         }
@@ -49,9 +46,7 @@ public sealed class MultiBooleanOrConverter : IMultiValueConverter
         return invert ? !result : result;
     }
 
-    /// <summary>
-    /// Convert back not supported.
-    /// </summary>
+    /// <summary>Convert back not supported.</summary>
     /// <param name="value">The value that the binding target produces.</param>
     /// <param name="targetTypes">The array of types to convert to. The array length indicates the number and types of values that are suggested for the method to return.</param>
     /// <param name="parameter">The converter parameter to use.</param>

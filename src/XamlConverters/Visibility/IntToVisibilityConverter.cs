@@ -1,5 +1,6 @@
-﻿// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Globalization;
 using System.Windows;
@@ -7,45 +8,48 @@ using System.Windows.Data;
 
 namespace CP.Xaml.Converters;
 
-/// <summary>
-/// Integer To Visibility Converter.
-/// </summary>
+/// <summary>Integer To Visibility Converter.</summary>
 /// <seealso cref="System.Windows.Data.IValueConverter"/>
 public class IntToVisibilityConverter : IValueConverter
 {
-    /// <summary>
-    /// Enable the visibility of the UI element in base of a boolean value (true---&gt;visible//false--&gt;Collapsed).
-    /// </summary>
+    /// <summary>Enable the visibility of the UI element in base of a boolean value (true---&gt;visible//false--&gt;Collapsed).</summary>
     /// <param name="value">The value.</param>
     /// <param name="targetType">Type of the target.</param>
     /// <param name="parameter">The parameter.</param>
     /// <param name="culture">The culture.</param>
     /// <returns>A Value.</returns>
-    /// <exception cref="Exception">An Exception.</exception>
+    /// <exception cref="InvalidCastException">The bound value is not an integer.</exception>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (value is int val)
+        if (value is not int integerValue)
         {
-            var parm = parameter?.ToString()?.ToLower();
-            return parm != null
-                ? val > 0 ? Visibility.Visible : parm == "hidden" ? Visibility.Hidden : Visibility.Collapsed
-                : (object)(val > 0 ? Visibility.Visible : Visibility.Collapsed);
+            throw new InvalidCastException("The bound value is not an integer.");
         }
 
-        throw new Exception("The bound value is not of type Integer");
+        if (integerValue > 0)
+        {
+            return Visibility.Visible;
+        }
+
+        return string.Equals(parameter?.ToString(), "hidden", StringComparison.OrdinalIgnoreCase)
+            ? Visibility.Hidden
+            : Visibility.Collapsed;
     }
 
-    /// <summary>
-    /// Converts the back.
-    /// </summary>
+    /// <summary>Converts the back.</summary>
     /// <param name="value">The value.</param>
     /// <param name="targetType">Type of the target.</param>
     /// <param name="parameter">The parameter.</param>
     /// <param name="culture">The culture.</param>
     /// <returns>A Value.</returns>
-    /// <exception cref="Exception">An Exception.</exception>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
-        value is Visibility val
-            ? val == Visibility.Visible ? 1 : 0
-            : throw new Exception("The bound value back is not of type Visibility");
+    /// <exception cref="InvalidCastException">The bound value is not a visibility value.</exception>
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if (value is not Visibility visibility)
+        {
+            throw new InvalidCastException("The bound value is not a visibility value.");
+        }
+
+        return visibility == Visibility.Visible ? 1 : 0;
+    }
 }

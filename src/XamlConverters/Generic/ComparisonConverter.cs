@@ -1,5 +1,6 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Globalization;
 using System.Text.RegularExpressions;
@@ -13,11 +14,24 @@ namespace CP.Xaml.Converters;
 /// </summary>
 public sealed class ComparisonConverter : IValueConverter
 {
-    private static readonly Regex _pattern = new("^(?<invert>!{0,1})(?<op>>=|<=|==|!=|>|<)\\s{0,}(?<rhs>.+)$", RegexOptions.Compiled);
+    /// <summary>The capture-group name for inversion.</summary>
+    private const string InvertGroupName = "invert";
 
-    /// <summary>
-    /// Executes the comparison.
-    /// </summary>
+    /// <summary>The capture-group name for the comparison operator.</summary>
+    private const string OperatorGroupName = "op";
+
+    /// <summary>The capture-group name for the right-hand operand.</summary>
+    private const string RightOperandGroupName = "rhs";
+
+#if NET7_0_OR_GREATER
+    /// <summary>The compiled comparison parameter expression.</summary>
+    private static readonly Regex _pattern = WpfComparisonRegexProvider.Create();
+#else
+    /// <summary>The compiled comparison parameter expression.</summary>
+    private static readonly Regex _pattern = new("^(?<invert>!{0,1})(?<op>>=|<=|==|!=|>|<)\\s{0,}(?<rhs>.+)$", RegexOptions.Compiled);
+#endif
+
+    /// <summary>Executes the comparison.</summary>
     /// <param name="value">Left side value.</param>
     /// <param name="targetType">Target type.</param>
     /// <param name="parameter">Comparison expression.</param>
@@ -25,7 +39,7 @@ public sealed class ComparisonConverter : IValueConverter
     /// <returns>True if comparison holds.</returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (parameter == null)
+        if (parameter is null)
         {
             return false;
         }
@@ -37,9 +51,9 @@ public sealed class ComparisonConverter : IValueConverter
             return false; // invalid parameter
         }
 
-        var invert = m.Groups["invert"].Value == "!";
-        var op = m.Groups["op"].Value;
-        var rhsText = m.Groups["rhs"].Value;
+        var invert = m.Groups[InvertGroupName].Value == "!";
+        var op = m.Groups[OperatorGroupName].Value;
+        var rhsText = m.Groups[RightOperandGroupName].Value;
 
         int comparison;
         if (value is IComparable)
@@ -74,9 +88,7 @@ public sealed class ComparisonConverter : IValueConverter
         return invert ? !result : result;
     }
 
-    /// <summary>
-    /// Convert back not supported.
-    /// </summary>
+    /// <summary>Convert back not supported.</summary>
     /// <param name="value">The value that is produced by the binding target.</param>
     /// <param name="targetType">The type to convert to.</param>
     /// <param name="parameter">The converter parameter to use.</param>
