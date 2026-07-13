@@ -42,8 +42,14 @@ public class BackgroundColorToBwForegroundConverter : IValueConverter
         }
 
         var colorValue = uint.Parse(text, NumberStyles.HexNumber);
-        var grayScale = (((colorValue & 0xff0000) >> 16) + ((colorValue & 0x00ff00) >> 8) + (colorValue & 0x0000ff)) / ColorChannelCount;
-        return grayScale <= ContrastThreshold ? new SolidColorBrush(Colors.White) : new SolidColorBrush(Colors.Black);
+        var grayScale =
+            (
+                ((colorValue & 0xff0000) >> 16)
+                + ((colorValue & 0x00ff00) >> 8)
+                + (colorValue & 0x0000ff)) / ColorChannelCount;
+        return grayScale <= ContrastThreshold
+            ? new SolidColorBrush(Colors.White)
+            : new SolidColorBrush(Colors.Black);
     }
 
     /// <summary>Returns the WPF do-nothing binding sentinel because reverse conversion is unsupported.</summary>
@@ -52,5 +58,9 @@ public class BackgroundColorToBwForegroundConverter : IValueConverter
     /// <param name="parameter">The converter parameter.</param>
     /// <param name="culture">The culture to use in the converter.</param>
     /// <returns>The WPF do-nothing binding sentinel.</returns>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Binding.DoNothing;
+    public object ConvertBack(
+        object value,
+        Type targetType,
+        object parameter,
+        CultureInfo culture) => Binding.DoNothing;
 }

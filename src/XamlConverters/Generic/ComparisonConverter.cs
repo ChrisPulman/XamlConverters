@@ -28,7 +28,9 @@ public sealed class ComparisonConverter : IValueConverter
     private static readonly Regex _pattern = WpfComparisonRegexProvider.Create();
 #else
     /// <summary>The compiled comparison parameter expression.</summary>
-    private static readonly Regex _pattern = new("^(?<invert>!{0,1})(?<op>>=|<=|==|!=|>|<)\\s{0,}(?<rhs>.+)$", RegexOptions.Compiled);
+    private static readonly Regex _pattern = new(
+        "^(?<invert>!{0,1})(?<op>>=|<=|==|!=|>|<)\\s{0,}(?<rhs>.+)$",
+        RegexOptions.Compiled);
 #endif
 
     /// <summary>Executes the comparison.</summary>
@@ -59,14 +61,19 @@ public sealed class ComparisonConverter : IValueConverter
         if (value is IComparable)
         {
             // Try to coerce numeric types.
-            if (double.TryParse(rhsText, NumberStyles.Any, culture, out var rhsDouble) && value is not string)
+            if (
+                double.TryParse(rhsText, NumberStyles.Any, culture, out var rhsDouble)
+                && value is not string)
             {
                 var lhsDouble = System.Convert.ToDouble(value, culture);
                 comparison = lhsDouble.CompareTo(rhsDouble);
             }
             else
             {
-                comparison = string.Compare(value?.ToString(), rhsText, StringComparison.OrdinalIgnoreCase);
+                comparison = string.Compare(
+                    value?.ToString(),
+                    rhsText,
+                    StringComparison.OrdinalIgnoreCase);
             }
         }
         else
@@ -94,5 +101,9 @@ public sealed class ComparisonConverter : IValueConverter
     /// <param name="parameter">The converter parameter to use.</param>
     /// <param name="culture">The culture to use in the converter.</param>
     /// <returns>Binding.DoNothing.</returns>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Binding.DoNothing;
+    public object ConvertBack(
+        object value,
+        Type targetType,
+        object parameter,
+        CultureInfo culture) => Binding.DoNothing;
 }

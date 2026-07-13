@@ -33,8 +33,7 @@ public class HexStringToColorConverter : IValueConverter
         'C',
         'D',
         'E',
-        'F'
-    ];
+        'F',];
 
     /// <summary>Appends the hexadecimal.</summary>
     /// <param name="colorValue">The color value.</param>
@@ -62,7 +61,11 @@ public class HexStringToColorConverter : IValueConverter
         }
 
         var colorValue = uint.Parse(text, NumberStyles.HexNumber);
-        return Color.FromArgb(byte.MaxValue, (byte)((colorValue & 0xff0000) >> 16), (byte)((colorValue & 0x00ff00) >> 8), (byte)(colorValue & 0x0000ff));
+        return Color.FromArgb(
+            byte.MaxValue,
+            (byte)((colorValue & 0xff0000) >> 16),
+            (byte)((colorValue & 0x00ff00) >> 8),
+            (byte)(colorValue & 0x0000ff));
     }
 
     /// <summary>Converts a value.</summary>

@@ -18,8 +18,13 @@ public sealed class EnumHasFlagConverter : IValueConverter
     /// <returns><see langword="true"/> when all requested bits are present.</returns>
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (value is not Enum enumValue
-            || !BclConversion.TryChangeType(parameter, enumValue.GetType(), culture, out var convertedFlag)
+        if (
+            value is not Enum enumValue
+            || !BclConversion.TryChangeType(
+                parameter,
+                enumValue.GetType(),
+                culture,
+                out var convertedFlag)
             || convertedFlag is not Enum flag)
         {
             return false;
@@ -30,13 +35,17 @@ public sealed class EnumHasFlagConverter : IValueConverter
         return (valueBits & flagBits) == flagBits;
     }
 
-    /// <summary>Reverse conversion is not supported because removing a flag requires the complete current source value.</summary>
+    /// <summary>Reverse conversion is unsupported because removing a flag requires the current source value.</summary>
     /// <param name="value">The target value.</param>
     /// <param name="targetType">The binding source type.</param>
     /// <param name="parameter">The converter parameter.</param>
     /// <param name="culture">The culture used by the binding.</param>
     /// <returns><see cref="Binding.DoNothing"/>.</returns>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => Binding.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => Binding.DoNothing;
 
     /// <summary>Converts an enum value to its unsigned bit representation.</summary>
     /// <param name="value">The enum value.</param>

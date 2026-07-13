@@ -12,8 +12,13 @@ namespace CP.Xaml.Converters.Avalonia;
 public sealed class BoolNegationConverter : IValueConverter
 {
     /// <inheritdoc/>
-    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) => !ConversionHelpers.IsTrue(value, culture);
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        !ConversionHelpers.IsTrue(value, culture);
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => !ConversionHelpers.IsTrue(value, culture);
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => !ConversionHelpers.IsTrue(value, culture);
 }

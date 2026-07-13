@@ -35,12 +35,17 @@ public sealed class ThicknessUniformConverter : IValueConverter
     }
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 
     /// <summary>Determines whether text contains either of two characters.</summary>
     /// <param name="text">The text to search.</param>
     /// <param name="first">The first character.</param>
     /// <param name="second">The second character.</param>
     /// <returns><see langword="true"/> when either character is present; otherwise, <see langword="false"/>.</returns>
-    private static bool ContainsEither(string text, char first, char second) => text.Contains(first) || text.Contains(second);
+    private static bool ContainsEither(string text, char first, char second) =>
+        text.Contains(first) || text.Contains(second);
 }

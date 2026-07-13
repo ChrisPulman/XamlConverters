@@ -13,14 +13,24 @@ public sealed class EnumToBooleanConverter : IValueConverter
 {
     /// <inheritdoc/>
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
-        value is not null && parameter is not null && string.Equals(value.ToString(), parameter.ToString(), StringComparison.OrdinalIgnoreCase);
+        value is not null
+        && parameter is not null
+        && string.Equals(
+            value.ToString(),
+            parameter.ToString(),
+            StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public object? ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture)
     {
         ArgumentNullException.ThrowIfNull(targetType);
-        return ConversionHelpers.IsTrue(value, culture) && parameter is not null && targetType.IsEnum
-            ? Enum.Parse(targetType, parameter.ToString()!, ignoreCase: true)
-            : ConversionHelpers.DoNothing;
+        return
+            ConversionHelpers.IsTrue(value, culture) && parameter is not null && targetType.IsEnum
+                ? Enum.Parse(targetType, parameter.ToString()!, ignoreCase: true)
+                : ConversionHelpers.DoNothing;
     }
 }

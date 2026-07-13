@@ -28,6 +28,12 @@ public sealed class DateTimeFormatConverter : IValueConverter
     }
 
     /// <inheritdoc/>
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
-        ConversionHelpers.TryConvert(value, targetType, culture, out var result) ? result : ConversionHelpers.UnsetValue;
+    public object? ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) =>
+        ConversionHelpers.TryConvert(value, targetType, culture, out var result)
+            ? result
+            : ConversionHelpers.UnsetValue;
 }

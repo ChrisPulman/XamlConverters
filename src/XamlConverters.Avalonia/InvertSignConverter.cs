@@ -12,10 +12,15 @@ namespace CP.Xaml.Converters.Avalonia;
 public sealed class InvertSignConverter : IValueConverter
 {
     /// <inheritdoc/>
-    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) => Negate(value, targetType, culture);
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        Negate(value, targetType, culture);
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => Negate(value, targetType, culture);
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => Negate(value, targetType, culture);
 
     /// <summary>Negates a numeric value.</summary>
     /// <param name="value">The value to negate.</param>

@@ -38,8 +38,13 @@ public class CommonConverterTests
 
         var guidText = guidConverter.Convert(guid, typeof(string), "N", InvariantCulture);
         var parsedGuid = guidConverter.ConvertBack(guidText, typeof(Guid), null, InvariantCulture);
-        var encoded = base64Converter.Convert(new byte[] { 1, TestValues.SecondByte, TestValues.ThirdByte }, typeof(string), null, InvariantCulture);
-        var decoded = (byte[])base64Converter.ConvertBack(encoded, typeof(byte[]), null, InvariantCulture);
+        var encoded = base64Converter.Convert(
+            new byte[] { 1, TestValues.SecondByte, TestValues.ThirdByte },
+            typeof(string),
+            null,
+            InvariantCulture);
+        var decoded = (byte[])
+            base64Converter.ConvertBack(encoded, typeof(byte[]), null, InvariantCulture);
 
         await Assert.That(guidText).IsEqualTo("a75dd9c5b47d4bf7b547946da756f6d7");
         await Assert.That(parsedGuid).IsEqualTo(guid);
@@ -53,11 +58,32 @@ public class CommonConverterTests
     [Test]
     public async Task ConvertsCollectionValues()
     {
-        var values = new[] { TestValues.FirstSampleValue, TestValues.SecondSampleValue, TestValues.ThirdSampleValue };
-        var contains = new CollectionContainsConverter().Convert(values, typeof(bool), "20", InvariantCulture);
-        var item = new CollectionItemConverter().Convert(values, typeof(int), "1", InvariantCulture);
-        var first = new CollectionFirstOrDefaultConverter().Convert(Array.Empty<int>(), typeof(int), TestValues.MissingSampleValue, InvariantCulture);
-        var joined = new EnumerableToStringConverter().Convert(values, typeof(string), "|", InvariantCulture);
+        var values = new[]
+        {
+            TestValues.FirstSampleValue,
+            TestValues.SecondSampleValue,
+            TestValues.ThirdSampleValue,
+        };
+        var contains = new CollectionContainsConverter().Convert(
+            values,
+            typeof(bool),
+            "20",
+            InvariantCulture);
+        var item = new CollectionItemConverter().Convert(
+            values,
+            typeof(int),
+            "1",
+            InvariantCulture);
+        var first = new CollectionFirstOrDefaultConverter().Convert(
+            Array.Empty<int>(),
+            typeof(int),
+            TestValues.MissingSampleValue,
+            InvariantCulture);
+        var joined = new EnumerableToStringConverter().Convert(
+            values,
+            typeof(string),
+            "|",
+            InvariantCulture);
 
         await Assert.That((bool)contains).IsTrue();
         await Assert.That(item).IsEqualTo(TestValues.SecondSampleValue);
@@ -75,9 +101,18 @@ public class CommonConverterTests
         var values = new EnumValuesConverter();
 
         var text = description.Convert(SampleFlags.Read, typeof(string), null, InvariantCulture);
-        var enumValue = description.ConvertBack("Can read", typeof(SampleFlags), null, InvariantCulture);
-        var hasFlag = flag.Convert(SampleFlags.Read | SampleFlags.Write, typeof(bool), "Write", InvariantCulture);
-        var enumValues = (Array)values.Convert(typeof(SampleFlags), typeof(IEnumerable), null, InvariantCulture);
+        var enumValue = description.ConvertBack(
+            "Can read",
+            typeof(SampleFlags),
+            null,
+            InvariantCulture);
+        var hasFlag = flag.Convert(
+            SampleFlags.Read | SampleFlags.Write,
+            typeof(bool),
+            "Write",
+            InvariantCulture);
+        var enumValues = (Array)
+            values.Convert(typeof(SampleFlags), typeof(IEnumerable), null, InvariantCulture);
 
         await Assert.That(text).IsEqualTo("Can read");
         await Assert.That(enumValue).IsEqualTo(SampleFlags.Read);

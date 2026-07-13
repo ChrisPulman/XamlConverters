@@ -20,9 +20,7 @@ public sealed class EnumValuesConverter : IValueConverter
     {
         var enumType = (parameter as Type) ?? (value as Type) ?? value?.GetType();
         enumType = enumType is null ? null : Nullable.GetUnderlyingType(enumType) ?? enumType;
-        return enumType?.IsEnum == true
-            ? Enum.GetValues(enumType)
-            : Binding.DoNothing;
+        return enumType?.IsEnum == true ? Enum.GetValues(enumType) : Binding.DoNothing;
     }
 
     /// <summary>Reverse conversion is not supported.</summary>
@@ -31,5 +29,9 @@ public sealed class EnumValuesConverter : IValueConverter
     /// <param name="parameter">The converter parameter.</param>
     /// <param name="culture">The culture used by the binding.</param>
     /// <returns><see cref="Binding.DoNothing"/>.</returns>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => Binding.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => Binding.DoNothing;
 }

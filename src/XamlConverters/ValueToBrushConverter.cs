@@ -19,26 +19,26 @@ public class ValueToBrushConverter : IValueConverter
     /// <returns>Gets the brush colour from a value greater than zero.</returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        var val = 0d;
+        var val = 0D;
         switch (value)
         {
             case float x:
-                {
-                    val = x;
-                    break;
-                }
+            {
+                val = x;
+                break;
+            }
 
             case double x2:
-                {
-                    val = x2;
-                    break;
-                }
+            {
+                val = x2;
+                break;
+            }
 
             case bool x3:
-                {
-                    val = x3 ? 0 : 1;
-                    break;
-                }
+            {
+                val = x3 ? 0 : 1;
+                break;
+            }
         }
 
         var parameterText = parameter?.ToString();
@@ -46,16 +46,16 @@ public class ValueToBrushConverter : IValueConverter
         {
             if (parameterText!.Contains("BackPressure"))
             {
-                return val > 0d ? Brushes.DarkBlue : Brushes.LightYellow;
+                return val > 0D ? Brushes.DarkBlue : Brushes.LightYellow;
             }
 
             if (parameterText.Contains("Pressure"))
             {
-                return val > 0d ? Brushes.Black : Brushes.LightYellow;
+                return val > 0D ? Brushes.Black : Brushes.LightYellow;
             }
         }
 
-        return val > 0d ? Brushes.DarkGreen : Brushes.LightYellow;
+        return val > 0D ? Brushes.DarkGreen : Brushes.LightYellow;
     }
 
     /// <summary>Converts the back.</summary>
@@ -64,5 +64,9 @@ public class ValueToBrushConverter : IValueConverter
     /// <param name="parameter">The parameter.</param>
     /// <param name="culture">The culture.</param>
     /// <returns>A Value.</returns>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Binding.DoNothing;
+    public object ConvertBack(
+        object value,
+        Type targetType,
+        object parameter,
+        CultureInfo culture) => Binding.DoNothing;
 }

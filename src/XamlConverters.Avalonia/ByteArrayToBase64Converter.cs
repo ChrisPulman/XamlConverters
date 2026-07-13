@@ -12,10 +12,15 @@ namespace CP.Xaml.Converters.Avalonia;
 public sealed class ByteArrayToBase64Converter : IValueConverter
 {
     /// <inheritdoc/>
-    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) => ConvertCore(value, targetType);
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        ConvertCore(value, targetType);
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConvertCore(value, targetType);
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConvertCore(value, targetType);
 
     /// <summary>Converts between byte arrays and Base64 text.</summary>
     /// <param name="value">The source value.</param>
@@ -28,7 +33,9 @@ public sealed class ByteArrayToBase64Converter : IValueConverter
             return System.Convert.ToBase64String(bytes);
         }
 
-        if (value is not string text || (targetType != typeof(byte[]) && targetType != typeof(object)))
+        if (
+            value is not string text
+            || (targetType != typeof(byte[]) && targetType != typeof(object)))
         {
             return ConversionHelpers.DoNothing;
         }

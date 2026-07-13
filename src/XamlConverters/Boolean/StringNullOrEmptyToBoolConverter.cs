@@ -22,7 +22,11 @@ public sealed class StringNullOrEmptyToBoolConverter : IValueConverter
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         var isNullOrEmpty = string.IsNullOrEmpty(value as string);
-        var invert = parameter is not null && (parameter.ToString()?.Equals("invert", StringComparison.OrdinalIgnoreCase) == true || parameter.ToString()?.Equals("true", StringComparison.OrdinalIgnoreCase) == true);
+        var invert =
+            parameter is not null
+            && (
+                parameter.ToString()?.Equals("invert", StringComparison.OrdinalIgnoreCase) == true
+                || parameter.ToString()?.Equals("true", StringComparison.OrdinalIgnoreCase) == true);
         return invert ? !isNullOrEmpty : isNullOrEmpty;
     }
 
@@ -34,5 +38,9 @@ public sealed class StringNullOrEmptyToBoolConverter : IValueConverter
     /// <returns>
     /// A converted value. If the method returns null, the valid null value is used.
     /// </returns>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Binding.DoNothing;
+    public object ConvertBack(
+        object value,
+        Type targetType,
+        object parameter,
+        CultureInfo culture) => Binding.DoNothing;
 }

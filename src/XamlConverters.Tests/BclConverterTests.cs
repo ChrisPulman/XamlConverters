@@ -20,8 +20,12 @@ public class BclConverterTests
     {
         var converter = new ChangeTypeConverter();
 
-        await Assert.That(converter.Convert("42", typeof(int), null, InvariantCulture)).IsEqualTo(TestValues.Answer);
-        await Assert.That(converter.ConvertBack(TestValues.Answer, typeof(string), null, InvariantCulture)).IsEqualTo("42");
+        await Assert
+            .That(converter.Convert("42", typeof(int), null, InvariantCulture))
+            .IsEqualTo(TestValues.Answer);
+        await Assert
+            .That(converter.ConvertBack(TestValues.Answer, typeof(string), null, InvariantCulture))
+            .IsEqualTo("42");
     }
 
     /// <summary>Converts GUID text and byte-array representations.</summary>
@@ -45,8 +49,13 @@ public class BclConverterTests
     public async Task ConvertsBase64Representations()
     {
         var converter = new ByteArrayToBase64Converter();
-        var encoded = converter.Convert(new byte[] { 1, TestValues.SecondByte, TestValues.ThirdByte }, typeof(string), null, InvariantCulture);
-        var decoded = (byte[])converter.ConvertBack(encoded, typeof(byte[]), null, InvariantCulture);
+        var encoded = converter.Convert(
+            new byte[] { 1, TestValues.SecondByte, TestValues.ThirdByte },
+            typeof(string),
+            null,
+            InvariantCulture);
+        var decoded = (byte[])
+            converter.ConvertBack(encoded, typeof(byte[]), null, InvariantCulture);
 
         await Assert.That(encoded).IsEqualTo("AQID");
         await Assert.That(decoded.Length).IsEqualTo(TestValues.SampleValueCount);
@@ -58,12 +67,33 @@ public class BclConverterTests
     [Test]
     public async Task ConvertsCollectionValues()
     {
-        var values = new[] { TestValues.FirstSampleValue, TestValues.SecondSampleValue, TestValues.ThirdSampleValue };
+        var values = new[]
+        {
+            TestValues.FirstSampleValue,
+            TestValues.SecondSampleValue,
+            TestValues.ThirdSampleValue,
+        };
 
-        var contains = new CollectionContainsConverter().Convert(values, typeof(bool), "20", InvariantCulture);
-        var item = new CollectionItemConverter().Convert(values, typeof(int), "1", InvariantCulture);
-        var first = new CollectionFirstOrDefaultConverter().Convert(Array.Empty<int>(), typeof(int), TestValues.MissingSampleValue, InvariantCulture);
-        var joined = new EnumerableToStringConverter().Convert(values, typeof(string), "|", InvariantCulture);
+        var contains = new CollectionContainsConverter().Convert(
+            values,
+            typeof(bool),
+            "20",
+            InvariantCulture);
+        var item = new CollectionItemConverter().Convert(
+            values,
+            typeof(int),
+            "1",
+            InvariantCulture);
+        var first = new CollectionFirstOrDefaultConverter().Convert(
+            Array.Empty<int>(),
+            typeof(int),
+            TestValues.MissingSampleValue,
+            InvariantCulture);
+        var joined = new EnumerableToStringConverter().Convert(
+            values,
+            typeof(string),
+            "|",
+            InvariantCulture);
 
         await Assert.That((bool)contains).IsTrue();
         await Assert.That(item).IsEqualTo(TestValues.SecondSampleValue);
@@ -81,9 +111,18 @@ public class BclConverterTests
         var values = new EnumValuesConverter();
 
         var text = description.Convert(SampleFlags.Read, typeof(string), null, InvariantCulture);
-        var restored = description.ConvertBack("Can read", typeof(SampleFlags), null, InvariantCulture);
-        var hasFlag = flag.Convert(SampleFlags.Read | SampleFlags.Write, typeof(bool), "Write", InvariantCulture);
-        var enumValues = (Array)values.Convert(typeof(SampleFlags), typeof(IEnumerable), null, InvariantCulture);
+        var restored = description.ConvertBack(
+            "Can read",
+            typeof(SampleFlags),
+            null,
+            InvariantCulture);
+        var hasFlag = flag.Convert(
+            SampleFlags.Read | SampleFlags.Write,
+            typeof(bool),
+            "Write",
+            InvariantCulture);
+        var enumValues = (Array)
+            values.Convert(typeof(SampleFlags), typeof(IEnumerable), null, InvariantCulture);
 
         await Assert.That(text).IsEqualTo("Can read");
         await Assert.That(restored).IsEqualTo(SampleFlags.Read);

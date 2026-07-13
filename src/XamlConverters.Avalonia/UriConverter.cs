@@ -12,10 +12,15 @@ namespace CP.Xaml.Converters.Avalonia;
 public sealed class UriConverter : IValueConverter
 {
     /// <inheritdoc/>
-    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) => ConvertCore(value, targetType, parameter);
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        ConvertCore(value, targetType, parameter);
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConvertCore(value, targetType, parameter);
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConvertCore(value, targetType, parameter);
 
     /// <summary>Converts between URI values and text.</summary>
     /// <param name="value">The source value.</param>

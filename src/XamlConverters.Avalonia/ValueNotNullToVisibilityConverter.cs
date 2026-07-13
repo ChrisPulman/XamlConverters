@@ -15,7 +15,9 @@ public sealed class ValueNotNullToVisibilityConverter : IValueConverter
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         var show = !ConversionHelpers.IsNullLike(value);
-        if (parameter is true || string.Equals(parameter?.ToString(), "reverse", StringComparison.OrdinalIgnoreCase))
+        if (
+            parameter is true
+            || string.Equals(parameter?.ToString(), "reverse", StringComparison.OrdinalIgnoreCase))
         {
             show = !show;
         }
@@ -24,5 +26,9 @@ public sealed class ValueNotNullToVisibilityConverter : IValueConverter
     }
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 }

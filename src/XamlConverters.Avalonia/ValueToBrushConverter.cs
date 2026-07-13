@@ -15,7 +15,9 @@ public sealed class ValueToBrushConverter : IValueConverter
     /// <inheritdoc/>
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        var active = value is bool boolean ? !boolean : ConversionHelpers.TryDecimal(value, culture, out var number) && number > 0;
+        var active = value is bool boolean
+            ? !boolean
+            : ConversionHelpers.TryDecimal(value, culture, out var number) && number > 0;
         var mode = parameter?.ToString() ?? string.Empty;
         if (mode.Contains("BackPressure", StringComparison.OrdinalIgnoreCase))
         {
@@ -31,5 +33,9 @@ public sealed class ValueToBrushConverter : IValueConverter
     }
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 }

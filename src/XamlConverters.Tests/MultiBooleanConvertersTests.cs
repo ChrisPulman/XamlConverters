@@ -13,7 +13,11 @@ public class MultiBooleanConvertersTests
     public async Task And_AllTrue_ReturnsTrue()
     {
         var c = new MultiBooleanAndConverter();
-        var result = c.Convert([true, true, true], typeof(bool), null!, System.Globalization.CultureInfo.InvariantCulture);
+        var result = c.Convert(
+            [true, true, true],
+            typeof(bool),
+            null!,
+            System.Globalization.CultureInfo.InvariantCulture);
         await Assert.That((bool)result).IsTrue();
     }
 
@@ -23,7 +27,11 @@ public class MultiBooleanConvertersTests
     public async Task And_OneFalse_ReturnsFalse()
     {
         var c = new MultiBooleanAndConverter();
-        var result = c.Convert([true, false, true], typeof(bool), null!, System.Globalization.CultureInfo.InvariantCulture);
+        var result = c.Convert(
+            [true, false, true],
+            typeof(bool),
+            null!,
+            System.Globalization.CultureInfo.InvariantCulture);
         await Assert.That((bool)result).IsFalse();
     }
 
@@ -33,7 +41,11 @@ public class MultiBooleanConvertersTests
     public async Task Or_AnyTrue_ReturnsTrue()
     {
         var c = new MultiBooleanOrConverter();
-        var result = c.Convert([false, false, true], typeof(bool), null!, System.Globalization.CultureInfo.InvariantCulture);
+        var result = c.Convert(
+            [false, false, true],
+            typeof(bool),
+            null!,
+            System.Globalization.CultureInfo.InvariantCulture);
         await Assert.That((bool)result).IsTrue();
     }
 
@@ -43,7 +55,11 @@ public class MultiBooleanConvertersTests
     public async Task Or_AllFalse_ReturnsFalse()
     {
         var c = new MultiBooleanOrConverter();
-        var result = c.Convert([false, false], typeof(bool), null!, System.Globalization.CultureInfo.InvariantCulture);
+        var result = c.Convert(
+            [false, false],
+            typeof(bool),
+            null!,
+            System.Globalization.CultureInfo.InvariantCulture);
         await Assert.That((bool)result).IsFalse();
     }
 
@@ -53,7 +69,11 @@ public class MultiBooleanConvertersTests
     public async Task Xor_OddTrue_ReturnsTrue()
     {
         var c = new BooleanXorConverter();
-        var result = c.Convert([true, false, true], typeof(bool), null!, System.Globalization.CultureInfo.InvariantCulture);
+        var result = c.Convert(
+            [true, false, true],
+            typeof(bool),
+            null!,
+            System.Globalization.CultureInfo.InvariantCulture);
         await Assert.That((bool)result).IsFalse(); // two trues -> even -> false
     }
 
@@ -63,7 +83,11 @@ public class MultiBooleanConvertersTests
     public async Task Xor_SingleTrue_ReturnsTrue()
     {
         var c = new BooleanXorConverter();
-        var result = c.Convert([true, false, false], typeof(bool), null!, System.Globalization.CultureInfo.InvariantCulture);
+        var result = c.Convert(
+            [true, false, false],
+            typeof(bool),
+            null!,
+            System.Globalization.CultureInfo.InvariantCulture);
         await Assert.That((bool)result).IsTrue();
     }
 }

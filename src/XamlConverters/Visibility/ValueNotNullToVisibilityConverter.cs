@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace CP.Xaml.Converters;
 
-/// <summary>Value converter that translates true to <see cref="Visibility.Visible"/> and false to <see cref="Visibility.Collapsed"/>.</summary>
+/// <summary>Converts a non-null value to visible and a null value to collapsed.</summary>
 public sealed class ValueNotNullToVisibilityConverter : IValueConverter
 {
     /// <summary>Converts a value.</summary>
@@ -38,5 +38,9 @@ public sealed class ValueNotNullToVisibilityConverter : IValueConverter
     /// <exception cref="NotImplementedException">
     /// The method or operation is not implemented.
     /// </exception>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Binding.DoNothing;
+    public object ConvertBack(
+        object value,
+        Type targetType,
+        object parameter,
+        CultureInfo culture) => Binding.DoNothing;
 }

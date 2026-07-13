@@ -16,11 +16,13 @@ public sealed class EnumValuesConverter : IValueConverter
     {
         var enumType = (parameter as Type) ?? (value as Type) ?? value?.GetType();
         enumType = enumType is null ? null : Nullable.GetUnderlyingType(enumType) ?? enumType;
-        return enumType?.IsEnum == true
-            ? Enum.GetValues(enumType)
-            : ConversionHelpers.DoNothing;
+        return enumType?.IsEnum == true ? Enum.GetValues(enumType) : ConversionHelpers.DoNothing;
     }
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 }

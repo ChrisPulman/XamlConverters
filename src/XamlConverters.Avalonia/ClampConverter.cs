@@ -37,9 +37,16 @@ public sealed class ClampConverter : IValueConverter
             _ = decimal.TryParse(parts[1], NumberStyles.Any, culture, out maximum);
         }
 
-        return ConversionHelpers.ConvertDecimal(Math.Clamp(number, Math.Min(minimum, maximum), Math.Max(minimum, maximum)), targetType, culture);
+        return ConversionHelpers.ConvertDecimal(
+            Math.Clamp(number, Math.Min(minimum, maximum), Math.Max(minimum, maximum)),
+            targetType,
+            culture);
     }
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => Convert(value, targetType, parameter, culture);
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => Convert(value, targetType, parameter, culture);
 }

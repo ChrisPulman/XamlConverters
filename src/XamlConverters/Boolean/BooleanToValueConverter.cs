@@ -47,7 +47,10 @@ public sealed class BooleanToValueConverter : IValueConverter
         }
 
         var selectedValue = condition ? TrueValue : FalseValue;
-        if (targetType == typeof(object) || selectedValue is null || targetType.IsInstanceOfType(selectedValue))
+        if (
+            targetType == typeof(object)
+            || selectedValue is null
+            || targetType.IsInstanceOfType(selectedValue))
         {
             return selectedValue;
         }
@@ -57,13 +60,18 @@ public sealed class BooleanToValueConverter : IValueConverter
             : Binding.DoNothing;
     }
 
-    /// <summary>Maps a target value back to a Boolean by comparing it with <see cref="TrueValue"/> and <see cref="FalseValue"/>.</summary>
+    /// <summary>Maps a target value back to a Boolean using the configured true and false values.</summary>
     /// <param name="value">The target value.</param>
     /// <param name="targetType">The binding source type.</param>
     /// <param name="parameter">The converter parameter.</param>
     /// <param name="culture">The culture used by the binding.</param>
-    /// <returns>The corresponding Boolean, or <see cref="Binding.DoNothing"/> when no configured value matches.</returns>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    /// <returns>The corresponding Boolean, or <see cref="Binding.DoNothing"/> when no configured value matches.
+    /// </returns>
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture)
     {
         bool? result = null;
         if (ValuesEqual(value, TrueValue))
@@ -89,7 +97,8 @@ public sealed class BooleanToValueConverter : IValueConverter
     /// <returns><see langword="true"/> when the values are equivalent; otherwise, <see langword="false"/>.</returns>
     private static bool ValuesEqual(object? left, object? right) =>
         Equals(left, right)
-        || (left is not null
+        || (
+            left is not null
             && right is not null
             && string.Equals(left.ToString(), right.ToString(), StringComparison.Ordinal));
 }

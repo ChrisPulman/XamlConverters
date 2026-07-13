@@ -14,10 +14,16 @@ public sealed class ValueLessThanXToBoolConverter : IValueConverter
     /// <inheritdoc/>
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        var threshold = ConversionHelpers.TryDecimal(parameter, culture, out var parsed) ? parsed : 0m;
+        var threshold = ConversionHelpers.TryDecimal(parameter, culture, out var parsed)
+            ? parsed
+            : 0M;
         return ConversionHelpers.TryDecimal(value, culture, out var number) && number < threshold;
     }
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 }

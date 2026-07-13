@@ -16,5 +16,9 @@ public sealed class ValueCompareVisibilityConverter : IValueConverter
         ConversionHelpers.TryDecimal(value, culture, out var number) && number > 0;
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.IsTrue(value, culture) ? 1 : 0;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.IsTrue(value, culture) ? 1 : 0;
 }

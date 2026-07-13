@@ -14,9 +14,17 @@ public sealed class HexStringToSolidColorBrushConverter : IValueConverter
 {
     /// <inheritdoc/>
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
-        ColorHelpers.TryColor(value ?? parameter, out var color) ? new SolidColorBrush(color) : ConversionHelpers.UnsetValue;
+        ColorHelpers.TryColor(value ?? parameter, out var color)
+            ? new SolidColorBrush(color)
+            : ConversionHelpers.UnsetValue;
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
-        value is SolidColorBrush brush ? ColorHelpers.ToHex(brush.Color) : ConversionHelpers.UnsetValue;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) =>
+        value is SolidColorBrush brush
+            ? ColorHelpers.ToHex(brush.Color)
+            : ConversionHelpers.UnsetValue;
 }

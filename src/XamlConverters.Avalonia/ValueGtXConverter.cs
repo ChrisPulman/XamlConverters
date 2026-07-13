@@ -16,10 +16,15 @@ public sealed class ValueGtXConverter : IValueConverter
 
     /// <inheritdoc/>
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
-        ConversionHelpers.TryDecimal(value, culture, out var number) && ConversionHelpers.TryDecimal(parameter, culture, out var threshold)
+        ConversionHelpers.TryDecimal(value, culture, out var number)
+        && ConversionHelpers.TryDecimal(parameter, culture, out var threshold)
             ? Math.Round(number, number > threshold ? 1 : DefaultPrecision)
             : ConversionHelpers.UnsetValue;
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 }

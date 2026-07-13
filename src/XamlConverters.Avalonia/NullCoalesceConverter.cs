@@ -12,9 +12,16 @@ namespace CP.Xaml.Converters.Avalonia;
 public sealed class NullCoalesceConverter : IValueConverter
 {
     /// <inheritdoc/>
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
-        ConversionHelpers.IsNullLike(value) ? parameter : value;
+    public object? Convert(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.IsNullLike(value) ? parameter : value;
 
     /// <inheritdoc/>
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object? ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 }

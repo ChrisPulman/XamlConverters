@@ -19,10 +19,16 @@ public sealed class CountToBooleanConverter : IValueConverter
             return false;
         }
 
-        var expression = string.IsNullOrWhiteSpace(parameter?.ToString()) ? ">0" : parameter!.ToString()!;
+        var expression = string.IsNullOrWhiteSpace(parameter?.ToString())
+            ? ">0"
+            : parameter!.ToString()!;
         return ConversionHelpers.Compare(count, expression, culture);
     }
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 }

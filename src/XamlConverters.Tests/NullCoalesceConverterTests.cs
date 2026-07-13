@@ -16,7 +16,11 @@ public class NullCoalesceConverterTests
     public async Task ReturnsParameterIfNull()
     {
         var c = new NullCoalesceConverter();
-        var result = c.Convert(null!, typeof(string), FallbackValue, System.Globalization.CultureInfo.InvariantCulture);
+        var result = c.Convert(
+            null!,
+            typeof(string),
+            FallbackValue,
+            System.Globalization.CultureInfo.InvariantCulture);
         await Assert.That(result).IsEqualTo(FallbackValue);
     }
 
@@ -26,7 +30,11 @@ public class NullCoalesceConverterTests
     public async Task ReturnsValueIfNotNull()
     {
         var c = new NullCoalesceConverter();
-        var result = c.Convert("value", typeof(string), FallbackValue, System.Globalization.CultureInfo.InvariantCulture);
+        var result = c.Convert(
+            "value",
+            typeof(string),
+            FallbackValue,
+            System.Globalization.CultureInfo.InvariantCulture);
         await Assert.That(result).IsEqualTo("value");
     }
 }

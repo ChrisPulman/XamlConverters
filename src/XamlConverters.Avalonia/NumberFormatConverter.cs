@@ -24,8 +24,7 @@ public sealed class NumberFormatConverter : IValueConverter
         TypeCode.Int64,
         TypeCode.Decimal,
         TypeCode.Double,
-        TypeCode.Single,
-    ];
+        TypeCode.Single,];
 
     /// <inheritdoc/>
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)

@@ -17,7 +17,8 @@ public sealed class CollectionFirstOrDefaultConverter : IValueConverter
     /// <param name="targetType">The binding target type.</param>
     /// <param name="parameter">The fallback returned for a null or empty sequence.</param>
     /// <param name="culture">The culture used by the binding.</param>
-    /// <returns>The first item, the configured fallback, or <see cref="Binding.DoNothing"/> for a non-enumerable source.</returns>
+    /// <returns>The first item, the configured fallback, or <see cref="Binding.DoNothing"/> for a non-enumerable
+    /// source.</returns>
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is null || value == DependencyProperty.UnsetValue)
@@ -47,5 +48,9 @@ public sealed class CollectionFirstOrDefaultConverter : IValueConverter
     /// <param name="parameter">The converter parameter.</param>
     /// <param name="culture">The culture used by the binding.</param>
     /// <returns><see cref="Binding.DoNothing"/>.</returns>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => Binding.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => Binding.DoNothing;
 }

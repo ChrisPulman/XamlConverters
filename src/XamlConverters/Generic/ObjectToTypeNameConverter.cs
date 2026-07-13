@@ -25,7 +25,8 @@ public sealed class ObjectToTypeNameConverter : IValueConverter
             return string.Empty;
         }
 
-        var full = parameter?.ToString()?.Equals("full", StringComparison.OrdinalIgnoreCase) == true;
+        var full =
+            parameter?.ToString()?.Equals("full", StringComparison.OrdinalIgnoreCase) == true;
         var t = value.GetType();
         return full ? t.FullName ?? t.Name : t.Name;
     }
@@ -38,5 +39,9 @@ public sealed class ObjectToTypeNameConverter : IValueConverter
     /// <returns>
     /// A converted value. If the method returns null, the valid null value is used.
     /// </returns>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Binding.DoNothing;
+    public object ConvertBack(
+        object value,
+        Type targetType,
+        object parameter,
+        CultureInfo culture) => Binding.DoNothing;
 }

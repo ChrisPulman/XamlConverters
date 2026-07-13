@@ -25,9 +25,15 @@ public sealed class StringFormatConverter : IValueConverter
             return string.Format(culture, format, value);
         }
 
-        return value is IFormattable formattable ? formattable.ToString(format, culture) ?? string.Empty : value?.ToString() ?? string.Empty;
+        return value is IFormattable formattable
+            ? formattable.ToString(format, culture) ?? string.Empty
+            : value?.ToString() ?? string.Empty;
     }
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 }

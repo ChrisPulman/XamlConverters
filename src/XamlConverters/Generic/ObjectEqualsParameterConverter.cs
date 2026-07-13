@@ -7,7 +7,7 @@ using System.Windows.Data;
 
 namespace CP.Xaml.Converters;
 
-/// <summary>Returns true if object's ToString() equals parameter (case-insensitive). Prefix parameter with ! to invert.</summary>
+/// <summary>Compares an object's text with the parameter, using a leading ! to invert the result.</summary>
 public sealed class ObjectEqualsParameterConverter : IValueConverter
 {
     /// <summary>Compares the bound value string representation with the parameter.</summary>
@@ -43,5 +43,9 @@ public sealed class ObjectEqualsParameterConverter : IValueConverter
     /// <returns>
     /// Binding.DoNothing.
     /// </returns>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Binding.DoNothing;
+    public object ConvertBack(
+        object value,
+        Type targetType,
+        object parameter,
+        CultureInfo culture) => Binding.DoNothing;
 }

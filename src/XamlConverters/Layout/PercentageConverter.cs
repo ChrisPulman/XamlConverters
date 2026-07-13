@@ -7,11 +7,11 @@ using System.Windows.Data;
 
 namespace CP.Xaml.Converters;
 
-/// <summary>Multiplies a numeric value by the percentage supplied in the parameter. Parameter may be '50%' or '0.5'.</summary>
+/// <summary>Multiplies a numeric value by a percentage parameter such as '50%' or '0.5'.</summary>
 public sealed class PercentageConverter : IValueConverter
 {
     /// <summary>The divisor used to convert a percentage to a factor.</summary>
-    private const double PercentageDivisor = 100d;
+    private const double PercentageDivisor = 100D;
 
     /// <summary>Applies the percentage factor.</summary>
     /// <param name="value">The value produced by the binding source.</param>
@@ -25,7 +25,7 @@ public sealed class PercentageConverter : IValueConverter
     {
         if (value is null || parameter is null)
         {
-            return 0d;
+            return 0D;
         }
 
         var baseVal = System.Convert.ToDouble(value, culture);
@@ -42,7 +42,7 @@ public sealed class PercentageConverter : IValueConverter
         }
         else
         {
-            factor = double.TryParse(parmText, out var raw) ? raw : 1d;
+            factor = double.TryParse(parmText, out var raw) ? raw : 1D;
         }
 
         return baseVal * factor;
@@ -56,5 +56,9 @@ public sealed class PercentageConverter : IValueConverter
     /// <returns>
     /// A converted value. If the method returns null, the valid null value is used.
     /// </returns>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Binding.DoNothing;
+    public object ConvertBack(
+        object value,
+        Type targetType,
+        object parameter,
+        CultureInfo culture) => Binding.DoNothing;
 }

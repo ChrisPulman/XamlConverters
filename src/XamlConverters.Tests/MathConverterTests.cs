@@ -13,7 +13,14 @@ public class MathConverterTests
     public async Task EvaluatesExpression()
     {
         var c = new MathConverter();
-        var result = c.Convert([TestValues.MathLeftOperand, TestValues.MathRightOperand], typeof(double), "{0}+{1}*2", System.Globalization.CultureInfo.InvariantCulture);
-        await Assert.That((double)result).IsEqualTo(TestValues.MathExpectedResult).Within(TestValues.FloatingPointTolerance);
+        var result = c.Convert(
+            [TestValues.MathLeftOperand, TestValues.MathRightOperand],
+            typeof(double),
+            "{0}+{1}*2",
+            System.Globalization.CultureInfo.InvariantCulture);
+        await Assert
+            .That((double)result)
+            .IsEqualTo(TestValues.MathExpectedResult)
+            .Within(TestValues.FloatingPointTolerance);
     }
 }

@@ -16,5 +16,9 @@ public sealed class BoolToVisibilityConverterNegate : IValueConverter
         !ConversionHelpers.IsTrue(value, culture);
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => !ConversionHelpers.IsTrue(value, culture);
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => !ConversionHelpers.IsTrue(value, culture);
 }

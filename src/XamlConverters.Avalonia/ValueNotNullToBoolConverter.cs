@@ -19,12 +19,17 @@ public sealed class ValueNotNullToBoolConverter : IValueConverter
     }
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 
     /// <summary>Determines whether the null check should be inverted.</summary>
     /// <param name="parameter">The converter parameter.</param>
     /// <returns><see langword="true"/> when inversion was requested; otherwise, <see langword="false"/>.</returns>
     private static bool IsInverted(object? parameter) =>
-        parameter is true || string.Equals(parameter?.ToString(), "reverse", StringComparison.OrdinalIgnoreCase) ||
-        string.Equals(parameter?.ToString(), "invert", StringComparison.OrdinalIgnoreCase);
+        parameter is true
+        || string.Equals(parameter?.ToString(), "reverse", StringComparison.OrdinalIgnoreCase)
+        || string.Equals(parameter?.ToString(), "invert", StringComparison.OrdinalIgnoreCase);
 }

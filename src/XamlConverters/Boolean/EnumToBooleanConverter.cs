@@ -7,7 +7,7 @@ using System.Windows.Data;
 
 namespace CP.Xaml.Converters;
 
-/// <summary>Converts between an Enum value and a boolean for e.g. RadioButton binding. Parameter must be the Enum member name.</summary>
+/// <summary>Converts between an enum value and a Boolean using the member name parameter.</summary>
 public sealed class EnumToBooleanConverter : IValueConverter
 {
     /// <summary>Converts a value.</summary>
@@ -20,7 +20,12 @@ public sealed class EnumToBooleanConverter : IValueConverter
     /// </returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return value is null || parameter is null ? false : string.Equals(value.ToString(), parameter.ToString(), StringComparison.OrdinalIgnoreCase);
+        return value is null || parameter is null
+            ? false
+            : string.Equals(
+                value.ToString(),
+                parameter.ToString(),
+                StringComparison.OrdinalIgnoreCase);
     }
 
     /// <summary>Converts a value.</summary>
@@ -38,6 +43,8 @@ public sealed class EnumToBooleanConverter : IValueConverter
             return Binding.DoNothing;
         }
 
-        return value is bool b && b ? Enum.Parse(targetType, parameter.ToString()!, ignoreCase: true) : Binding.DoNothing;
+        return value is bool b && b
+            ? Enum.Parse(targetType, parameter.ToString()!, ignoreCase: true)
+            : Binding.DoNothing;
     }
 }

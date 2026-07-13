@@ -32,7 +32,8 @@ public class ValueGtXConverter : IValueConverter
         }
 
         var val = (double)value;
-        var comparator = parameter is string ? double.Parse(parameter.ToString()!) : (double)parameter!;
+        var comparator =
+            parameter is string ? double.Parse(parameter.ToString()!) : (double)parameter!;
         return Math.Round(val, val > comparator ? 1 : DefaultPrecision);
     }
 
@@ -42,5 +43,9 @@ public class ValueGtXConverter : IValueConverter
     /// <param name="parameter">The converter parameter.</param>
     /// <param name="culture">The conversion culture.</param>
     /// <returns>The WPF do-nothing binding sentinel.</returns>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Binding.DoNothing;
+    public object ConvertBack(
+        object value,
+        Type targetType,
+        object parameter,
+        CultureInfo culture) => Binding.DoNothing;
 }

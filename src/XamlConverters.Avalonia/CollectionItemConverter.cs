@@ -22,7 +22,8 @@ public sealed class CollectionItemConverter : IValueConverter
                 : ConversionHelpers.DoNothing;
         }
 
-        if (!ConversionHelpers.TryConvert(parameter, typeof(int), culture, out var convertedIndex)
+        if (
+            !ConversionHelpers.TryConvert(parameter, typeof(int), culture, out var convertedIndex)
             || convertedIndex is not int index
             || index < 0)
         {
@@ -34,11 +35,17 @@ public sealed class CollectionItemConverter : IValueConverter
             return index < list.Count ? list[index] : ConversionHelpers.DoNothing;
         }
 
-        return value is not IEnumerable enumerable ? ConversionHelpers.DoNothing : GetItem(enumerable, index);
+        return value is not IEnumerable enumerable
+            ? ConversionHelpers.DoNothing
+            : GetItem(enumerable, index);
     }
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 
     /// <summary>Gets an item from an enumerable by index.</summary>
     /// <param name="enumerable">The enumerable source.</param>
@@ -49,10 +56,12 @@ public sealed class CollectionItemConverter : IValueConverter
         var currentIndex = 0;
         foreach (var item in enumerable)
         {
-            if (currentIndex++ == index)
+            if (currentIndex == index)
             {
                 return item;
             }
+
+            currentIndex++;
         }
 
         return ConversionHelpers.DoNothing;

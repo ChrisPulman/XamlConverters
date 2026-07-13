@@ -13,8 +13,14 @@ public sealed class VisibilityFromNumberConverter : IValueConverter
 {
     /// <inheritdoc/>
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
-        ConversionHelpers.TryDecimal(value, culture, out var number) && ConversionHelpers.TryDecimal(parameter, culture, out var threshold) && number >= threshold;
+        ConversionHelpers.TryDecimal(value, culture, out var number)
+        && ConversionHelpers.TryDecimal(parameter, culture, out var threshold)
+        && number >= threshold;
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 }

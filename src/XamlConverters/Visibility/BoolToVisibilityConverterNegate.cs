@@ -11,7 +11,7 @@ namespace CP.Xaml.Converters;
 /// <summary>Boolean to Visibility Converter.</summary>
 public class BoolToVisibilityConverterNegate : IValueConverter
 {
-    /// <summary>Enable the visibility of the UI element in base of a boolean value (true---&gt;Collapsed//false--&gt;Visible).</summary>
+    /// <summary>Converts true to collapsed and false to visible.</summary>
     /// <param name="value">The value.</param>
     /// <param name="targetType">Type of the target.</param>
     /// <param name="parameter">The parameter.</param>
@@ -48,9 +48,14 @@ public class BoolToVisibilityConverterNegate : IValueConverter
     /// <param name="culture">The culture.</param>
     /// <returns>A Value.</returns>
     /// <exception cref="InvalidCastException">The bound value back is not of type Visibility.</exception>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => value switch
-    {
-        Visibility val => (object)(val != Visibility.Visible),
-        _ => throw new InvalidCastException("The bound value back is not of type Visibility"),
-    };
+    public object ConvertBack(
+        object value,
+        Type targetType,
+        object parameter,
+        CultureInfo culture) =>
+        value switch
+        {
+            Visibility val => (object)(val != Visibility.Visible),
+            _ => throw new InvalidCastException("The bound value back is not of type Visibility"),
+        };
 }

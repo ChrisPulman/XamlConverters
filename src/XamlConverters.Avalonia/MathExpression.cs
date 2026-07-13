@@ -10,9 +10,6 @@ namespace CP.Xaml.Converters.Avalonia;
 /// <summary>Parses and evaluates arithmetic expressions over converter inputs.</summary>
 internal sealed class MathExpression
 {
-    /// <summary>The number of character aliases assigned to each positional variable.</summary>
-    private const int AliasesPerVariable = 2;
-
     /// <summary>The parsed expression root.</summary>
     private readonly Node _root;
 
@@ -29,12 +26,16 @@ internal sealed class MathExpression
     /// <param name="values">The converter input values.</param>
     /// <param name="culture">The culture used for numeric conversion.</param>
     /// <returns>The expression result.</returns>
-    public decimal Evaluate(IList<object?> values, CultureInfo culture) => _root.Evaluate(values, culture);
+    public decimal Evaluate(IList<object?> values, CultureInfo culture) =>
+        _root.Evaluate(values, culture);
 
     /// <summary>Parses expression tokens into an expression tree.</summary>
     /// <param name="text">The expression text.</param>
     private sealed class Parser(string text)
     {
+        /// <summary>The number of character aliases assigned to each positional variable.</summary>
+        private const int AliasesPerVariable = 2;
+
         /// <summary>The current parser position.</summary>
         private int _position;
 
@@ -44,7 +45,9 @@ internal sealed class MathExpression
         {
             var node = ParseExpression();
             SkipWhitespace();
-            return _position == text.Length ? node : throw new ArgumentException("Unexpected expression text.");
+            return _position == text.Length
+                ? node
+                : throw new ArgumentException("Unexpected expression text.");
         }
 
         /// <summary>Parses an addition or subtraction expression.</summary>
@@ -93,10 +96,13 @@ internal sealed class MathExpression
             if (TryRead('('))
             {
                 var expression = ParseExpression();
-                return TryRead(')') ? expression : throw new ArgumentException("Missing closing parenthesis.");
+                return TryRead(')')
+                    ? expression
+                    : throw new ArgumentException("Missing closing parenthesis.");
             }
 
-            return (Node?)ParseNamedVariable() ?? (TryRead('{') ? ParseIndexedVariable() : ParseNumber());
+            return (Node?)ParseNamedVariable()
+                ?? (TryRead('{') ? ParseIndexedVariable() : ParseNumber());
         }
 
         /// <summary>Parses a named positional variable when one is present.</summary>
@@ -109,7 +115,9 @@ internal sealed class MathExpression
                 return null;
             }
 
-            var index = variableAliases.IndexOf(text[_position++]) / AliasesPerVariable;
+            var alias = text[_position];
+            _position++;
+            var index = variableAliases.IndexOf(alias) / AliasesPerVariable;
             return new Variable(index);
         }
 
@@ -134,20 +142,27 @@ internal sealed class MathExpression
         private Constant ParseNumber()
         {
             var numberStart = _position;
-            while (_position < text.Length && (char.IsDigit(text[_position]) || text[_position] is '.' or ','))
+            while (
+                _position < text.Length
+                && (char.IsDigit(text[_position]) || text[_position] is '.' or ','))
             {
                 _position++;
             }
 
             var number = text.Substring(numberStart, _position - numberStart);
-            return decimal.TryParse(number, NumberStyles.Any, CultureInfo.InvariantCulture, out var value)
+            return decimal.TryParse(
+                number,
+                NumberStyles.Any,
+                CultureInfo.InvariantCulture,
+                out var value)
                 ? new Constant(value)
                 : throw new ArgumentException("Expected a number or variable.");
         }
 
         /// <summary>Consumes the expected character when it is next in the input.</summary>
         /// <param name="expected">The character to consume.</param>
-        /// <returns><see langword="true"/> when the character was consumed; otherwise, <see langword="false"/>.</returns>
+        /// <returns><see langword="true"/> when the character was consumed; otherwise, <see langword="false"/>.
+        /// </returns>
         private bool TryRead(char expected)
         {
             SkipWhitespace();
@@ -194,7 +209,8 @@ internal sealed class MathExpression
     {
         /// <inheritdoc/>
         public override decimal Evaluate(IList<object?> values, CultureInfo culture) =>
-            Index < values.Count && ConversionHelpers.TryDecimal(values[Index], culture, out var value)
+            Index < values.Count
+            && ConversionHelpers.TryDecimal(values[Index], culture, out var value)
                 ? value
                 : throw new ArgumentException("Expression variable is unavailable or non-numeric.");
     }
@@ -204,7 +220,8 @@ internal sealed class MathExpression
     private sealed record Unary(Node Operand) : Node
     {
         /// <inheritdoc/>
-        public override decimal Evaluate(IList<object?> values, CultureInfo culture) => -Operand.Evaluate(values, culture);
+        public override decimal Evaluate(IList<object?> values, CultureInfo culture) =>
+            -Operand.Evaluate(values, culture);
     }
 
     /// <summary>Represents a binary arithmetic operation.</summary>

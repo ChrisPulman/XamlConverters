@@ -13,8 +13,8 @@ public class PercentageConverterTests
     /// <param name="expected">The expected.</param>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     [Test]
-    [Arguments(200d, "50%", 100d)]
-    [Arguments(10d, "0.5", 5d)]
+    [Arguments(200D, "50%", 100D)]
+    [Arguments(10D, "0.5", 5D)]
     public async Task AppliesPercentage(double input, string param, double expected)
     {
         var c = new PercentageConverter();

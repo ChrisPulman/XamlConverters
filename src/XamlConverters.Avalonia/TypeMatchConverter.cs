@@ -38,7 +38,11 @@ public sealed class TypeMatchConverter : IValueConverter
     }
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 
     /// <summary>Determines whether any supported type name matches the requested name.</summary>
     /// <param name="type">The type to inspect.</param>
@@ -47,5 +51,8 @@ public sealed class TypeMatchConverter : IValueConverter
     private static bool MatchesName(Type type, string expectedName) =>
         string.Equals(type.Name, expectedName, StringComparison.OrdinalIgnoreCase)
         || string.Equals(type.FullName, expectedName, StringComparison.OrdinalIgnoreCase)
-        || string.Equals(type.AssemblyQualifiedName, expectedName, StringComparison.OrdinalIgnoreCase);
+        || string.Equals(
+            type.AssemblyQualifiedName,
+            expectedName,
+            StringComparison.OrdinalIgnoreCase);
 }

@@ -10,10 +10,10 @@ namespace CP.Xaml.Converters;
 /// <summary>A simple converter for determining if the specified value is null.</summary>
 public class NullToBoolConverter : IValueConverter
 {
-    /// <summary>Gets an instance of <see cref="NullToBoolConverter"/> that returns true if the specified value is null.</summary>
+    /// <summary>Gets a converter that returns true for a null value.</summary>
     public static NullToBoolConverter IsNull { get; } = new() { ReturnTrueIfNull = true };
 
-    /// <summary>Gets an instance of <see cref="NullToBoolConverter"/> that returns true if the specified value is not null.</summary>
+    /// <summary>Gets a converter that returns true for a non-null value.</summary>
     public static NullToBoolConverter NotNull { get; } = new() { ReturnTrueIfNull = false };
 
     /// <summary>Gets or sets a value indicating whether [return true if null].</summary>
@@ -26,7 +26,8 @@ public class NullToBoolConverter : IValueConverter
     /// <param name="parameter">The converter parameter to use.</param>
     /// <param name="culture">The culture to use in the converter.</param>
     /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => ReturnTrueIfNull ? value is null : value is not null;
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) =>
+        ReturnTrueIfNull ? value is null : value is not null;
 
     /// <summary>Converts a value.</summary>
     /// <param name="value">The value that is produced by the binding target.</param>
@@ -34,5 +35,9 @@ public class NullToBoolConverter : IValueConverter
     /// <param name="parameter">The converter parameter to use.</param>
     /// <param name="culture">The culture to use in the converter.</param>
     /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Binding.DoNothing;
+    public object ConvertBack(
+        object value,
+        Type targetType,
+        object parameter,
+        CultureInfo culture) => Binding.DoNothing;
 }

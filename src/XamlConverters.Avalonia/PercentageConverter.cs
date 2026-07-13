@@ -12,7 +12,7 @@ namespace CP.Xaml.Converters.Avalonia;
 public sealed class PercentageConverter : IValueConverter
 {
     /// <summary>The divisor used to convert a percentage to a factor.</summary>
-    private const decimal PercentageDivisor = 100m;
+    private const decimal PercentageDivisor = 100M;
 
     /// <inheritdoc/>
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
@@ -34,9 +34,16 @@ public sealed class PercentageConverter : IValueConverter
             return ConversionHelpers.UnsetValue;
         }
 
-        return ConversionHelpers.ConvertDecimal(number * (percentage ? factor / PercentageDivisor : factor), targetType, culture);
+        return ConversionHelpers.ConvertDecimal(
+            number * (percentage ? factor / PercentageDivisor : factor),
+            targetType,
+            culture);
     }
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 }
