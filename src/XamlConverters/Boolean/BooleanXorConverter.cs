@@ -56,5 +56,5 @@ public sealed class BooleanXorConverter : IMultiValueConverter
     /// <returns>
     /// An array of values that have been converted from the target value back to the source values.
     /// </returns>
-    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) => [.. targetTypes.Select(_ => Binding.DoNothing)];
+    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) => targetTypes.Select(_ => Binding.DoNothing).ToArray();
 }

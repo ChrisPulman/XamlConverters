@@ -11,66 +11,72 @@ public class MultiBooleanConvertersTests
     /// <summary>
     /// Ands all true returns true.
     /// </summary>
-    [Fact]
-    public void And_AllTrue_ReturnsTrue()
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    [Test]
+    public async Task And_AllTrue_ReturnsTrue()
     {
         var c = new MultiBooleanAndConverter();
         var result = c.Convert(new object[] { true, true, true }, typeof(bool), null!, System.Globalization.CultureInfo.InvariantCulture);
-        Assert.True((bool)result);
+        await Assert.That((bool)result).IsTrue();
     }
 
     /// <summary>
     /// Ands the one false returns false.
     /// </summary>
-    [Fact]
-    public void And_OneFalse_ReturnsFalse()
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    [Test]
+    public async Task And_OneFalse_ReturnsFalse()
     {
         var c = new MultiBooleanAndConverter();
         var result = c.Convert(new object[] { true, false, true }, typeof(bool), null!, System.Globalization.CultureInfo.InvariantCulture);
-        Assert.False((bool)result);
+        await Assert.That((bool)result).IsFalse();
     }
 
     /// <summary>
     /// Ors any true returns true.
     /// </summary>
-    [Fact]
-    public void Or_AnyTrue_ReturnsTrue()
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    [Test]
+    public async Task Or_AnyTrue_ReturnsTrue()
     {
         var c = new MultiBooleanOrConverter();
         var result = c.Convert(new object[] { false, false, true }, typeof(bool), null!, System.Globalization.CultureInfo.InvariantCulture);
-        Assert.True((bool)result);
+        await Assert.That((bool)result).IsTrue();
     }
 
     /// <summary>
     /// Ors all false returns false.
     /// </summary>
-    [Fact]
-    public void Or_AllFalse_ReturnsFalse()
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    [Test]
+    public async Task Or_AllFalse_ReturnsFalse()
     {
         var c = new MultiBooleanOrConverter();
         var result = c.Convert(new object[] { false, false }, typeof(bool), null!, System.Globalization.CultureInfo.InvariantCulture);
-        Assert.False((bool)result);
+        await Assert.That((bool)result).IsFalse();
     }
 
     /// <summary>
     /// Xors the odd true returns true.
     /// </summary>
-    [Fact]
-    public void Xor_OddTrue_ReturnsTrue()
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    [Test]
+    public async Task Xor_OddTrue_ReturnsTrue()
     {
         var c = new BooleanXorConverter();
         var result = c.Convert(new object[] { true, false, true }, typeof(bool), null!, System.Globalization.CultureInfo.InvariantCulture);
-        Assert.False((bool)result); // two trues -> even -> false
+        await Assert.That((bool)result).IsFalse(); // two trues -> even -> false
     }
 
     /// <summary>
     /// Xors the single true returns true.
     /// </summary>
-    [Fact]
-    public void Xor_SingleTrue_ReturnsTrue()
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    [Test]
+    public async Task Xor_SingleTrue_ReturnsTrue()
     {
         var c = new BooleanXorConverter();
         var result = c.Convert(new object[] { true, false, false }, typeof(bool), null!, System.Globalization.CultureInfo.InvariantCulture);
-        Assert.True((bool)result);
+        await Assert.That((bool)result).IsTrue();
     }
 }

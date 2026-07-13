@@ -11,22 +11,24 @@ public class CountConvertersTests
     /// <summary>
     /// Counts to boolean greater than zero.
     /// </summary>
-    [Fact]
-    public void CountToBoolean_GreaterThanZero()
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    [Test]
+    public async Task CountToBoolean_GreaterThanZero()
     {
         var c = new CountToBooleanConverter();
         var result = c.Convert(new List<int> { 1, 2 }, typeof(bool), ">0", System.Globalization.CultureInfo.InvariantCulture);
-        Assert.True((bool)result);
+        await Assert.That((bool)result).IsTrue();
     }
 
     /// <summary>
     /// Counts to visibility equals zero collapsed.
     /// </summary>
-    [Fact]
-    public void CountToVisibility_EqualsZeroCollapsed()
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    [Test]
+    public async Task CountToVisibility_EqualsZeroCollapsed()
     {
         var c = new CountToVisibilityConverter();
         var result = c.Convert(Enumerable.Empty<int>(), typeof(Visibility), "==0", System.Globalization.CultureInfo.InvariantCulture);
-        Assert.Equal(Visibility.Visible, result); // Visible because ==0 satisfied
+        await Assert.That(result).IsEqualTo(Visibility.Visible); // Visible because ==0 satisfied
     }
 }

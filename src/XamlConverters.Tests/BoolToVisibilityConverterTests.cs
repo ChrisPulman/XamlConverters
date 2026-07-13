@@ -13,14 +13,15 @@ public class BoolToVisibilityConverterTests
     /// </summary>
     /// <param name="input">if set to <c>true</c> [input].</param>
     /// <param name="expected">The expected.</param>
-    [Theory]
-    [InlineData(true, Visibility.Visible)]
-    [InlineData(false, Visibility.Collapsed)]
-    public void ConvertsBoolToVisibility(bool input, Visibility expected)
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    [Test]
+    [Arguments(true, Visibility.Visible)]
+    [Arguments(false, Visibility.Collapsed)]
+    public async Task ConvertsBoolToVisibility(bool input, Visibility expected)
     {
         var c = new BoolToVisibilityConverter();
         var result = c.Convert(input, typeof(Visibility), null!, System.Globalization.CultureInfo.InvariantCulture);
-        Assert.Equal(expected, result);
+        await Assert.That(result).IsEqualTo(expected);
     }
 
     /// <summary>
@@ -28,13 +29,14 @@ public class BoolToVisibilityConverterTests
     /// </summary>
     /// <param name="input">if set to <c>true</c> [input].</param>
     /// <param name="expected">The expected.</param>
-    [Theory]
-    [InlineData(true, Visibility.Collapsed)]
-    [InlineData(false, Visibility.Visible)]
-    public void ConvertsBoolToVisibility_Inverted(bool input, Visibility expected)
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    [Test]
+    [Arguments(true, Visibility.Collapsed)]
+    [Arguments(false, Visibility.Visible)]
+    public async Task ConvertsBoolToVisibility_Inverted(bool input, Visibility expected)
     {
         var c = new BoolToVisibilityConverter();
         var result = c.Convert(input, typeof(Visibility), "reverse", System.Globalization.CultureInfo.InvariantCulture);
-        Assert.Equal(expected, result);
+        await Assert.That(result).IsEqualTo(expected);
     }
 }

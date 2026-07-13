@@ -14,13 +14,14 @@ public class EnumToBooleanConverterTests
     /// <param name="state">The state.</param>
     /// <param name="param">The parameter.</param>
     /// <param name="expected">if set to <c>true</c> [expected].</param>
-    [Theory]
-    [InlineData(TestState.One, "One", true)]
-    [InlineData(TestState.One, "Two", false)]
-    public void EnumMatches(TestState state, string param, bool expected)
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    [Test]
+    [Arguments(TestState.One, "One", true)]
+    [Arguments(TestState.One, "Two", false)]
+    public async Task EnumMatches(TestState state, string param, bool expected)
     {
         var c = new EnumToBooleanConverter();
         var result = c.Convert(state, typeof(bool), param, System.Globalization.CultureInfo.InvariantCulture);
-        Assert.Equal(expected, result);
+        await Assert.That(result).IsEqualTo(expected);
     }
 }

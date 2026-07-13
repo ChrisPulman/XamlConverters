@@ -14,18 +14,19 @@ public class ComparisonConverterTests
     /// <param name="value">The value.</param>
     /// <param name="param">The parameter.</param>
     /// <param name="expected">if set to <c>true</c> [expected].</param>
-    [Theory]
-    [InlineData(5, ">3", true)]
-    [InlineData(3, ">3", false)]
-    [InlineData(3, ">=3", true)]
-    [InlineData(2, "<3", true)]
-    [InlineData(2, "!=3", true)]
-    [InlineData(3, "!=3", false)]
-    [InlineData(3, "!>=3", false)] // inverted of >=3
-    public void ComparesValues(object value, string param, bool expected)
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    [Test]
+    [Arguments(5, ">3", true)]
+    [Arguments(3, ">3", false)]
+    [Arguments(3, ">=3", true)]
+    [Arguments(2, "<3", true)]
+    [Arguments(2, "!=3", true)]
+    [Arguments(3, "!=3", false)]
+    [Arguments(3, "!>=3", false)] // inverted of >=3
+    public async Task ComparesValues(object value, string param, bool expected)
     {
         var c = new ComparisonConverter();
         var result = c.Convert(value, typeof(bool), param, System.Globalization.CultureInfo.InvariantCulture);
-        Assert.Equal(expected, result);
+        await Assert.That(result).IsEqualTo(expected);
     }
 }

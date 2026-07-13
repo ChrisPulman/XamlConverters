@@ -13,15 +13,16 @@ public class StringNullOrEmptyToBoolConverterTests
     /// </summary>
     /// <param name="input">The input.</param>
     /// <param name="expected">if set to <c>true</c> [expected].</param>
-    [Theory]
-    [InlineData(null, true)]
-    [InlineData("", true)]
-    [InlineData("abc", false)]
-    public void DetectsNullOrEmpty(string? input, bool expected)
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    [Test]
+    [Arguments(null, true)]
+    [Arguments("", true)]
+    [Arguments("abc", false)]
+    public async Task DetectsNullOrEmpty(string? input, bool expected)
     {
         var c = new StringNullOrEmptyToBoolConverter();
         var result = c.Convert(input!, typeof(bool), null!, System.Globalization.CultureInfo.InvariantCulture);
-        Assert.Equal(expected, result);
+        await Assert.That(result).IsEqualTo(expected);
     }
 
     /// <summary>
@@ -29,14 +30,15 @@ public class StringNullOrEmptyToBoolConverterTests
     /// </summary>
     /// <param name="input">The input.</param>
     /// <param name="expected">if set to <c>true</c> [expected].</param>
-    [Theory]
-    [InlineData(null, false)]
-    [InlineData("", false)]
-    [InlineData("abc", true)]
-    public void Inverts(string? input, bool expected)
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    [Test]
+    [Arguments(null, false)]
+    [Arguments("", false)]
+    [Arguments("abc", true)]
+    public async Task Inverts(string? input, bool expected)
     {
         var c = new StringNullOrEmptyToBoolConverter();
         var result = c.Convert(input!, typeof(bool), "invert", System.Globalization.CultureInfo.InvariantCulture);
-        Assert.Equal(expected, result);
+        await Assert.That(result).IsEqualTo(expected);
     }
 }

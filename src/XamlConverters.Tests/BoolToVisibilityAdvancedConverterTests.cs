@@ -11,33 +11,36 @@ public class BoolToVisibilityAdvancedConverterTests
     /// <summary>
     /// Trues the visible.
     /// </summary>
-    [Fact]
-    public void TrueVisible()
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    [Test]
+    public async Task TrueVisible()
     {
         var c = new BoolToVisibilityAdvancedConverter();
         var result = c.Convert(true, typeof(Visibility), null!, System.Globalization.CultureInfo.InvariantCulture);
-        Assert.Equal(Visibility.Visible, result);
+        await Assert.That(result).IsEqualTo(Visibility.Visible);
     }
 
     /// <summary>
     /// Falses the collapsed.
     /// </summary>
-    [Fact]
-    public void FalseCollapsed()
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    [Test]
+    public async Task FalseCollapsed()
     {
         var c = new BoolToVisibilityAdvancedConverter();
         var result = c.Convert(false, typeof(Visibility), null!, System.Globalization.CultureInfo.InvariantCulture);
-        Assert.Equal(Visibility.Collapsed, result);
+        await Assert.That(result).IsEqualTo(Visibility.Collapsed);
     }
 
     /// <summary>
     /// Falses the hidden when h.
     /// </summary>
-    [Fact]
-    public void FalseHiddenWhenH()
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    [Test]
+    public async Task FalseHiddenWhenH()
     {
         var c = new BoolToVisibilityAdvancedConverter();
         var result = c.Convert(false, typeof(Visibility), "H", System.Globalization.CultureInfo.InvariantCulture);
-        Assert.Equal(Visibility.Hidden, result);
+        await Assert.That(result).IsEqualTo(Visibility.Hidden);
     }
 }

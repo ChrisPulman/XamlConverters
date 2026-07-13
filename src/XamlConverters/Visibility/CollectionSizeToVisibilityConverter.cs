@@ -19,7 +19,7 @@ public class CollectionSizeToVisibilityConverter : CollectionSizeToBoolConverter
     /// <param name="parameter">The converter parameter to use.</param>
     /// <param name="culture">The culture to use in the converter.</param>
     /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
-    public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public override object Convert(object value, Type targetType, object? parameter, CultureInfo culture)
     {
         var meetsRequiredCollectionSize = base.Convert(value, targetType, parameter, culture) as bool?;
         return meetsRequiredCollectionSize == true ? Visibility.Visible : Visibility.Collapsed;

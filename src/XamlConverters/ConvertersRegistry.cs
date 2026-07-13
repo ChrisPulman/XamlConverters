@@ -11,6 +11,70 @@ namespace CP.Xaml.Converters;
 public static class ConvertersRegistry
 {
     /// <summary>
+    /// Converts between compatible BCL types.
+    /// </summary>
+    public static readonly ChangeTypeConverter ChangeType = new();
+    /// <summary>
+    /// Tests whether a value is assignable to a requested type.
+    /// </summary>
+    public static readonly TypeMatchConverter TypeMatch = new();
+    /// <summary>
+    /// Formats a single value as text.
+    /// </summary>
+    public static readonly StringFormatConverter StringFormat = new();
+    /// <summary>
+    /// Formats and parses numeric values.
+    /// </summary>
+    public static readonly NumberFormatConverter NumberFormat = new();
+    /// <summary>
+    /// Formats and parses date/time values.
+    /// </summary>
+    public static readonly DateTimeFormatConverter DateTimeFormat = new();
+    /// <summary>
+    /// Formats and parses durations.
+    /// </summary>
+    public static readonly TimeSpanFormatConverter TimeSpanFormat = new();
+    /// <summary>
+    /// Tests whether an enumerable contains a parameter value.
+    /// </summary>
+    public static readonly CollectionContainsConverter Contains = new();
+    /// <summary>
+    /// Selects the first item from an enumerable.
+    /// </summary>
+    public static readonly CollectionFirstOrDefaultConverter FirstOrDefault = new();
+    /// <summary>
+    /// Selects an item by key or index.
+    /// </summary>
+    public static readonly CollectionItemConverter Item = new();
+    /// <summary>
+    /// Joins an enumerable into text.
+    /// </summary>
+    public static readonly EnumerableToStringConverter Join = new();
+    /// <summary>
+    /// Converts enum members to descriptions.
+    /// </summary>
+    public static readonly EnumDescriptionConverter EnumDescription = new();
+    /// <summary>
+    /// Tests a flags enum for a requested flag.
+    /// </summary>
+    public static readonly EnumHasFlagConverter EnumHasFlag = new();
+    /// <summary>
+    /// Returns the declared values for an enum type.
+    /// </summary>
+    public static readonly EnumValuesConverter EnumValues = new();
+    /// <summary>
+    /// Converts between URI values and strings.
+    /// </summary>
+    public static readonly UriConverter Uri = new();
+    /// <summary>
+    /// Converts between GUID representations.
+    /// </summary>
+    public static readonly GuidConverter Guid = new();
+    /// <summary>
+    /// Converts between byte arrays and Base64 text.
+    /// </summary>
+    public static readonly ByteArrayToBase64Converter Base64 = new();
+    /// <summary>
     /// The not.
     /// </summary>
     public static readonly BoolNegationConverter Not = new();

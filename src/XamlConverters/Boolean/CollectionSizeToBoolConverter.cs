@@ -20,7 +20,7 @@ public class CollectionSizeToBoolConverter : IValueConverter
     /// <param name="parameter">The converter parameter to use.</param>
     /// <param name="culture">The culture to use in the converter.</param>
     /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
-    public virtual object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public virtual object Convert(object value, Type targetType, object? parameter, CultureInfo culture)
     {
         var reverse = parameter?.Equals("reverse");
         var requiredCollectionSize = 0;

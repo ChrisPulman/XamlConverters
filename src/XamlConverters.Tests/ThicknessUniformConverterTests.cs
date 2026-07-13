@@ -11,25 +11,27 @@ public class ThicknessUniformConverterTests
     /// <summary>
     /// Alls the sides.
     /// </summary>
-    [Fact]
-    public void AllSides()
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    [Test]
+    public async Task AllSides()
     {
         var c = new ThicknessUniformConverter();
         var t = (Thickness)c.Convert(5, typeof(Thickness), null!, System.Globalization.CultureInfo.InvariantCulture);
-        Assert.Equal(new Thickness(5), t);
+        await Assert.That(t).IsEqualTo(new Thickness(5));
     }
 
     /// <summary>
     /// Horizontals the only.
     /// </summary>
-    [Fact]
-    public void HorizontalOnly()
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    [Test]
+    public async Task HorizontalOnly()
     {
         var c = new ThicknessUniformConverter();
         var t = (Thickness)c.Convert(3, typeof(Thickness), "H", System.Globalization.CultureInfo.InvariantCulture);
-        Assert.Equal(3, t.Left);
-        Assert.Equal(3, t.Right);
-        Assert.Equal(0, t.Top);
-        Assert.Equal(0, t.Bottom);
+        await Assert.That(t.Left).IsEqualTo(3d);
+        await Assert.That(t.Right).IsEqualTo(3d);
+        await Assert.That(t.Top).IsEqualTo(0d);
+        await Assert.That(t.Bottom).IsEqualTo(0d);
     }
 }

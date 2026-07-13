@@ -24,7 +24,7 @@ public sealed class CountToVisibilityConverter : IValueConverter
     /// <returns>
     /// A converted value. If the method returns null, the valid null value is used.
     /// </returns>
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object value, Type targetType, object? parameter, CultureInfo culture)
     {
         var parm = parameter?.ToString() ?? string.Empty;
         var useHidden = parm.Contains('H');

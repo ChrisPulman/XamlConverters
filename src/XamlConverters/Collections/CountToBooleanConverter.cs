@@ -22,7 +22,7 @@ public sealed class CountToBooleanConverter : IValueConverter
     /// <returns>
     /// A converted value. If the method returns null, the valid null value is used.
     /// </returns>
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is not IEnumerable enumerable)
         {
@@ -84,7 +84,7 @@ public sealed class CountToBooleanConverter : IValueConverter
                 var idx = text.IndexOf(op, StringComparison.Ordinal);
                 if (idx >= 0)
                 {
-                    if (int.TryParse(text[(idx + op.Length)..], out var rhs))
+                    if (int.TryParse(text.Substring(idx + op.Length), out var rhs))
                     {
                         cmp = new CountComparison(op, rhs);
                         return true;

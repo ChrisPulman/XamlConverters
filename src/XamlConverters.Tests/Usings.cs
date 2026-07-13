@@ -2,4 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 global using System.Windows;
-global using Xunit;
+global using TUnit.Assertions;
+global using TUnit.Assertions.Extensions;
+global using TUnit.Core;

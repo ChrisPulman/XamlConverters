@@ -1,10 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net472;net8.0-windows;net9.0-windows</TargetFrameworks>
+    <TargetFrameworks>net462;net472;net48;net481;net8.0-windows;net9.0-windows;net10.0-windows;net11.0-windows</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <PackageId>CP.Xaml.Converters</PackageId>
+    <Description>A comprehensive collection of reusable value converters for WPF applications.</Description>
+    <PackageTags>WPF;XAML;converters;binding;desktop</PackageTags>
   </PropertyGroup>
 
   <ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
@@ -12,7 +15,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="IndexRange" Version="1.1.0" />
   </ItemGroup>
 
 </Project>

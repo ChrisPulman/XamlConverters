@@ -1,18 +1,25 @@
 ﻿# XamlConverters
-Converters for WPF (.NET Framework 4.6.2 / .NET 8 / .NET 9)
+Common value converters for WPF and Avalonia, published as separate packages.
 
 ![Nuget](https://img.shields.io/nuget/v/CP.Xaml.Converters) ![Nuget](https://img.shields.io/nuget/dt/CP.Xaml.Converters)
 
-A rich collection of ready-to-use value & multi-value converters for WPF plus some numeric markup extensions.
+A rich collection of ready-to-use value and multi-value converters for BCL values, collections, formatting, enums, colors, visibility, arithmetic, and layout.
+
+| Package | UI framework | Target frameworks |
+| --- | --- | --- |
+| `CP.Xaml.Converters` | WPF | `net462`, `net472`, `net48`, `net481`, `net8.0-windows`, `net9.0-windows`, `net10.0-windows`, `net11.0-windows` |
+| `CP.Xaml.Converters.Avalonia` | Avalonia | `net8.0`, `net9.0`, `net10.0`, `net11.0` |
 
 ---
 ## Install
-```
+
+```powershell
 PM> Install-Package CP.Xaml.Converters
+PM> Install-Package CP.Xaml.Converters.Avalonia
 ```
 
 ---
-## Quick Start (All Converters at Once)
+## WPF Quick Start (All Converters at Once)
 ```xaml
 <Application x:Class="App" ...
              xmlns:converters="https://github.com/ChrisPulman/XamlConverters">
@@ -33,7 +40,24 @@ Some frequently used stateless converters are exposed through `ConvertersRegistr
 xmlns:c="clr-namespace:CP.Xaml.Converters"
 <TextBlock Visibility="{Binding IsBusy, Converter={x:Static c:ConvertersRegistry.BoolToVisibility}}"/>
 ```
-Available singletons (see ConvertersRegistry.cs): Not, BoolToVisibility, BoolToVisibilityAdv, NotNullToVisibility, NotNullToBool, NullToBool, NullCoalesce, InvertVisibility, BgToReadable, Percentage, Arithmetic, Math, Equality, Comparison, And, Or, Xor, MultiFormat.
+Available singletons (see `ConvertersRegistry.cs`) include boolean, visibility, arithmetic, comparison, formatting, BCL type conversion, Base64, GUID, URI, collection, and enum converters.
+
+---
+## Avalonia Quick Start
+
+Merge the ready-made converter dictionary into `Application.Resources`:
+
+```xaml
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="https://github.com/ChrisPulman/XamlConverters/Avalonia">
+  <Application.Resources>
+    <converters:ConvertersDictionary />
+  </Application.Resources>
+</Application>
+```
+
+The Avalonia package provides every public WPF converter class (except WPF-only numeric markup extensions), uses Avalonia binding sentinels, and adds Avalonia-focused helpers such as `BclTypeConverter`, `ClampConverter`, `ComparisonToVisibilityConverter`, `RoundingConverter`, and `TrimConverter`.
 
 ---
 ## Markup Numeric Extensions
@@ -125,6 +149,19 @@ Available: Int16, Int32, Single (float), Double.
   ```xaml
   <CheckBox IsChecked="{Binding Items, Converter={StaticResource CountToBooleanConverter}, ConverterParameter='>5'}" Content=">5 Items"/>
   ```
+
+### BCL Types, Enums & Collections
+
+- ChangeTypeConverter / BclTypeConverter (Avalonia) – Culture-aware conversion between compatible primitives, nullable values, enums, GUIDs, URIs, `TimeSpan`, `DateTimeOffset`, and other types supported by `TypeConverter` or `Convert.ChangeType`.
+- ByteArrayToBase64Converter – Converts between `byte[]` and Base64 text.
+- GuidConverter – Converts among `Guid`, common GUID text formats, and 16-byte arrays.
+- UriConverter – Converts between URI text and relative, absolute, or relative-or-absolute `Uri` values.
+- TypeMatchConverter – Tests assignability by `Type`, simple name, full name, or assembly-qualified name.
+- EnumDescriptionConverter – Converts enum members to and from `DescriptionAttribute` text.
+- EnumHasFlagConverter / EnumValuesConverter – Tests flags and provides enum item sources.
+- CollectionContainsConverter / CollectionFirstOrDefaultConverter / CollectionItemConverter – Common collection binding operations.
+- EnumerableToStringConverter – Joins culture-formatted enumerable items.
+- DateTimeFormatConverter / TimeSpanFormatConverter / NumberFormatConverter / StringFormatConverter – Culture-aware formatting and supported reverse parsing.
 
 ### Text & Formatting
 - ToUpperConverter / ToLowerConverter – Case conversion.
@@ -238,6 +275,16 @@ Use MultiConverter to pipe the output of one into the next:
 ---
 ## Contributing
 PRs welcome. Please keep converters small, focused, documented and unit-tested.
+
+## Testing
+
+Tests use TUnit on Microsoft.Testing.Platform. The repository `global.json` selects MTP, and the test projects are executable test applications without xUnit, VSTest, or coverlet dependencies.
+
+```powershell
+dotnet test src/XamlConverters.sln -c Release
+```
+
+The .NET 11 targets require the preview SDK version pinned in `global.json` until .NET 11 reaches general availability.
 
 ---
 ## License

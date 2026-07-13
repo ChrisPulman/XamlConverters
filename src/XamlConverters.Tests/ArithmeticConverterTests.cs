@@ -16,15 +16,16 @@ public class ArithmeticConverterTests
     /// <param name="input">The input.</param>
     /// <param name="param">The parameter.</param>
     /// <param name="expected">The expected.</param>
-    [Theory]
-    [InlineData(10, "+5", 15)]
-    [InlineData(10, "- 3", 7)]
-    [InlineData(10, "*2", 20)]
-    [InlineData(10, "/2", 5)]
-    public void PerformsArithmetic(int input, string param, double expected)
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    [Test]
+    [Arguments(10, "+5", 15d)]
+    [Arguments(10, "- 3", 7d)]
+    [Arguments(10, "*2", 20d)]
+    [Arguments(10, "/2", 5d)]
+    public async Task PerformsArithmetic(int input, string param, double expected)
     {
         var c = new ArithmeticConverter();
         var result = ((IValueConverter)c).Convert(input, typeof(double), param, System.Globalization.CultureInfo.InvariantCulture);
-        Assert.Equal(expected, (double)result, 5);
+        await Assert.That((double)result).IsEqualTo(expected).Within(0.00001d);
     }
 }

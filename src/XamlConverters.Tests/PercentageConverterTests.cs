@@ -14,13 +14,14 @@ public class PercentageConverterTests
     /// <param name="input">The input.</param>
     /// <param name="param">The parameter.</param>
     /// <param name="expected">The expected.</param>
-    [Theory]
-    [InlineData(200, "50%", 100)]
-    [InlineData(10, "0.5", 5)]
-    public void AppliesPercentage(double input, string param, double expected)
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    [Test]
+    [Arguments(200d, "50%", 100d)]
+    [Arguments(10d, "0.5", 5d)]
+    public async Task AppliesPercentage(double input, string param, double expected)
     {
         var c = new PercentageConverter();
         var result = c.Convert(input, typeof(double), param, System.Globalization.CultureInfo.InvariantCulture);
-        Assert.Equal(expected, (double)result, 5);
+        await Assert.That((double)result).IsEqualTo(expected).Within(0.00001d);
     }
 }
