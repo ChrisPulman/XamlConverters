@@ -1,9 +1,8 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
-using System.ComponentModel;
 using System.Globalization;
-using System.Text.RegularExpressions;
 using Avalonia.Data.Converters;
 using CP.Xaml.Converters.Avalonia.Internal;
 
@@ -22,6 +21,9 @@ public sealed class ValueNotNullToBoolConverter : IValueConverter
     /// <inheritdoc/>
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
 
+    /// <summary>Determines whether the null check should be inverted.</summary>
+    /// <param name="parameter">The converter parameter.</param>
+    /// <returns><see langword="true"/> when inversion was requested; otherwise, <see langword="false"/>.</returns>
     private static bool IsInverted(object? parameter) =>
         parameter is true || string.Equals(parameter?.ToString(), "reverse", StringComparison.OrdinalIgnoreCase) ||
         string.Equals(parameter?.ToString(), "invert", StringComparison.OrdinalIgnoreCase);

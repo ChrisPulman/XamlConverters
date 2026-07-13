@@ -1,5 +1,6 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Globalization;
 using Avalonia.Data.Converters;
@@ -19,9 +20,12 @@ public sealed class StringFormatConverter : IValueConverter
             return System.Convert.ToString(value, culture) ?? string.Empty;
         }
 
-        return format.Contains("{0", StringComparison.Ordinal)
-            ? string.Format(culture, format, value)
-            : value is IFormattable formattable ? formattable.ToString(format, culture) ?? string.Empty : value?.ToString() ?? string.Empty;
+        if (format.Contains("{0", StringComparison.Ordinal))
+        {
+            return string.Format(culture, format, value);
+        }
+
+        return value is IFormattable formattable ? formattable.ToString(format, culture) ?? string.Empty : value?.ToString() ?? string.Empty;
     }
 
     /// <inheritdoc/>

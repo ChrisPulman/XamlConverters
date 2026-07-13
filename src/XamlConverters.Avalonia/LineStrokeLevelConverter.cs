@@ -1,5 +1,6 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Globalization;
 using Avalonia.Data.Converters;
@@ -11,6 +12,9 @@ namespace CP.Xaml.Converters.Avalonia;
 /// <summary>Selects green, yellow, or red according to low-high threshold parameters.</summary>
 public sealed class LineStrokeLevelConverter : IValueConverter
 {
+    /// <summary>The number of thresholds required in the converter parameter.</summary>
+    private const int RequiredThresholdCount = 2;
+
     /// <inheritdoc/>
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
@@ -20,13 +24,18 @@ public sealed class LineStrokeLevelConverter : IValueConverter
         }
 
         var parts = parameter?.ToString()?.Split('-');
-        if (parts is not { Length: >= 2 } || !decimal.TryParse(parts[0], NumberStyles.Any, culture, out var low) ||
+        if (parts is not { Length: >= RequiredThresholdCount } || !decimal.TryParse(parts[0], NumberStyles.Any, culture, out var low) ||
             !decimal.TryParse(parts[1], NumberStyles.Any, culture, out var high))
         {
             return Brushes.Red;
         }
 
-        return number >= high ? Brushes.Red : number >= low ? Brushes.Yellow : Brushes.Lime;
+        if (number >= high)
+        {
+            return Brushes.Red;
+        }
+
+        return number >= low ? Brushes.Yellow : Brushes.Lime;
     }
 
     /// <inheritdoc/>

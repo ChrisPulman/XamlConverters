@@ -1,5 +1,6 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Globalization;
 using System.Windows.Data;
@@ -7,15 +8,11 @@ using System.Windows.Media;
 
 namespace CP.Xaml.Converters;
 
-/// <summary>
-/// BrushToColorConverter.
-/// </summary>
+/// <summary>Converts a solid-color brush to its color value.</summary>
 /// <seealso cref="System.Windows.Data.IValueConverter" />
 public class BrushToColorConverter : IValueConverter
 {
-    /// <summary>
-    /// Converts a value.
-    /// </summary>
+    /// <summary>Converts a value.</summary>
     /// <param name="value">The value produced by the binding source.</param>
     /// <param name="targetType">The type of the binding target property.</param>
     /// <param name="parameter">The converter parameter to use.</param>
@@ -30,9 +27,7 @@ public class BrushToColorConverter : IValueConverter
         _ => Colors.Red
     };
 
-    /// <summary>
-    /// Converts a value.
-    /// </summary>
+    /// <summary>Converts a value.</summary>
     /// <param name="value">The value that is produced by the binding target.</param>
     /// <param name="targetType">The type to convert to.</param>
     /// <param name="parameter">The converter parameter to use.</param>

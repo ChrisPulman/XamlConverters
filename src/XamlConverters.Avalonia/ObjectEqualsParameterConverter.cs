@@ -1,9 +1,8 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
-using System.ComponentModel;
 using System.Globalization;
-using System.Text.RegularExpressions;
 using Avalonia.Data.Converters;
 using CP.Xaml.Converters.Avalonia.Internal;
 
@@ -19,7 +18,7 @@ public sealed class ObjectEqualsParameterConverter : IValueConverter
         var invert = text.StartsWith("!", StringComparison.Ordinal);
         if (invert)
         {
-            text = text.Substring(1);
+            text = text[1..];
         }
 
         var result = string.Equals(value?.ToString(), text, StringComparison.OrdinalIgnoreCase);

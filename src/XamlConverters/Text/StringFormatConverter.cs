@@ -1,5 +1,6 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Globalization;
 using System.Windows;
@@ -7,14 +8,10 @@ using System.Windows.Data;
 
 namespace CP.Xaml.Converters;
 
-/// <summary>
-/// Formats one value using either a standard/custom format specifier or a composite format string.
-/// </summary>
+/// <summary>Formats one value using either a standard/custom format specifier or a composite format string.</summary>
 public sealed class StringFormatConverter : IValueConverter
 {
-    /// <summary>
-    /// Formats the supplied value.
-    /// </summary>
+    /// <summary>Formats the supplied value.</summary>
     /// <param name="value">The value to format.</param>
     /// <param name="targetType">The binding target type.</param>
     /// <param name="parameter">A format such as <c>N2</c>, <c>yyyy-MM-dd</c>, or <c>Value: {0}</c>.</param>
@@ -22,7 +19,7 @@ public sealed class StringFormatConverter : IValueConverter
     /// <returns>The formatted text, or <see cref="Binding.DoNothing"/> for an invalid format.</returns>
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (value == null || value == DependencyProperty.UnsetValue)
+        if (value is null || value == DependencyProperty.UnsetValue)
         {
             return string.Empty;
         }
@@ -37,7 +34,7 @@ public sealed class StringFormatConverter : IValueConverter
                     : value.ToString() ?? string.Empty;
             }
 
-            if (format!.IndexOf("{0", StringComparison.Ordinal) >= 0)
+            if (format!.Contains("{0"))
             {
                 return string.Format(culture, format, value);
             }
@@ -52,9 +49,7 @@ public sealed class StringFormatConverter : IValueConverter
         }
     }
 
-    /// <summary>
-    /// Parses the text back to the requested source type using the common BCL conversion rules.
-    /// </summary>
+    /// <summary>Parses the text back to the requested source type using the common BCL conversion rules.</summary>
     /// <param name="value">The formatted target value.</param>
     /// <param name="targetType">The binding source type.</param>
     /// <param name="parameter">The converter parameter.</param>

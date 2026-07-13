@@ -1,5 +1,6 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Globalization;
 using Avalonia.Data.Converters;
@@ -16,6 +17,12 @@ public sealed class GuidConverter : IValueConverter
     /// <inheritdoc/>
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConvertCore(value, targetType, parameter, culture);
 
+    /// <summary>Converts between GUID values and text.</summary>
+    /// <param name="value">The source value.</param>
+    /// <param name="targetType">The requested target type.</param>
+    /// <param name="parameter">The converter parameter.</param>
+    /// <param name="culture">The conversion culture.</param>
+    /// <returns>The converted value or an Avalonia binding sentinel.</returns>
     private static object ConvertCore(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is Guid guid)
@@ -32,7 +39,7 @@ public sealed class GuidConverter : IValueConverter
 
             try
             {
-                return guid.ToString(parameter as string ?? "D");
+                return guid.ToString((parameter as string) ?? "D");
             }
             catch (FormatException)
             {

@@ -1,5 +1,6 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Globalization;
 using System.Windows;
@@ -7,14 +8,10 @@ using System.Windows.Data;
 
 namespace CP.Xaml.Converters;
 
-/// <summary>
-/// Multi-binding converter that returns true only if ALL inputs are true. Parameter "invert" to invert final result.
-/// </summary>
+/// <summary>Multi-binding converter that returns true only if ALL inputs are true. Parameter "invert" to invert final result.</summary>
 public sealed class MultiBooleanAndConverter : IMultiValueConverter
 {
-    /// <summary>
-    /// Aggregates values using logical AND.
-    /// </summary>
+    /// <summary>Aggregates values using logical AND.</summary>
     /// <param name="values">Source values.</param>
     /// <param name="targetType">Target type.</param>
     /// <param name="parameter">Optional parameter (invert).</param>
@@ -22,7 +19,7 @@ public sealed class MultiBooleanAndConverter : IMultiValueConverter
     /// <returns>True when all are true (optionally inverted).</returns>
     public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
     {
-        if (values == null)
+        if (values is null)
         {
             throw new ArgumentNullException(nameof(values));
         }
@@ -43,7 +40,7 @@ public sealed class MultiBooleanAndConverter : IMultiValueConverter
                     break;
                 }
             }
-            else if (v == null)
+            else if (v is null)
             {
                 result = false;
                 break;
@@ -54,9 +51,7 @@ public sealed class MultiBooleanAndConverter : IMultiValueConverter
         return invert ? !result : result;
     }
 
-    /// <summary>
-    /// Convert back not supported.
-    /// </summary>
+    /// <summary>Convert back not supported.</summary>
     /// <param name="value">Ignored.</param>
     /// <param name="targetTypes">The array of types to convert to. The array length indicates the number and types of values that are suggested for the method to return.</param>
     /// <param name="parameter">The converter parameter to use.</param>

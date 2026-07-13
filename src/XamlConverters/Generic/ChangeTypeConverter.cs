@@ -1,5 +1,6 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Globalization;
 using System.Windows;
@@ -7,19 +8,14 @@ using System.Windows.Data;
 
 namespace CP.Xaml.Converters;
 
-/// <summary>
-/// Converts between compatible BCL types by using enum, nullable, parsing, type-converter, and
-/// <see cref="System.Convert.ChangeType(object, Type, IFormatProvider)"/> semantics.
-/// </summary>
+/// <summary>Converts between compatible BCL types by using enum, nullable, parsing, type-converter, and <see cref="Convert.ChangeType(object, Type, IFormatProvider)"/> semantics.</summary>
 /// <remarks>
 /// Supply a <see cref="Type"/> as the converter parameter to override the binding target type.
 /// Conversion failures return <see cref="Binding.DoNothing"/>.
 /// </remarks>
 public sealed class ChangeTypeConverter : IValueConverter
 {
-    /// <summary>
-    /// Converts the source value to the binding target type, or to the type supplied as the parameter.
-    /// </summary>
+    /// <summary>Converts the source value to the binding target type, or to the type supplied as the parameter.</summary>
     /// <param name="value">The source value.</param>
     /// <param name="targetType">The binding target type.</param>
     /// <param name="parameter">An optional <see cref="Type"/> that overrides <paramref name="targetType"/>.</param>
@@ -32,15 +28,13 @@ public sealed class ChangeTypeConverter : IValueConverter
             return Binding.DoNothing;
         }
 
-        var conversionType = parameter as Type ?? targetType;
+        var conversionType = (parameter as Type) ?? targetType;
         return BclConversion.TryChangeType(value, conversionType, culture, out var result)
             ? result
             : Binding.DoNothing;
     }
 
-    /// <summary>
-    /// Converts a target value back to the binding source type.
-    /// </summary>
+    /// <summary>Converts a target value back to the binding source type.</summary>
     /// <param name="value">The target value.</param>
     /// <param name="targetType">The binding source type.</param>
     /// <param name="parameter">The converter parameter; it is not needed for reverse conversion.</param>

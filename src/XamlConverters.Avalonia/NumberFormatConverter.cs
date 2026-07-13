@@ -1,5 +1,6 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Globalization;
 using Avalonia.Data.Converters;
@@ -10,6 +11,22 @@ namespace CP.Xaml.Converters.Avalonia;
 /// <summary>Formats built-in numeric values and parses them back to a requested numeric type.</summary>
 public sealed class NumberFormatConverter : IValueConverter
 {
+    /// <summary>The built-in numeric type codes supported by the converter.</summary>
+    private static readonly HashSet<TypeCode> NumericTypeCodes =
+    [
+        TypeCode.Byte,
+        TypeCode.SByte,
+        TypeCode.UInt16,
+        TypeCode.UInt32,
+        TypeCode.UInt64,
+        TypeCode.Int16,
+        TypeCode.Int32,
+        TypeCode.Int64,
+        TypeCode.Decimal,
+        TypeCode.Double,
+        TypeCode.Single,
+    ];
+
     /// <inheritdoc/>
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
@@ -34,19 +51,12 @@ public sealed class NumberFormatConverter : IValueConverter
             ? result
             : ConversionHelpers.DoNothing;
 
+    /// <summary>Determines whether a type is a supported numeric type.</summary>
+    /// <param name="type">The type to inspect.</param>
+    /// <returns><see langword="true"/> for a supported numeric type; otherwise, <see langword="false"/>.</returns>
     private static bool IsNumericType(Type type)
     {
         type = Nullable.GetUnderlyingType(type) ?? type;
-        return Type.GetTypeCode(type) is TypeCode.Byte
-            or TypeCode.SByte
-            or TypeCode.UInt16
-            or TypeCode.UInt32
-            or TypeCode.UInt64
-            or TypeCode.Int16
-            or TypeCode.Int32
-            or TypeCode.Int64
-            or TypeCode.Decimal
-            or TypeCode.Double
-            or TypeCode.Single;
+        return NumericTypeCodes.Contains(Type.GetTypeCode(type));
     }
 }

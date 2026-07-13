@@ -1,5 +1,6 @@
-﻿// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Windows;
 using System.Windows.Markup;
@@ -9,20 +10,16 @@ using System.Windows.Markup;
 
 namespace CP.Xaml.Converters;
 
-/// <summary>
-/// Converters Dictionary.
-/// </summary>
+/// <summary>Converters Dictionary.</summary>
 /// <seealso cref="ResourceDictionary" />
 [Localizability(LocalizationCategory.Ignore)]
 [Ambient]
 [UsableDuringInitialization(true)]
 public class ConvertersDictionary : ResourceDictionary
 {
+    /// <summary>The pack URI of the shared converter resource dictionary.</summary>
     private const string DictionaryUri = "pack://application:,,,/CP.Xaml.Converters;component/Resources/Converters.xaml";
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ConvertersDictionary"/> class.
-    /// Default constructor defining <see cref="ResourceDictionary.Source"/> of the <c>XamlConverters</c> Converters dictionary.
-    /// </summary>
-    public ConvertersDictionary() => Source = new Uri(DictionaryUri, UriKind.Absolute);
+    /// <summary>Initializes a new instance of the <see cref="ConvertersDictionary"/> class. Default constructor defining <see cref="ResourceDictionary.Source"/> of the <c>XamlConverters</c> Converters dictionary.</summary>
+    public ConvertersDictionary() => Source = new(DictionaryUri, UriKind.Absolute);
 }

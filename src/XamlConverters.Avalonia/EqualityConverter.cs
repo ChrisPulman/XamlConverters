@@ -1,9 +1,8 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
-using System.ComponentModel;
 using System.Globalization;
-using System.Text.RegularExpressions;
 using Avalonia.Data.Converters;
 using CP.Xaml.Converters.Avalonia.Internal;
 
@@ -22,7 +21,7 @@ public sealed class EqualityConverter : IValueConverter
 
         var text = parameter?.ToString() ?? string.Empty;
         var invert = text.StartsWith("!", StringComparison.Ordinal);
-        var candidate = invert ? text.Substring(1) : parameter;
+        var candidate = invert ? text[1..] : parameter;
         var result = ConversionHelpers.TryConvert(candidate, value.GetType(), culture, out var converted)
             ? Equals(value, converted)
             : string.Equals(value.ToString(), candidate?.ToString(), StringComparison.OrdinalIgnoreCase);

@@ -1,5 +1,6 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Collections;
 using System.Globalization;
@@ -7,14 +8,10 @@ using System.Windows.Data;
 
 namespace CP.Xaml.Converters;
 
-/// <summary>
-/// Selects an item from a dictionary by key or from another enumerable by zero-based index.
-/// </summary>
+/// <summary>Selects an item from a dictionary by key or from another enumerable by zero-based index.</summary>
 public sealed class CollectionItemConverter : IValueConverter
 {
-    /// <summary>
-    /// Selects the requested collection item.
-    /// </summary>
+    /// <summary>Selects the requested collection item.</summary>
     /// <param name="value">A dictionary or enumerable source.</param>
     /// <param name="targetType">The binding target type.</param>
     /// <param name="parameter">A dictionary key or zero-based integer index.</param>
@@ -24,7 +21,7 @@ public sealed class CollectionItemConverter : IValueConverter
     {
         if (value is IDictionary dictionary)
         {
-            return parameter != null && dictionary.Contains(parameter)
+            return parameter is not null && dictionary.Contains(parameter)
                 ? dictionary[parameter]
                 : Binding.DoNothing;
         }
@@ -41,32 +38,32 @@ public sealed class CollectionItemConverter : IValueConverter
             return index < list.Count ? list[index] : Binding.DoNothing;
         }
 
-        if (value is not IEnumerable enumerable)
-        {
-            return Binding.DoNothing;
-        }
-
-        var currentIndex = 0;
-        foreach (var item in enumerable)
-        {
-            if (currentIndex == index)
-            {
-                return item;
-            }
-
-            currentIndex++;
-        }
-
-        return Binding.DoNothing;
+        return value is not IEnumerable enumerable ? Binding.DoNothing : GetItem(enumerable, index);
     }
 
-    /// <summary>
-    /// Reverse conversion is not supported.
-    /// </summary>
+    /// <summary>Reverse conversion is not supported.</summary>
     /// <param name="value">The target value.</param>
     /// <param name="targetType">The binding source type.</param>
     /// <param name="parameter">The converter parameter.</param>
     /// <param name="culture">The culture used by the binding.</param>
     /// <returns><see cref="Binding.DoNothing"/>.</returns>
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => Binding.DoNothing;
+
+    /// <summary>Gets an item from an enumerable by index.</summary>
+    /// <param name="enumerable">The enumerable source.</param>
+    /// <param name="index">The zero-based index.</param>
+    /// <returns>The selected item, or <see cref="Binding.DoNothing"/> when the index is unavailable.</returns>
+    private static object? GetItem(IEnumerable enumerable, int index)
+    {
+        var currentIndex = 0;
+        foreach (var item in enumerable)
+        {
+            if (currentIndex++ == index)
+            {
+                return item;
+            }
+        }
+
+        return Binding.DoNothing;
+    }
 }

@@ -1,8 +1,8 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Globalization;
-using System.Text.RegularExpressions;
 using Avalonia.Data.Converters;
 using CP.Xaml.Converters.Avalonia.Internal;
 
@@ -21,6 +21,11 @@ public sealed class IsGreaterThanOrEqualToConverter : IValueConverter, IMultiVal
     /// <inheritdoc/>
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
 
+    /// <summary>Compares two numeric values.</summary>
+    /// <param name="left">The left operand.</param>
+    /// <param name="right">The right operand.</param>
+    /// <param name="culture">The conversion culture.</param>
+    /// <returns><see langword="true"/> when the left operand is greater than or equal to the right operand.</returns>
     private static bool Compare(object? left, object? right, CultureInfo culture) =>
         ConversionHelpers.TryDecimal(left, culture, out var first) && ConversionHelpers.TryDecimal(right, culture, out var second) && first >= second;
 }

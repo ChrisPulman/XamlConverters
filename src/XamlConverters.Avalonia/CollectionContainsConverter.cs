@@ -1,5 +1,6 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Collections;
 using System.Globalization;
@@ -29,11 +30,7 @@ public sealed class CollectionContainsConverter : IValueConverter
 
         foreach (var item in enumerable)
         {
-            if (Equals(item, parameter)
-                || (item is not null
-                    && parameter is not null
-                    && ConversionHelpers.TryConvert(parameter, item.GetType(), culture, out var converted)
-                    && Equals(item, converted)))
+            if (ItemsEqual(item, parameter, culture))
             {
                 return true;
             }
@@ -44,4 +41,16 @@ public sealed class CollectionContainsConverter : IValueConverter
 
     /// <inheritdoc/>
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+
+    /// <summary>Determines whether a collection item equals the requested value directly or after conversion.</summary>
+    /// <param name="item">The collection item.</param>
+    /// <param name="requestedValue">The requested value.</param>
+    /// <param name="culture">The conversion culture.</param>
+    /// <returns><see langword="true"/> when the values are equal; otherwise, <see langword="false"/>.</returns>
+    private static bool ItemsEqual(object? item, object? requestedValue, CultureInfo culture) =>
+        Equals(item, requestedValue)
+        || (item is not null
+            && requestedValue is not null
+            && ConversionHelpers.TryConvert(requestedValue, item.GetType(), culture, out var converted)
+            && Equals(item, converted));
 }

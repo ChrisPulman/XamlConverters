@@ -1,16 +1,13 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 namespace CP.Xaml.Converters.Tests;
 
-/// <summary>
-/// BoolToVisibilityConverterTests.
-/// </summary>
+/// <summary>Tests Boolean-to-visibility conversion.</summary>
 public class BoolToVisibilityConverterTests
 {
-    /// <summary>
-    /// Convertses the bool to visibility.
-    /// </summary>
+    /// <summary>Convertses the bool to visibility.</summary>
     /// <param name="input">if set to <c>true</c> [input].</param>
     /// <param name="expected">The expected.</param>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
@@ -24,9 +21,7 @@ public class BoolToVisibilityConverterTests
         await Assert.That(result).IsEqualTo(expected);
     }
 
-    /// <summary>
-    /// Convertses the bool to visibility inverted.
-    /// </summary>
+    /// <summary>Convertses the bool to visibility inverted.</summary>
     /// <param name="input">if set to <c>true</c> [input].</param>
     /// <param name="expected">The expected.</param>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>

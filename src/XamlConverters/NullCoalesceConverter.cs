@@ -1,19 +1,16 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Globalization;
 using System.Windows.Data;
 
 namespace CP.Xaml.Converters;
 
-/// <summary>
-/// Returns the bound value unless it is null/empty (string) in which case returns the parameter.
-/// </summary>
+/// <summary>Returns the bound value unless it is null/empty (string) in which case returns the parameter.</summary>
 public sealed class NullCoalesceConverter : IValueConverter
 {
-    /// <summary>
-    /// Provides fallback for null or empty values.
-    /// </summary>
+    /// <summary>Provides fallback for null or empty values.</summary>
     /// <param name="value">The bound value.</param>
     /// <param name="targetType">Target type.</param>
     /// <param name="parameter">Fallback value.</param>
@@ -23,20 +20,13 @@ public sealed class NullCoalesceConverter : IValueConverter
     {
         if (value is string s)
         {
-            if (string.IsNullOrEmpty(s))
-            {
-                return parameter ?? string.Empty;
-            }
-
-            return s;
+            return string.IsNullOrEmpty(s) ? parameter ?? string.Empty : s;
         }
 
         return value ?? parameter ?? string.Empty;
     }
 
-    /// <summary>
-    /// Convert back not supported.
-    /// </summary>
+    /// <summary>Convert back not supported.</summary>
     /// <param name="value">Ignored.</param>
     /// <param name="targetType">The type to convert to.</param>
     /// <param name="parameter">The converter parameter to use.</param>

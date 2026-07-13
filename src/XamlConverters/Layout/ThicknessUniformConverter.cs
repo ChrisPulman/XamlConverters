@@ -1,5 +1,6 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Globalization;
 using System.Windows;
@@ -13,9 +14,7 @@ namespace CP.Xaml.Converters;
 /// </summary>
 public sealed class ThicknessUniformConverter : IValueConverter
 {
-    /// <summary>
-    /// Creates thickness from a numeric value and parameter tokens.
-    /// </summary>
+    /// <summary>Creates thickness from a numeric value and parameter tokens.</summary>
     /// <param name="value">Numeric value.</param>
     /// <param name="targetType">Target type.</param>
     /// <param name="parameter">Tokens controlling sides.</param>
@@ -24,7 +23,7 @@ public sealed class ThicknessUniformConverter : IValueConverter
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         var d = System.Convert.ToDouble(value, culture);
-        if (parameter == null)
+        if (parameter is null)
         {
             return new Thickness(d);
         }
@@ -71,9 +70,7 @@ public sealed class ThicknessUniformConverter : IValueConverter
         return t;
     }
 
-    /// <summary>
-    /// Convert back is not supported for this converter.
-    /// </summary>
+    /// <summary>Convert back is not supported for this converter.</summary>
     /// <param name="value">The value produced by the binding target (unused).</param>
     /// <param name="targetType">The type to convert to (unused).</param>
     /// <param name="parameter">The converter parameter to use (unused).</param>

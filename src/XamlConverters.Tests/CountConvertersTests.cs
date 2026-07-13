@@ -1,28 +1,23 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 namespace CP.Xaml.Converters.Tests;
 
-/// <summary>
-/// CountConvertersTests.
-/// </summary>
+/// <summary>Tests collection count converters.</summary>
 public class CountConvertersTests
 {
-    /// <summary>
-    /// Counts to boolean greater than zero.
-    /// </summary>
+    /// <summary>Counts to boolean greater than zero.</summary>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     [Test]
     public async Task CountToBoolean_GreaterThanZero()
     {
         var c = new CountToBooleanConverter();
-        var result = c.Convert(new List<int> { 1, 2 }, typeof(bool), ">0", System.Globalization.CultureInfo.InvariantCulture);
+        var result = c.Convert(new List<int> { 1, TestValues.SecondByte }, typeof(bool), ">0", System.Globalization.CultureInfo.InvariantCulture);
         await Assert.That((bool)result).IsTrue();
     }
 
-    /// <summary>
-    /// Counts to visibility equals zero collapsed.
-    /// </summary>
+    /// <summary>Counts to visibility equals zero collapsed.</summary>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     [Test]
     public async Task CountToVisibility_EqualsZeroCollapsed()

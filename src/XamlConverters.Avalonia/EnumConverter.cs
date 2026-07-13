@@ -1,9 +1,8 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
-using System.ComponentModel;
 using System.Globalization;
-using System.Text.RegularExpressions;
 using Avalonia.Data.Converters;
 using CP.Xaml.Converters.Avalonia.Internal;
 
@@ -16,7 +15,7 @@ public sealed class EnumConverter : IValueConverter
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         ArgumentNullException.ThrowIfNull(targetType);
-        var enumType = parameter as Type ?? targetType;
+        var enumType = (parameter as Type) ?? targetType;
         return enumType.IsEnum && ConversionHelpers.TryConvert(value, enumType, culture, out var result)
             ? result
             : ConversionHelpers.UnsetValue;

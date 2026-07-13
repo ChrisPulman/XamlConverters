@@ -1,21 +1,19 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Globalization;
 using System.Windows.Media;
 
 namespace CP.Xaml.Converters.Tests;
 
-/// <summary>
-/// Tests WPF color and brush conversions.
-/// </summary>
+/// <summary>Tests WPF color and brush conversions.</summary>
 public class ColorConverterTests
 {
+    /// <summary>The invariant culture used by converter tests.</summary>
     private static readonly CultureInfo InvariantCulture = CultureInfo.InvariantCulture;
 
-    /// <summary>
-    /// Converts hexadecimal RGB strings to colors and back.
-    /// </summary>
+    /// <summary>Converts hexadecimal RGB strings to colors and back.</summary>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     [Test]
     public async Task ConvertsHexStringsToColorsAndBack()
@@ -28,9 +26,7 @@ public class ColorConverterTests
         await Assert.That(text).IsEqualTo("123456");
     }
 
-    /// <summary>
-    /// Converts hexadecimal RGB strings to solid brushes and back.
-    /// </summary>
+    /// <summary>Converts hexadecimal RGB strings to solid brushes and back.</summary>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     [Test]
     public async Task ConvertsHexStringsToBrushesAndBack()
@@ -43,9 +39,7 @@ public class ColorConverterTests
         await Assert.That(text).IsEqualTo("ABCDEF");
     }
 
-    /// <summary>
-    /// Converts solid brushes to colors.
-    /// </summary>
+    /// <summary>Converts solid brushes to colors.</summary>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     [Test]
     public async Task ConvertsSolidBrushesToColors()
@@ -56,9 +50,7 @@ public class ColorConverterTests
         await Assert.That(color).IsEqualTo(Colors.CornflowerBlue);
     }
 
-    /// <summary>
-    /// Converts RGB strings to brushes and colors back to values.
-    /// </summary>
+    /// <summary>Converts RGB strings to brushes and colors back to values.</summary>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     [Test]
     public async Task ConvertsColorValuesAndBrushesInBothDirections()

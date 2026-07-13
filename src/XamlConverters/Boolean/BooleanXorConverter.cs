@@ -1,5 +1,6 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Globalization;
 using System.Windows;
@@ -7,11 +8,12 @@ using System.Windows.Data;
 
 namespace CP.Xaml.Converters;
 
-/// <summary>
-/// Multi-binding XOR converter: true if an odd number of inputs are true.
-/// </summary>
+/// <summary>Multi-binding XOR converter: true if an odd number of inputs are true.</summary>
 public sealed class BooleanXorConverter : IMultiValueConverter
 {
+    /// <summary>The divisor used to determine odd parity.</summary>
+    private const int ParityDivisor = 2;
+
     /// <summary>
     /// Converts source values to a value for the binding target. The data binding engine calls this method when it propagates the values from source bindings to the binding target.
     /// </summary>
@@ -24,7 +26,7 @@ public sealed class BooleanXorConverter : IMultiValueConverter
     /// </returns>
     public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
     {
-        if (values == null)
+        if (values is null)
         {
             throw new ArgumentNullException(nameof(values));
         }
@@ -43,12 +45,10 @@ public sealed class BooleanXorConverter : IMultiValueConverter
             }
         }
 
-        return (count % 2) == 1;
+        return (count % ParityDivisor) == 1;
     }
 
-    /// <summary>
-    /// Converts a binding target value to the source binding values.
-    /// </summary>
+    /// <summary>Converts a binding target value to the source binding values.</summary>
     /// <param name="value">The value that the binding target produces.</param>
     /// <param name="targetTypes">The array of types to convert to. The array length indicates the number and types of values that are suggested for the method to return.</param>
     /// <param name="parameter">The converter parameter to use.</param>

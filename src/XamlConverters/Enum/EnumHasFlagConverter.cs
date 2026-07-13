@@ -1,19 +1,16 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Globalization;
 using System.Windows.Data;
 
 namespace CP.Xaml.Converters;
 
-/// <summary>
-/// Determines whether a flags enum contains the flag supplied as the converter parameter.
-/// </summary>
+/// <summary>Determines whether a flags enum contains the flag supplied as the converter parameter.</summary>
 public sealed class EnumHasFlagConverter : IValueConverter
 {
-    /// <summary>
-    /// Tests an enum value for the requested flag or composite flags value.
-    /// </summary>
+    /// <summary>Tests an enum value for the requested flag or composite flags value.</summary>
     /// <param name="value">The source enum value.</param>
     /// <param name="targetType">The binding target type.</param>
     /// <param name="parameter">The flag value or its member name.</param>
@@ -33,9 +30,7 @@ public sealed class EnumHasFlagConverter : IValueConverter
         return (valueBits & flagBits) == flagBits;
     }
 
-    /// <summary>
-    /// Reverse conversion is not supported because removing a flag requires the complete current source value.
-    /// </summary>
+    /// <summary>Reverse conversion is not supported because removing a flag requires the complete current source value.</summary>
     /// <param name="value">The target value.</param>
     /// <param name="targetType">The binding source type.</param>
     /// <param name="parameter">The converter parameter.</param>
@@ -43,6 +38,9 @@ public sealed class EnumHasFlagConverter : IValueConverter
     /// <returns><see cref="Binding.DoNothing"/>.</returns>
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => Binding.DoNothing;
 
+    /// <summary>Converts an enum value to its unsigned bit representation.</summary>
+    /// <param name="value">The enum value.</param>
+    /// <returns>The unsigned bit representation.</returns>
     private static ulong ToUInt64(Enum value)
     {
         try

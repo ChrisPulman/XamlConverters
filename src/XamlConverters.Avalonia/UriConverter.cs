@@ -1,5 +1,6 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Globalization;
 using Avalonia.Data.Converters;
@@ -16,6 +17,11 @@ public sealed class UriConverter : IValueConverter
     /// <inheritdoc/>
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConvertCore(value, targetType, parameter);
 
+    /// <summary>Converts between URI values and text.</summary>
+    /// <param name="value">The source value.</param>
+    /// <param name="targetType">The requested target type.</param>
+    /// <param name="parameter">The requested <see cref="UriKind"/>.</param>
+    /// <returns>The converted value or an Avalonia binding sentinel.</returns>
     private static object ConvertCore(object? value, Type targetType, object? parameter)
     {
         if (value is Uri uri)
@@ -38,6 +44,9 @@ public sealed class UriConverter : IValueConverter
             : ConversionHelpers.DoNothing;
     }
 
+    /// <summary>Gets the requested URI kind from a converter parameter.</summary>
+    /// <param name="parameter">The converter parameter.</param>
+    /// <returns>The requested URI kind, or <see cref="UriKind.RelativeOrAbsolute"/> by default.</returns>
     private static UriKind GetUriKind(object? parameter)
     {
         if (parameter is UriKind uriKind)

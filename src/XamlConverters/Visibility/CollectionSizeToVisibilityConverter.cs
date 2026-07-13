@@ -1,19 +1,16 @@
-﻿// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Globalization;
 using System.Windows;
 
 namespace CP.Xaml.Converters;
 
-/// <summary>
-/// Collection Size To Visibility Converter.
-/// </summary>
+/// <summary>Collection Size To Visibility Converter.</summary>
 public class CollectionSizeToVisibilityConverter : CollectionSizeToBoolConverter
 {
-    /// <summary>
-    /// Converts a value.
-    /// </summary>
+    /// <summary>Converts a value.</summary>
     /// <param name="value">The value produced by the binding source.</param>
     /// <param name="targetType">The type of the binding target property.</param>
     /// <param name="parameter">The converter parameter to use.</param>

@@ -1,20 +1,15 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
-using System.Globalization;
 using Avalonia.Controls;
-using Avalonia.Data.Converters;
-using Avalonia.Metadata;
-using CP.Xaml.Converters.Avalonia.Internal;
 
 namespace CP.Xaml.Converters.Avalonia;
 
 /// <summary>A ready-to-merge Avalonia resource dictionary containing common converter instances.</summary>
 public sealed class ConvertersDictionary : ResourceDictionary
 {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ConvertersDictionary"/> class.
-    /// </summary>
+    /// <summary>Initializes a new instance of the <see cref="ConvertersDictionary"/> class.</summary>
     public ConvertersDictionary()
     {
         Add("Not", ConvertersRegistry.Not);

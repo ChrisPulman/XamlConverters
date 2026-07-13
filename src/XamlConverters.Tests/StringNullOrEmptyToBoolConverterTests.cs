@@ -1,16 +1,13 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 namespace CP.Xaml.Converters.Tests;
 
-/// <summary>
-/// StringNullOrEmptyToBoolConverterTests.
-/// </summary>
+/// <summary>Tests null-or-empty string conversion.</summary>
 public class StringNullOrEmptyToBoolConverterTests
 {
-    /// <summary>
-    /// Detectses the null or empty.
-    /// </summary>
+    /// <summary>Detectses the null or empty.</summary>
     /// <param name="input">The input.</param>
     /// <param name="expected">if set to <c>true</c> [expected].</param>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
@@ -25,9 +22,7 @@ public class StringNullOrEmptyToBoolConverterTests
         await Assert.That(result).IsEqualTo(expected);
     }
 
-    /// <summary>
-    /// Invertses the specified input.
-    /// </summary>
+    /// <summary>Invertses the specified input.</summary>
     /// <param name="input">The input.</param>
     /// <param name="expected">if set to <c>true</c> [expected].</param>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>

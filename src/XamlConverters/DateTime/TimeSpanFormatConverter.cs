@@ -1,19 +1,16 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Globalization;
 using System.Windows.Data;
 
 namespace CP.Xaml.Converters;
 
-/// <summary>
-/// Formats and parses <see cref="TimeSpan"/> values.
-/// </summary>
+/// <summary>Formats and parses <see cref="TimeSpan"/> values.</summary>
 public sealed class TimeSpanFormatConverter : IValueConverter
 {
-    /// <summary>
-    /// Formats a duration using the optional converter parameter as its format string.
-    /// </summary>
+    /// <summary>Formats a duration using the optional converter parameter as its format string.</summary>
     /// <param name="value">The duration to format.</param>
     /// <param name="targetType">The binding target type.</param>
     /// <param name="parameter">An optional standard or custom <see cref="TimeSpan"/> format.</param>
@@ -36,9 +33,7 @@ public sealed class TimeSpanFormatConverter : IValueConverter
         }
     }
 
-    /// <summary>
-    /// Parses duration text back to <see cref="TimeSpan"/>.
-    /// </summary>
+    /// <summary>Parses duration text back to <see cref="TimeSpan"/>.</summary>
     /// <param name="value">The target text.</param>
     /// <param name="targetType">The binding source type.</param>
     /// <param name="parameter">An optional exact <see cref="TimeSpan"/> format.</param>
@@ -49,7 +44,7 @@ public sealed class TimeSpanFormatConverter : IValueConverter
         var text = value as string;
         if (string.IsNullOrWhiteSpace(text))
         {
-            return Nullable.GetUnderlyingType(targetType) != null ? null! : Binding.DoNothing;
+            return Nullable.GetUnderlyingType(targetType) is not null ? null! : Binding.DoNothing;
         }
 
         var format = parameter as string;

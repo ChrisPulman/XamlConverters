@@ -1,8 +1,8 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Globalization;
-using System.Text.RegularExpressions;
 using Avalonia.Data.Converters;
 using CP.Xaml.Converters.Avalonia.Internal;
 
@@ -11,6 +11,9 @@ namespace CP.Xaml.Converters.Avalonia;
 /// <summary>Multiplies a numeric value by a factor or percentage parameter.</summary>
 public sealed class PercentageConverter : IValueConverter
 {
+    /// <summary>The divisor used to convert a percentage to a factor.</summary>
+    private const decimal PercentageDivisor = 100m;
+
     /// <inheritdoc/>
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
@@ -31,7 +34,7 @@ public sealed class PercentageConverter : IValueConverter
             return ConversionHelpers.UnsetValue;
         }
 
-        return ConversionHelpers.ConvertDecimal(number * (percentage ? factor / 100m : factor), targetType, culture);
+        return ConversionHelpers.ConvertDecimal(number * (percentage ? factor / PercentageDivisor : factor), targetType, culture);
     }
 
     /// <inheritdoc/>

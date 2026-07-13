@@ -1,5 +1,6 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Collections;
 using System.Globalization;
@@ -7,14 +8,10 @@ using System.Windows.Data;
 
 namespace CP.Xaml.Converters;
 
-/// <summary>
-/// Determines whether an enumerable or string contains the value supplied as the converter parameter.
-/// </summary>
+/// <summary>Determines whether an enumerable or string contains the value supplied as the converter parameter.</summary>
 public sealed class CollectionContainsConverter : IValueConverter
 {
-    /// <summary>
-    /// Searches the source collection for the requested value.
-    /// </summary>
+    /// <summary>Searches the source collection for the requested value.</summary>
     /// <param name="value">The source enumerable or string.</param>
     /// <param name="targetType">The binding target type.</param>
     /// <param name="parameter">The item or substring to find.</param>
@@ -22,7 +19,7 @@ public sealed class CollectionContainsConverter : IValueConverter
     /// <returns><see langword="true"/> when the source contains the requested value.</returns>
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (culture == null)
+        if (culture is null)
         {
             throw new ArgumentNullException(nameof(culture));
         }
@@ -30,7 +27,7 @@ public sealed class CollectionContainsConverter : IValueConverter
         if (value is string text)
         {
             var searchText = parameter?.ToString();
-            return searchText != null
+            return searchText is not null
                 && culture.CompareInfo.IndexOf(text, searchText, CompareOptions.None) >= 0;
         }
 
@@ -41,15 +38,7 @@ public sealed class CollectionContainsConverter : IValueConverter
 
         foreach (var item in enumerable)
         {
-            if (Equals(item, parameter))
-            {
-                return true;
-            }
-
-            if (item != null
-                && parameter != null
-                && BclConversion.TryChangeType(parameter, item.GetType(), culture, out var converted)
-                && Equals(item, converted))
+            if (ItemsEqual(item, parameter, culture))
             {
                 return true;
             }
@@ -58,13 +47,23 @@ public sealed class CollectionContainsConverter : IValueConverter
         return false;
     }
 
-    /// <summary>
-    /// Reverse conversion is not supported.
-    /// </summary>
+    /// <summary>Reverse conversion is not supported.</summary>
     /// <param name="value">The target value.</param>
     /// <param name="targetType">The binding source type.</param>
     /// <param name="parameter">The converter parameter.</param>
     /// <param name="culture">The culture used by the binding.</param>
     /// <returns><see cref="Binding.DoNothing"/>.</returns>
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => Binding.DoNothing;
+
+    /// <summary>Determines whether a collection item equals the requested value directly or after conversion.</summary>
+    /// <param name="item">The collection item.</param>
+    /// <param name="requestedValue">The requested value.</param>
+    /// <param name="culture">The conversion culture.</param>
+    /// <returns><see langword="true"/> when the values are equal; otherwise, <see langword="false"/>.</returns>
+    private static bool ItemsEqual(object? item, object? requestedValue, CultureInfo culture) =>
+        Equals(item, requestedValue)
+        || (item is not null
+            && requestedValue is not null
+            && BclConversion.TryChangeType(requestedValue, item.GetType(), culture, out var converted)
+            && Equals(item, converted));
 }

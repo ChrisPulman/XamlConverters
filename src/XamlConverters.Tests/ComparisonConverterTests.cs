@@ -1,16 +1,13 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 namespace CP.Xaml.Converters.Tests;
 
-/// <summary>
-/// ComparisonConverterTests.
-/// </summary>
+/// <summary>Tests comparison converter behavior.</summary>
 public class ComparisonConverterTests
 {
-    /// <summary>
-    /// Compareses the values.
-    /// </summary>
+    /// <summary>Compareses the values.</summary>
     /// <param name="value">The value.</param>
     /// <param name="param">The parameter.</param>
     /// <param name="expected">if set to <c>true</c> [expected].</param>

@@ -1,5 +1,6 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Globalization;
 using System.Windows;
@@ -13,9 +14,7 @@ namespace CP.Xaml.Converters;
 /// </summary>
 public sealed class BoolToVisibilityAdvancedConverter : IValueConverter
 {
-    /// <summary>
-    /// Converts a value.
-    /// </summary>
+    /// <summary>Converts a value.</summary>
     /// <param name="value">The value produced by the binding source.</param>
     /// <param name="targetType">The type of the binding target property.</param>
     /// <param name="parameter">The converter parameter to use.</param>
@@ -42,9 +41,7 @@ public sealed class BoolToVisibilityAdvancedConverter : IValueConverter
         return useHidden ? Visibility.Hidden : Visibility.Collapsed;
     }
 
-    /// <summary>
-    /// Converts a value.
-    /// </summary>
+    /// <summary>Converts a value.</summary>
     /// <param name="value">The value that is produced by the binding target.</param>
     /// <param name="targetType">The type to convert to.</param>
     /// <param name="parameter">The converter parameter to use.</param>
@@ -54,14 +51,14 @@ public sealed class BoolToVisibilityAdvancedConverter : IValueConverter
     /// </returns>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (value is Visibility v)
+        if (value is not Visibility v)
         {
-            var parm = parameter?.ToString() ?? string.Empty;
-            var invert = parm.Contains('!');
-            var isVisible = v == Visibility.Visible;
-            return invert ? !isVisible : isVisible;
+            return false;
         }
 
-        return false;
+        var parm = parameter?.ToString() ?? string.Empty;
+        var invert = parm.Contains('!');
+        var isVisible = v == Visibility.Visible;
+        return invert ? !isVisible : isVisible;
     }
 }

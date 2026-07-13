@@ -1,5 +1,6 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.ComponentModel;
 using System.Globalization;
@@ -11,6 +12,7 @@ namespace CP.Xaml.Converters.Avalonia;
 /// <summary>Converts enum members to and from their <see cref="DescriptionAttribute.Description"/> text.</summary>
 public sealed class EnumDescriptionConverter : IValueConverter
 {
+    /// <summary>The converter used for enum-to-description conversion.</summary>
     private readonly EnumToDescriptionConverter _forwardConverter = new();
 
     /// <inheritdoc/>
@@ -24,7 +26,7 @@ public sealed class EnumDescriptionConverter : IValueConverter
     {
         ArgumentNullException.ThrowIfNull(targetType);
 
-        var enumType = parameter as Type ?? Nullable.GetUnderlyingType(targetType) ?? targetType;
+        var enumType = (parameter as Type) ?? Nullable.GetUnderlyingType(targetType) ?? targetType;
         if (!enumType.IsEnum || value is null)
         {
             return ConversionHelpers.DoNothing;

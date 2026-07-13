@@ -1,5 +1,6 @@
-// Copyright (c) Chris Pulman. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) 2022-2026 Chris Pulman. All rights reserved.
+// Chris Pulman licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
 
 using System.Collections;
 using System.Globalization;
@@ -9,6 +10,7 @@ namespace CP.Xaml.Converters.Avalonia.Tests;
 /// <summary>Tests common Avalonia converter behavior and WPF feature parity.</summary>
 public class CommonConverterTests
 {
+    /// <summary>The invariant culture used by converter tests.</summary>
     private static readonly CultureInfo InvariantCulture = CultureInfo.InvariantCulture;
 
     /// <summary>Converts common BCL values in both directions.</summary>
@@ -19,9 +21,9 @@ public class CommonConverterTests
         var converter = new ChangeTypeConverter();
 
         var integer = converter.Convert("42", typeof(int), null, InvariantCulture);
-        var text = converter.ConvertBack(42, typeof(string), null, InvariantCulture);
+        var text = converter.ConvertBack(TestValues.Answer, typeof(string), null, InvariantCulture);
 
-        await Assert.That(integer).IsEqualTo(42);
+        await Assert.That(integer).IsEqualTo(TestValues.Answer);
         await Assert.That(text).IsEqualTo("42");
     }
 
@@ -36,14 +38,14 @@ public class CommonConverterTests
 
         var guidText = guidConverter.Convert(guid, typeof(string), "N", InvariantCulture);
         var parsedGuid = guidConverter.ConvertBack(guidText, typeof(Guid), null, InvariantCulture);
-        var encoded = base64Converter.Convert(new byte[] { 1, 2, 3 }, typeof(string), null, InvariantCulture);
+        var encoded = base64Converter.Convert(new byte[] { 1, TestValues.SecondByte, TestValues.ThirdByte }, typeof(string), null, InvariantCulture);
         var decoded = (byte[])base64Converter.ConvertBack(encoded, typeof(byte[]), null, InvariantCulture);
 
         await Assert.That(guidText).IsEqualTo("a75dd9c5b47d4bf7b547946da756f6d7");
         await Assert.That(parsedGuid).IsEqualTo(guid);
         await Assert.That(encoded).IsEqualTo("AQID");
-        await Assert.That(decoded.Length).IsEqualTo(3);
-        await Assert.That(decoded[2]).IsEqualTo((byte)3);
+        await Assert.That(decoded.Length).IsEqualTo(TestValues.SampleValueCount);
+        await Assert.That(decoded[TestValues.ThirdByteIndex]).IsEqualTo(TestValues.ThirdByte);
     }
 
     /// <summary>Selects, searches, and joins collection values.</summary>
@@ -51,15 +53,15 @@ public class CommonConverterTests
     [Test]
     public async Task ConvertsCollectionValues()
     {
-        var values = new[] { 10, 20, 30 };
+        var values = new[] { TestValues.FirstSampleValue, TestValues.SecondSampleValue, TestValues.ThirdSampleValue };
         var contains = new CollectionContainsConverter().Convert(values, typeof(bool), "20", InvariantCulture);
         var item = new CollectionItemConverter().Convert(values, typeof(int), "1", InvariantCulture);
-        var first = new CollectionFirstOrDefaultConverter().Convert(Array.Empty<int>(), typeof(int), 99, InvariantCulture);
+        var first = new CollectionFirstOrDefaultConverter().Convert(Array.Empty<int>(), typeof(int), TestValues.MissingSampleValue, InvariantCulture);
         var joined = new EnumerableToStringConverter().Convert(values, typeof(string), "|", InvariantCulture);
 
         await Assert.That((bool)contains).IsTrue();
-        await Assert.That(item).IsEqualTo(20);
-        await Assert.That(first).IsEqualTo(99);
+        await Assert.That(item).IsEqualTo(TestValues.SecondSampleValue);
+        await Assert.That(first).IsEqualTo(TestValues.MissingSampleValue);
         await Assert.That(joined).IsEqualTo("10|20|30");
     }
 
@@ -80,7 +82,7 @@ public class CommonConverterTests
         await Assert.That(text).IsEqualTo("Can read");
         await Assert.That(enumValue).IsEqualTo(SampleFlags.Read);
         await Assert.That((bool)hasFlag).IsTrue();
-        await Assert.That(enumValues.Length).IsEqualTo(3);
+        await Assert.That(enumValues.Length).IsEqualTo(TestValues.SampleValueCount);
     }
 
     /// <summary>Publishes common converters through the Avalonia resource dictionary.</summary>
