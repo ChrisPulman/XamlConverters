@@ -12,8 +12,16 @@ namespace CP.Xaml.Converters.Avalonia;
 public sealed class ToLowerConverter : IValueConverter
 {
     /// <inheritdoc/>
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture) => value?.ToString()?.ToLower(culture);
+    public object? Convert(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => value?.ToString()?.ToLower(culture);
 
     /// <inheritdoc/>
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object? ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 }

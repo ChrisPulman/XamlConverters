@@ -14,8 +14,13 @@ public sealed class EnumHasFlagConverter : IValueConverter
     /// <inheritdoc/>
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (value is not Enum enumValue
-            || !ConversionHelpers.TryConvert(parameter, enumValue.GetType(), culture, out var convertedFlag)
+        if (
+            value is not Enum enumValue
+            || !ConversionHelpers.TryConvert(
+                parameter,
+                enumValue.GetType(),
+                culture,
+                out var convertedFlag)
             || convertedFlag is not Enum flag)
         {
             return false;
@@ -27,7 +32,11 @@ public sealed class EnumHasFlagConverter : IValueConverter
     }
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 
     /// <summary>Converts an enum value to its unsigned bit representation.</summary>
     /// <param name="value">The enum value.</param>

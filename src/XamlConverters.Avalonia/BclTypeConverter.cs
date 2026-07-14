@@ -12,10 +12,22 @@ namespace CP.Xaml.Converters.Avalonia;
 public sealed class BclTypeConverter : IValueConverter
 {
     /// <inheritdoc/>
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
-        ConversionHelpers.TryConvert(value, targetType, culture, out var result) ? result : ConversionHelpers.UnsetValue;
+    public object? Convert(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) =>
+        ConversionHelpers.TryConvert(value, targetType, culture, out var result)
+            ? result
+            : ConversionHelpers.UnsetValue;
 
     /// <inheritdoc/>
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
-        ConversionHelpers.TryConvert(value, targetType, culture, out var result) ? result : ConversionHelpers.UnsetValue;
+    public object? ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) =>
+        ConversionHelpers.TryConvert(value, targetType, culture, out var result)
+            ? result
+            : ConversionHelpers.UnsetValue;
 }

@@ -21,10 +21,18 @@ public sealed class EnumToDescriptionConverter : IValueConverter
         }
 
         var member = enumValue.GetType().GetMember(enumValue.ToString()).FirstOrDefault();
-        return member?.GetCustomAttributes(typeof(DescriptionAttribute), false).OfType<DescriptionAttribute>().FirstOrDefault()?.Description
+        return member
+                ?.GetCustomAttributes(typeof(DescriptionAttribute), false)
+                .OfType<DescriptionAttribute>()
+                .FirstOrDefault()
+                ?.Description
             ?? enumValue.ToString();
     }
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 }

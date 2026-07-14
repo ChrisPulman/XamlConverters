@@ -40,7 +40,8 @@ public class MathConverter : MarkupExtension, IMultiValueConverter, IValueConver
     /// <param name="parameter">The converter parameter to use.</param>
     /// <param name="culture">The culture to use in the converter.</param>
     /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => CallOtherConvert((object[])value, targetType, parameter, culture);
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) =>
+        CallOtherConvert((object[])value, targetType, parameter, culture);
 
     /// <summary>
     /// Converts source values to a value for the binding target. The data binding engine calls
@@ -89,7 +90,11 @@ public class MathConverter : MarkupExtension, IMultiValueConverter, IValueConver
     /// <param name="culture">The culture to use in the converter.</param>
     /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
     /// <exception cref="NotImplementedException">Not Implemented Exception.</exception>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Binding.DoNothing;
+    public object ConvertBack(
+        object value,
+        Type targetType,
+        object parameter,
+        CultureInfo culture) => Binding.DoNothing;
 
     /// <summary>Converts a binding target value to the source binding values.</summary>
     /// <param name="value">The value that the binding target produces.</param>
@@ -103,7 +108,11 @@ public class MathConverter : MarkupExtension, IMultiValueConverter, IValueConver
     /// An array of values that have been converted from the target value back to the source values.
     /// </returns>
     /// <exception cref="NotImplementedException">Not Implemented Exception.</exception>
-    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) => [value];
+    public object[] ConvertBack(
+        object value,
+        Type[] targetTypes,
+        object parameter,
+        CultureInfo culture) => [value];
 
     /// <summary>
     /// When implemented in a derived class, returns an object that is provided as the value of
@@ -148,7 +157,9 @@ public class MathConverter : MarkupExtension, IMultiValueConverter, IValueConver
 
         return targetType == typeof(long)
             ? (long)result
-            : throw new ArgumentException(string.Format("Unsupported target type {0}", targetType.FullName), nameof(targetType));
+            : throw new ArgumentException(
+                string.Format("Unsupported target type {0}", targetType.FullName),
+                nameof(targetType));
     }
 
     /// <summary>Calls the other convert.</summary>
@@ -157,7 +168,11 @@ public class MathConverter : MarkupExtension, IMultiValueConverter, IValueConver
     /// <param name="parameter">The parameter.</param>
     /// <param name="culture">The culture.</param>
     /// <returns>new object.</returns>
-    private object CallOtherConvert(object[] values, Type targetType, object parameter, CultureInfo culture) => Convert(values, targetType, parameter, culture);
+    private object CallOtherConvert(
+        object[] values,
+        Type targetType,
+        object parameter,
+        CultureInfo culture) => Convert(values, targetType, parameter, culture);
 
     /// <summary>Parses the specified s.</summary>
     /// <param name="s">The s.</param>
@@ -181,7 +196,8 @@ public class MathConverter : MarkupExtension, IMultiValueConverter, IValueConver
     /// <param name="left">The left.</param>
     /// <param name="right">The right.</param>
     /// <exception cref="ArgumentException">Invalid operation + operation.</exception>
-    private sealed class BinaryOperation(char operation, IExpression left, IExpression right) : IExpression
+    private sealed class BinaryOperation(char operation, IExpression left, IExpression right)
+        : IExpression
     {
         /// <summary>The left.</summary>
         private readonly IExpression _left = left;
@@ -290,7 +306,11 @@ public class MathConverter : MarkupExtension, IMultiValueConverter, IValueConver
             }
             catch (Exception ex)
             {
-                var msg = string.Format("MathConverter: error parsing expression '{0}'. {1} at position {2}", textToParse, ex.Message, _pos);
+                var msg = string.Format(
+                    "MathConverter: error parsing expression '{0}'. {1} at position {2}",
+                    textToParse,
+                    ex.Message,
+                    _pos);
                 throw new ArgumentException(msg, ex);
             }
         }
@@ -298,7 +318,8 @@ public class MathConverter : MarkupExtension, IMultiValueConverter, IValueConver
         /// <summary>Gets the converter input index represented by a named variable.</summary>
         /// <param name="character">The variable character.</param>
         /// <param name="index">The positional converter input index.</param>
-        /// <returns><see langword="true"/> when the character is a named variable; otherwise, <see langword="false"/>.</returns>
+        /// <returns><see langword="true"/> when the character is a named variable; otherwise, <see langword="false"/>.
+        /// </returns>
         private static bool TryGetVariableIndex(char character, out int index)
         {
             index = character switch
@@ -438,7 +459,8 @@ public class MathConverter : MarkupExtension, IMultiValueConverter, IValueConver
             var match = DecimalRegex.Match(_text!.Substring(_pos));
             if (!match.Success)
             {
-                throw new ArgumentException(string.Format("Unexpected character '{0}'", unexpectedCharacter));
+                throw new ArgumentException(
+                    string.Format("Unexpected character '{0}'", unexpectedCharacter));
             }
 
             _pos += match.Length;
@@ -533,7 +555,8 @@ public class MathConverter : MarkupExtension, IMultiValueConverter, IValueConver
                 return;
             }
 
-            throw new ArgumentException(string.Format("'{0}' is not a valid parameter index", text));
+            throw new ArgumentException(
+                string.Format("'{0}' is not a valid parameter index", text));
         }
 
         /// <summary>Initializes a new instance of the <see cref="Variable"/> class.</summary>
@@ -546,7 +569,11 @@ public class MathConverter : MarkupExtension, IMultiValueConverter, IValueConver
         /// <exception cref="ArgumentException">Argument Exception.</exception>
         public decimal Eval(object[] args) =>
             _index >= args.Length
-                ? throw new ArgumentException(string.Format("MathConverter: parameter index {0} is out of range. {1} parameter(s) supplied", _index, args.Length))
+                ? throw new ArgumentException(
+                    string.Format(
+                        "MathConverter: parameter index {0} is out of range. {1} parameter(s) supplied",
+                        _index,
+                        args.Length))
                 : System.Convert.ToDecimal(args[_index]);
     }
 }

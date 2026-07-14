@@ -16,12 +16,20 @@ public sealed class EnumConverter : IValueConverter
     {
         ArgumentNullException.ThrowIfNull(targetType);
         var enumType = (parameter as Type) ?? targetType;
-        return enumType.IsEnum && ConversionHelpers.TryConvert(value, enumType, culture, out var result)
-            ? result
-            : ConversionHelpers.UnsetValue;
+        return
+            enumType.IsEnum
+            && ConversionHelpers.TryConvert(value, enumType, culture, out var result)
+                ? result
+                : ConversionHelpers.UnsetValue;
     }
 
     /// <inheritdoc/>
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
-        ConversionHelpers.TryConvert(value, targetType, culture, out var result) ? result : ConversionHelpers.UnsetValue;
+    public object? ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) =>
+        ConversionHelpers.TryConvert(value, targetType, culture, out var result)
+            ? result
+            : ConversionHelpers.UnsetValue;
 }

@@ -25,10 +25,23 @@ public sealed class RoundingConverter : IValueConverter
             return ConversionHelpers.UnsetValue;
         }
 
-        var digits = int.TryParse(parameter?.ToString(), NumberStyles.Integer, culture, out var parsed) ? Math.Clamp(parsed, 0, MaximumDecimalDigits) : 0;
-        return ConversionHelpers.ConvertDecimal(Math.Round(number, digits, Mode), targetType, culture);
+        var digits = int.TryParse(
+            parameter?.ToString(),
+            NumberStyles.Integer,
+            culture,
+            out var parsed)
+            ? Math.Clamp(parsed, 0, MaximumDecimalDigits)
+            : 0;
+        return ConversionHelpers.ConvertDecimal(
+            Math.Round(number, digits, Mode),
+            targetType,
+            culture);
     }
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 }

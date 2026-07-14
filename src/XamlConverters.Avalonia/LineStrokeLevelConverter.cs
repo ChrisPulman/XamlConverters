@@ -24,8 +24,10 @@ public sealed class LineStrokeLevelConverter : IValueConverter
         }
 
         var parts = parameter?.ToString()?.Split('-');
-        if (parts is not { Length: >= RequiredThresholdCount } || !decimal.TryParse(parts[0], NumberStyles.Any, culture, out var low) ||
-            !decimal.TryParse(parts[1], NumberStyles.Any, culture, out var high))
+        if (
+            parts is not { Length: >= RequiredThresholdCount }
+            || !decimal.TryParse(parts[0], NumberStyles.Any, culture, out var low)
+            || !decimal.TryParse(parts[1], NumberStyles.Any, culture, out var high))
         {
             return Brushes.Red;
         }
@@ -39,5 +41,9 @@ public sealed class LineStrokeLevelConverter : IValueConverter
     }
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 }

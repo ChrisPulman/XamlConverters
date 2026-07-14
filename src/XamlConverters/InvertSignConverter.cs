@@ -12,10 +12,12 @@ namespace CP.Xaml.Converters;
 public class InvertSignConverter : IValueConverter
 {
     /// <summary>The message used when a value is not a supported numeric type.</summary>
-    private const string InvalidValueMessage = "The bound value is not a short, integer, float, double, or decimal.";
+    private const string InvalidValueMessage =
+        "The bound value is not a short, integer, float, double, or decimal.";
 
     /// <summary>The message used when a target is not a supported numeric type.</summary>
-    private const string InvalidTargetMessage = "The target type is not short, integer, float, double, decimal, or string.";
+    private const string InvalidTargetMessage =
+        "The target type is not short, integer, float, double, decimal, or string.";
 
     /// <summary>Converts the specified value.</summary>
     /// <param name="value">The value.</param>
@@ -26,7 +28,8 @@ public class InvertSignConverter : IValueConverter
     /// <exception cref="InvalidCastException">
     /// The value bounded is not of a integer, float or double.
     /// </exception>
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => Invert(value, targetType, culture);
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) =>
+        Invert(value, targetType, culture);
 
     /// <summary>Converts the back.</summary>
     /// <param name="value">The value.</param>
@@ -35,7 +38,11 @@ public class InvertSignConverter : IValueConverter
     /// <param name="culture">The culture.</param>
     /// <returns>original value.</returns>
     /// <exception cref="InvalidCastException">The value or target type is unsupported.</exception>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Invert(value, targetType, culture);
+    public object ConvertBack(
+        object value,
+        Type targetType,
+        object parameter,
+        CultureInfo culture) => Invert(value, targetType, culture);
 
     /// <summary>Inverts a supported numeric value and converts it to the requested target type.</summary>
     /// <param name="value">The value to invert.</param>

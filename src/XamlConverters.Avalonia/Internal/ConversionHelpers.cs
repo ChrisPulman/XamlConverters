@@ -14,7 +14,10 @@ namespace CP.Xaml.Converters.Avalonia.Internal;
 internal static class ConversionHelpers
 {
     /// <summary>The parsers used for well-known non-BCL-convertible value types.</summary>
-    private static readonly Dictionary<Type, Func<string?, CultureInfo, (bool Success, object? Result)>> TextParsers = new()
+    private static readonly Dictionary<
+        Type,
+        Func<string?, CultureInfo, (bool Success, object? Result)>
+    > TextParsers = new()
     {
         [typeof(Guid)] = TryParseGuid,
         [typeof(Uri)] = TryParseUri,
@@ -32,9 +35,11 @@ internal static class ConversionHelpers
 
     /// <summary>Determines whether a value is an Avalonia binding sentinel.</summary>
     /// <param name="value">The value to inspect.</param>
-    /// <returns><see langword="true"/> for an unset or do-nothing sentinel; otherwise, <see langword="false"/>.</returns>
+    /// <returns><see langword="true"/> for an unset or do-nothing sentinel; otherwise, <see langword="false"/>.
+    /// </returns>
     public static bool IsUnset(object? value) =>
-        ReferenceEquals(value, AvaloniaProperty.UnsetValue) || ReferenceEquals(value, BindingOperations.DoNothing);
+        ReferenceEquals(value, AvaloniaProperty.UnsetValue)
+        || ReferenceEquals(value, BindingOperations.DoNothing);
 
     /// <summary>Determines whether a value is null or a binding sentinel.</summary>
     /// <param name="value">The value to inspect.</param>
@@ -47,7 +52,11 @@ internal static class ConversionHelpers
     /// <returns><see langword="true"/> when the value represents true; otherwise, <see langword="false"/>.</returns>
     public static bool IsTrue(object? value, CultureInfo culture)
     {
-        return value is bool boolean ? boolean : value is not null && bool.TryParse(Convert.ToString(value, culture), out var result) && result;
+        return value is bool boolean
+            ? boolean
+            : value is not null
+                && bool.TryParse(Convert.ToString(value, culture), out var result)
+                && result;
     }
 
     /// <summary>Attempts to convert a value to a requested type.</summary>
@@ -56,7 +65,11 @@ internal static class ConversionHelpers
     /// <param name="culture">The conversion culture.</param>
     /// <param name="result">The converted value when conversion succeeds.</param>
     /// <returns><see langword="true"/> when conversion succeeds; otherwise, <see langword="false"/>.</returns>
-    public static bool TryConvert(object? value, Type targetType, CultureInfo culture, out object? result)
+    public static bool TryConvert(
+        object? value,
+        Type targetType,
+        CultureInfo culture,
+        out object? result)
     {
         ArgumentNullException.ThrowIfNull(targetType);
 
@@ -127,7 +140,12 @@ internal static class ConversionHelpers
     /// <param name="culture">The conversion culture.</param>
     /// <param name="result">The converted result.</param>
     /// <returns><see langword="true"/> when a type converter succeeds; otherwise, <see langword="false"/>.</returns>
-    public static bool TryTypeConverters(object value, Type targetType, string? text, CultureInfo culture, out object? result)
+    public static bool TryTypeConverters(
+        object value,
+        Type targetType,
+        string? text,
+        CultureInfo culture,
+        out object? result)
     {
         var targetConverter = TypeDescriptor.GetConverter(targetType);
         if (targetConverter.CanConvertFrom(value.GetType()))
@@ -187,7 +205,9 @@ internal static class ConversionHelpers
     /// <param name="text">The text to parse.</param>
     /// <param name="culture">The parsing culture.</param>
     /// <returns>The parsing status and parsed result.</returns>
-    public static (bool Success, object? Result) TryParseDateTimeOffset(string? text, CultureInfo culture)
+    public static (bool Success, object? Result) TryParseDateTimeOffset(
+        string? text,
+        CultureInfo culture)
     {
         var success = DateTimeOffset.TryParse(text, culture, DateTimeStyles.None, out var value);
         return (success, success ? value : null);
@@ -231,7 +251,8 @@ internal static class ConversionHelpers
             result = Convert.ToDecimal(value, culture);
             return true;
         }
-        catch (Exception ex) when (ex is FormatException or InvalidCastException or OverflowException)
+        catch (Exception ex)
+            when (ex is FormatException or InvalidCastException or OverflowException)
         {
             result = default;
             return false;
@@ -263,33 +284,33 @@ internal static class ConversionHelpers
         switch (value)
         {
             case string text:
-                {
-                    count = text.Length;
-                    return true;
-                }
+            {
+                count = text.Length;
+                return true;
+            }
 
             case ICollection collection:
-                {
-                    count = collection.Count;
-                    return true;
-                }
+            {
+                count = collection.Count;
+                return true;
+            }
 
             case IEnumerable enumerable:
+            {
+                count = 0;
+                foreach (var unused in enumerable)
                 {
-                    count = 0;
-                    foreach (var unused in enumerable)
-                    {
-                        count++;
-                    }
-
-                    return true;
+                    count++;
                 }
+
+                return true;
+            }
 
             default:
-                {
-                    count = 0;
-                    return false;
-                }
+            {
+                count = 0;
+                return false;
+            }
         }
     }
 
@@ -303,8 +324,13 @@ internal static class ConversionHelpers
         expression = expression.Trim();
         foreach (var op in new[] { ">=", "<=", "==", "!=", ">", "<" })
         {
-            if (!expression.StartsWith(op, StringComparison.Ordinal) ||
-                !decimal.TryParse(expression.Substring(op.Length).Trim(), NumberStyles.Any, culture, out var right))
+            if (
+                !expression.StartsWith(op, StringComparison.Ordinal)
+                || !decimal.TryParse(
+                    expression.Substring(op.Length).Trim(),
+                    NumberStyles.Any,
+                    culture,
+                    out var right))
             {
                 continue;
             }
@@ -326,9 +352,15 @@ internal static class ConversionHelpers
 
     /// <summary>Determines whether an exception represents a recoverable conversion failure.</summary>
     /// <param name="exception">The exception to inspect.</param>
-    /// <returns><see langword="true"/> for a recoverable conversion failure; otherwise, <see langword="false"/>.</returns>
+    /// <returns><see langword="true"/> for a recoverable conversion failure; otherwise, <see langword="false"/>.
+    /// </returns>
     private static bool IsConversionException(Exception exception) =>
-        exception is ArgumentException or FormatException or InvalidCastException or NotSupportedException or OverflowException;
+        exception
+            is ArgumentException
+                or FormatException
+                or InvalidCastException
+                or NotSupportedException
+                or OverflowException;
 
     /// <summary>Attempts to parse a value through a registered textual parser.</summary>
     /// <param name="text">The text to parse.</param>
@@ -336,7 +368,11 @@ internal static class ConversionHelpers
     /// <param name="culture">The parsing culture.</param>
     /// <param name="result">The parsed result.</param>
     /// <returns><see langword="true"/> when parsing succeeds; otherwise, <see langword="false"/>.</returns>
-    private static bool TryParseKnownText(string? text, Type targetType, CultureInfo culture, out object? result)
+    private static bool TryParseKnownText(
+        string? text,
+        Type targetType,
+        CultureInfo culture,
+        out object? result)
     {
         if (TextParsers.TryGetValue(targetType, out var parser))
         {

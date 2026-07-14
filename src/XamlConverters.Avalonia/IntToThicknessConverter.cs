@@ -46,9 +46,17 @@ public sealed class IntToThicknessConverter : IValueConverter
 
         var input = (double)number;
         var basis = parameter is Thickness thickness ? thickness : default;
-        return new Thickness(Left ? input : basis.Left, Top ? input : basis.Top, Right ? input : basis.Right, Bottom ? input : basis.Bottom);
+        return new Thickness(
+            Left ? input : basis.Left,
+            Top ? input : basis.Top,
+            Right ? input : basis.Right,
+            Bottom ? input : basis.Bottom);
     }
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 }

@@ -18,7 +18,9 @@ public class BoolToStringTickCrossConverter : IValueConverter
     /// <returns>Boolean to string Tick or Cross.</returns>
     /// <exception cref="InvalidCastException">The bound value is not Boolean.</exception>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture) =>
-        value is bool x ? (object)(x ? "P" : "O") : throw new InvalidCastException("The binding value is not Boolean.");
+        value is bool x
+            ? (object)(x ? "P" : "O")
+            : throw new InvalidCastException("The binding value is not Boolean.");
 
     /// <summary>Converts the back.</summary>
     /// <param name="value">The value.</param>
@@ -27,6 +29,12 @@ public class BoolToStringTickCrossConverter : IValueConverter
     /// <param name="culture">The culture.</param>
     /// <returns>Convert Back.</returns>
     /// <exception cref="InvalidCastException">The bound value is not a string.</exception>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
-        value is string text ? (object)(text == "P") : throw new InvalidCastException("The bound value is not a string.");
+    public object ConvertBack(
+        object value,
+        Type targetType,
+        object parameter,
+        CultureInfo culture) =>
+        value is string text
+            ? (object)(text == "P")
+            : throw new InvalidCastException("The bound value is not a string.");
 }

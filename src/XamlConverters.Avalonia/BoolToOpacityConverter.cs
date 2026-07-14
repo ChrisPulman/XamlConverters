@@ -15,12 +15,12 @@ public sealed class BoolToOpacityConverter : IValueConverter
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         var falseOpacity = ConversionHelpers.TryDecimal(parameter, culture, out var opacity)
-            ? Math.Clamp((double)opacity, 0d, 1d)
-            : 0d;
-        return ConversionHelpers.IsTrue(value, culture) ? 1d : falseOpacity;
+            ? Math.Clamp((double)opacity, 0D, 1D)
+            : 0D;
+        return ConversionHelpers.IsTrue(value, culture) ? 1D : falseOpacity;
     }
 
     /// <inheritdoc/>
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
-        ConversionHelpers.TryDecimal(value, culture, out var opacity) && opacity >= 1m;
+        ConversionHelpers.TryDecimal(value, culture, out var opacity) && opacity >= 1M;
 }

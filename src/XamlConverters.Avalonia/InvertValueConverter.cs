@@ -14,8 +14,13 @@ public sealed class InvertValueConverter : IValueConverter
     private readonly InvertSignConverter _inner = new();
 
     /// <inheritdoc/>
-    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) => _inner.Convert(value, targetType, parameter, culture);
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        _inner.Convert(value, targetType, parameter, culture);
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => _inner.ConvertBack(value, targetType, parameter, culture);
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => _inner.ConvertBack(value, targetType, parameter, culture);
 }

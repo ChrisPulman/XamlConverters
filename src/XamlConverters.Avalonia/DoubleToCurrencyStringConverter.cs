@@ -13,10 +13,16 @@ public sealed class DoubleToCurrencyStringConverter : IValueConverter
 {
     /// <inheritdoc/>
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
-        ConversionHelpers.TryDecimal(value, culture, out var amount) ? amount.ToString(parameter?.ToString() ?? "C", culture) : 0m.ToString("C", culture);
+        ConversionHelpers.TryDecimal(value, culture, out var amount)
+            ? amount.ToString(parameter?.ToString() ?? "C", culture)
+            : 0M.ToString("C", culture);
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) =>
         decimal.TryParse(value?.ToString(), NumberStyles.Currency, culture, out var amount)
             ? ConversionHelpers.ConvertDecimal(amount, targetType, culture)
             : ConversionHelpers.UnsetValue;

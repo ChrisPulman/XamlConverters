@@ -15,9 +15,15 @@ public sealed class BooleanXorConverter : IMultiValueConverter
     private const int ParityDivisor = 2;
 
     /// <inheritdoc/>
-    public object Convert(IList<object?> values, Type targetType, object? parameter, CultureInfo culture)
+    public object Convert(
+        IList<object?> values,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture)
     {
         ArgumentNullException.ThrowIfNull(values);
-        return values.Count(value => !ConversionHelpers.IsUnset(value) && ConversionHelpers.IsTrue(value, culture)) % ParityDivisor == 1;
+        return values.Count(value =>
+                !ConversionHelpers.IsUnset(value) && ConversionHelpers.IsTrue(value, culture)) % ParityDivisor
+            == 1;
     }
 }

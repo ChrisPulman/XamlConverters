@@ -25,7 +25,9 @@ public class ArithmeticConverter : IValueConverter
     private const string ArithmeticParseExpression = "([+\\-*/]{1,1})\\s{0,}(\\-?[\\d\\.]+)";
 
     /// <summary>Compiled arithmetic expression.</summary>
-    private static readonly Regex ArithmeticRegex = new(ArithmeticParseExpression, RegexOptions.Compiled);
+    private static readonly Regex ArithmeticRegex = new(
+        ArithmeticParseExpression,
+        RegexOptions.Compiled);
 #endif
 
     /// <summary>Carries out arithmetic on the value based on the parameter.</summary>
@@ -34,7 +36,11 @@ public class ArithmeticConverter : IValueConverter
     /// <param name="parameter">A math operator (+,-,*,/) plus a value.</param>
     /// <param name="culture">Not used.</param>
     /// <returns>Integer or Double based on Math.</returns>
-    object IValueConverter.Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    object IValueConverter.Convert(
+        object value,
+        Type targetType,
+        object parameter,
+        CultureInfo culture)
     {
         var parameterText = parameter?.ToString();
         if (string.IsNullOrEmpty(parameterText))
@@ -52,8 +58,14 @@ public class ArithmeticConverter : IValueConverter
         var numericValue = match.Groups[OperandGroupIndex].Value;
         return value switch
         {
-            double doubleValue when double.TryParse(numericValue, out var operand) => Apply(doubleValue, operand, operation),
-            int integerValue when int.TryParse(numericValue, out var operand) => Apply(integerValue, operand, operation),
+            double doubleValue when double.TryParse(numericValue, out var operand) => Apply(
+                doubleValue,
+                operand,
+                operation),
+            int integerValue when int.TryParse(numericValue, out var operand) => Apply(
+                integerValue,
+                operand,
+                operation),
             _ => CreateConversionError(),
         };
     }
@@ -64,38 +76,46 @@ public class ArithmeticConverter : IValueConverter
     /// <param name="parameter">The converter parameter.</param>
     /// <param name="culture">The conversion culture.</param>
     /// <returns>The WPF do-nothing binding sentinel.</returns>
-    object IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Binding.DoNothing;
+    object IValueConverter.ConvertBack(
+        object value,
+        Type targetType,
+        object parameter,
+        CultureInfo culture) => Binding.DoNothing;
 
     /// <summary>Applies an arithmetic operation to double values.</summary>
     /// <param name="value">The left operand.</param>
     /// <param name="operand">The right operand.</param>
     /// <param name="operation">The operation to apply.</param>
     /// <returns>The operation result.</returns>
-    private static double Apply(double value, double operand, string operation) => operation switch
-    {
-        "+" => value + operand,
-        "-" => value - operand,
-        "*" => value * operand,
-        "/" => value / operand,
-        _ => 0d,
-    };
+    private static double Apply(double value, double operand, string operation) =>
+        operation switch
+        {
+            "+" => value + operand,
+            "-" => value - operand,
+            "*" => value * operand,
+            "/" => value / operand,
+            _ => 0D,
+        };
 
     /// <summary>Applies an arithmetic operation to integer values.</summary>
     /// <param name="value">The left operand.</param>
     /// <param name="operand">The right operand.</param>
     /// <param name="operation">The operation to apply.</param>
     /// <returns>The operation result.</returns>
-    private static double Apply(int value, int operand, string operation) => operation switch
-    {
-        "+" => value + operand,
-        "-" => value - operand,
-        "*" => value * operand,
-        "/" => (double)value / operand,
-        _ => 0d,
-    };
+    private static double Apply(int value, int operand, string operation) =>
+        operation switch
+        {
+            "+" => value + operand,
+            "-" => value - operand,
+            "*" => value * operand,
+            "/" => (double)value / operand,
+            _ => 0D,
+        };
 
     /// <summary>Creates the converter's invalid-input result.</summary>
     /// <returns>An exception describing the invalid input.</returns>
     private static InvalidCastException CreateConversionError() =>
-        new("Binding must be an integer or double, and the parameter must contain an arithmetic operator (+, -, *, or /) followed by a value.");
+        new(
+            "Binding must be an integer or double, and the parameter must contain "
+                + "an arithmetic operator (+, -, *, or /) followed by a value.");
 }

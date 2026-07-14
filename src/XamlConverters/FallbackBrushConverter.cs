@@ -20,12 +20,13 @@ public class FallbackBrushConverter : IValueConverter
     /// <returns>
     /// A converted value. If the method returns null, the valid null value is used.
     /// </returns>
-    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) => value switch
-    {
-        SolidColorBrush brush => brush,
-        Color color => new SolidColorBrush(color),
-        _ => new SolidColorBrush(Colors.Red)
-    };
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        value switch
+        {
+            SolidColorBrush brush => brush,
+            Color color => new SolidColorBrush(color),
+            _ => new SolidColorBrush(Colors.Red),
+        };
 
     /// <summary>Converts a value.</summary>
     /// <param name="value">The value that is produced by the binding target.</param>
@@ -35,5 +36,9 @@ public class FallbackBrushConverter : IValueConverter
     /// <returns>
     /// A converted value. If the method returns null, the valid null value is used.
     /// </returns>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => Binding.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => Binding.DoNothing;
 }

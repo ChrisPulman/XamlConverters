@@ -16,7 +16,9 @@ public sealed class StringNullOrEmptyToVisibilityConverter : IValueConverter
     {
         var tokens = parameter?.ToString() ?? string.Empty;
         var show = !string.IsNullOrEmpty(value as string);
-        if (tokens.Contains("invert", StringComparison.OrdinalIgnoreCase) || string.Equals(tokens, "true", StringComparison.OrdinalIgnoreCase))
+        if (
+            tokens.Contains("invert", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(tokens, "true", StringComparison.OrdinalIgnoreCase))
         {
             show = !show;
         }
@@ -25,5 +27,9 @@ public sealed class StringNullOrEmptyToVisibilityConverter : IValueConverter
     }
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 }

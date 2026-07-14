@@ -4,7 +4,7 @@
 
 namespace CP.Xaml.Converters;
 
-/// <summary>Static registry exposing singleton instances for commonly reused stateless converters to reduce XAML noise.</summary>
+/// <summary>Provides singleton instances of commonly reused stateless converters.</summary>
 public static class ConvertersRegistry
 {
     /// <summary>Converts between compatible BCL types.</summary>

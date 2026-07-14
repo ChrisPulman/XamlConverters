@@ -13,19 +13,19 @@ namespace CP.Xaml.Converters.Avalonia;
 public sealed class BackgroundColorToBwForegroundConverter : IValueConverter
 {
     /// <summary>The red-channel luminance coefficient.</summary>
-    private const double RedLuminanceWeight = 0.2126d;
+    private const double RedLuminanceWeight = 0.2126D;
 
     /// <summary>The green-channel luminance coefficient.</summary>
-    private const double GreenLuminanceWeight = 0.7152d;
+    private const double GreenLuminanceWeight = 0.7152D;
 
     /// <summary>The blue-channel luminance coefficient.</summary>
-    private const double BlueLuminanceWeight = 0.0722d;
+    private const double BlueLuminanceWeight = 0.0722D;
 
     /// <summary>The maximum value of a color channel.</summary>
-    private const double MaximumChannelValue = 255d;
+    private const double MaximumChannelValue = 255D;
 
     /// <summary>The normalized luminance threshold between white and black foregrounds.</summary>
-    private const double ContrastThreshold = 0.5d;
+    private const double ContrastThreshold = 0.5D;
 
     /// <inheritdoc/>
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
@@ -35,10 +35,18 @@ public sealed class BackgroundColorToBwForegroundConverter : IValueConverter
             return Brushes.Black;
         }
 
-        var luminance = ((RedLuminanceWeight * color.R) + (GreenLuminanceWeight * color.G) + (BlueLuminanceWeight * color.B)) / MaximumChannelValue;
+        var luminance =
+            (
+                (RedLuminanceWeight * color.R)
+                + (GreenLuminanceWeight * color.G)
+                + (BlueLuminanceWeight * color.B)) / MaximumChannelValue;
         return luminance <= ContrastThreshold ? Brushes.White : Brushes.Black;
     }
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 }

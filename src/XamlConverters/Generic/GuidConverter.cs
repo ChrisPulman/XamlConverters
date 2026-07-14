@@ -13,7 +13,8 @@ public sealed class GuidConverter : IValueConverter
     /// <summary>Converts a GUID to text or converts text/bytes to a GUID according to the target type.</summary>
     /// <param name="value">A GUID, GUID string, or 16-byte array.</param>
     /// <param name="targetType">The binding target type.</param>
-    /// <param name="parameter">An optional GUID format such as <c>D</c>, <c>N</c>, <c>B</c>, <c>P</c>, or <c>X</c>.</param>
+    /// <param name="parameter">An optional GUID format such as <c>D</c>, <c>N</c>, <c>B</c>, <c>P</c>, or <c>X</c>.
+    /// </param>
     /// <param name="culture">The culture used by the binding.</param>
     /// <returns>The converted value, or <see cref="Binding.DoNothing"/> when conversion fails.</returns>
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
@@ -45,13 +46,17 @@ public sealed class GuidConverter : IValueConverter
             : Binding.DoNothing;
     }
 
-    /// <summary>Converts a target representation back to the requested GUID, string, or byte-array source type.</summary>
+    /// <summary>Converts a target value back to a GUID, string, or byte array.</summary>
     /// <param name="value">The target value.</param>
     /// <param name="targetType">The binding source type.</param>
     /// <param name="parameter">An optional GUID format.</param>
     /// <param name="culture">The culture used by the binding.</param>
     /// <returns>The converted value, or <see cref="Binding.DoNothing"/> when conversion fails.</returns>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture)
     {
         if (targetType == typeof(string) && value is Guid guid)
         {

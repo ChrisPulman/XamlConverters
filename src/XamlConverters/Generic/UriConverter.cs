@@ -20,7 +20,8 @@ public sealed class UriConverter : IValueConverter
     /// <param name="parameter">An optional <see cref="UriKind"/>.</param>
     /// <param name="culture">The culture used by the binding.</param>
     /// <returns>The converted value, or <see cref="Binding.DoNothing"/> when the URI is invalid.</returns>
-    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) => ConvertCore(value, targetType, parameter);
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        ConvertCore(value, targetType, parameter);
 
     /// <summary>Converts the target URI representation back to the requested source type.</summary>
     /// <param name="value">The target value.</param>
@@ -28,7 +29,11 @@ public sealed class UriConverter : IValueConverter
     /// <param name="parameter">An optional <see cref="UriKind"/>.</param>
     /// <param name="culture">The culture used by the binding.</param>
     /// <returns>The converted value, or <see cref="Binding.DoNothing"/> when the URI is invalid.</returns>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConvertCore(value, targetType, parameter);
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConvertCore(value, targetType, parameter);
 
     /// <summary>Converts between URI values and text.</summary>
     /// <param name="value">The source value.</param>

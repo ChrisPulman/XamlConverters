@@ -38,13 +38,13 @@ internal static class TestValues
     public const int MissingSampleValue = 99;
 
     /// <summary>The tolerance used for floating-point assertions.</summary>
-    public const double FloatingPointTolerance = 0.00001d;
+    public const double FloatingPointTolerance = 0.00001D;
 
     /// <summary>The input used by multiplier tests.</summary>
     public const int MultiplierInput = 6;
 
     /// <summary>The expected multiplied value.</summary>
-    public const double MultipliedValue = 15d;
+    public const double MultipliedValue = 15D;
 
     /// <summary>The comparison boundary used by comparison tests.</summary>
     public const int ComparisonBoundary = 5;
@@ -59,7 +59,7 @@ internal static class TestValues
     public const int MathRightOperand = 3;
 
     /// <summary>The expected math-expression result.</summary>
-    public const double MathExpectedResult = 11d;
+    public const double MathExpectedResult = 11D;
 
     /// <summary>The uniform thickness used by the all-sides test.</summary>
     public const int UniformThickness = 5;

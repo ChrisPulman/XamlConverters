@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace CP.Xaml.Converters;
 
-/// <summary>Determines whether an enumerable or string contains the value supplied as the converter parameter.</summary>
+/// <summary>Checks whether an enumerable or string contains the converter parameter.</summary>
 public sealed class CollectionContainsConverter : IValueConverter
 {
     /// <summary>Searches the source collection for the requested value.</summary>
@@ -53,7 +53,11 @@ public sealed class CollectionContainsConverter : IValueConverter
     /// <param name="parameter">The converter parameter.</param>
     /// <param name="culture">The culture used by the binding.</param>
     /// <returns><see cref="Binding.DoNothing"/>.</returns>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => Binding.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => Binding.DoNothing;
 
     /// <summary>Determines whether a collection item equals the requested value directly or after conversion.</summary>
     /// <param name="item">The collection item.</param>
@@ -62,8 +66,13 @@ public sealed class CollectionContainsConverter : IValueConverter
     /// <returns><see langword="true"/> when the values are equal; otherwise, <see langword="false"/>.</returns>
     private static bool ItemsEqual(object? item, object? requestedValue, CultureInfo culture) =>
         Equals(item, requestedValue)
-        || (item is not null
+        || (
+            item is not null
             && requestedValue is not null
-            && BclConversion.TryChangeType(requestedValue, item.GetType(), culture, out var converted)
+            && BclConversion.TryChangeType(
+                requestedValue,
+                item.GetType(),
+                culture,
+                out var converted)
             && Equals(item, converted));
 }

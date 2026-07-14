@@ -12,14 +12,22 @@ namespace CP.Xaml.Converters.Avalonia;
 public sealed class IsGreaterThanOrEqualToConverter : IValueConverter, IMultiValueConverter
 {
     /// <inheritdoc/>
-    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) => Compare(value, parameter, culture);
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        Compare(value, parameter, culture);
 
     /// <inheritdoc/>
-    object IMultiValueConverter.Convert(IList<object?> values, Type targetType, object? parameter, CultureInfo culture) =>
-        values.Count >= 2 && Compare(values[0], values[1], culture);
+    object IMultiValueConverter.Convert(
+        IList<object?> values,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => values.Count >= 2 && Compare(values[0], values[1], culture);
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 
     /// <summary>Compares two numeric values.</summary>
     /// <param name="left">The left operand.</param>
@@ -27,5 +35,7 @@ public sealed class IsGreaterThanOrEqualToConverter : IValueConverter, IMultiVal
     /// <param name="culture">The conversion culture.</param>
     /// <returns><see langword="true"/> when the left operand is greater than or equal to the right operand.</returns>
     private static bool Compare(object? left, object? right, CultureInfo culture) =>
-        ConversionHelpers.TryDecimal(left, culture, out var first) && ConversionHelpers.TryDecimal(right, culture, out var second) && first >= second;
+        ConversionHelpers.TryDecimal(left, culture, out var first)
+        && ConversionHelpers.TryDecimal(right, culture, out var second)
+        && first >= second;
 }

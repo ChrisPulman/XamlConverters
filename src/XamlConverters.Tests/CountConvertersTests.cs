@@ -13,7 +13,11 @@ public class CountConvertersTests
     public async Task CountToBoolean_GreaterThanZero()
     {
         var c = new CountToBooleanConverter();
-        var result = c.Convert(new List<int> { 1, TestValues.SecondByte }, typeof(bool), ">0", System.Globalization.CultureInfo.InvariantCulture);
+        var result = c.Convert(
+            new List<int> { 1, TestValues.SecondByte },
+            typeof(bool),
+            ">0",
+            System.Globalization.CultureInfo.InvariantCulture);
         await Assert.That((bool)result).IsTrue();
     }
 
@@ -23,7 +27,11 @@ public class CountConvertersTests
     public async Task CountToVisibility_EqualsZeroCollapsed()
     {
         var c = new CountToVisibilityConverter();
-        var result = c.Convert(Enumerable.Empty<int>(), typeof(Visibility), "==0", System.Globalization.CultureInfo.InvariantCulture);
+        var result = c.Convert(
+            Enumerable.Empty<int>(),
+            typeof(Visibility),
+            "==0",
+            System.Globalization.CultureInfo.InvariantCulture);
         await Assert.That(result).IsEqualTo(Visibility.Visible); // Visible because ==0 satisfied
     }
 }

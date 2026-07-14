@@ -8,14 +8,14 @@ using System.Windows.Data;
 
 namespace CP.Xaml.Converters;
 
-/// <summary>Converts between compatible BCL types by using enum, nullable, parsing, type-converter, and <see cref="Convert.ChangeType(object, Type, IFormatProvider)"/> semantics.</summary>
+/// <summary>Converts between compatible BCL types using standard conversion semantics.</summary>
 /// <remarks>
 /// Supply a <see cref="Type"/> as the converter parameter to override the binding target type.
 /// Conversion failures return <see cref="Binding.DoNothing"/>.
 /// </remarks>
 public sealed class ChangeTypeConverter : IValueConverter
 {
-    /// <summary>Converts the source value to the binding target type, or to the type supplied as the parameter.</summary>
+    /// <summary>Converts the source value to the target or parameter type.</summary>
     /// <param name="value">The source value.</param>
     /// <param name="targetType">The binding target type.</param>
     /// <param name="parameter">An optional <see cref="Type"/> that overrides <paramref name="targetType"/>.</param>
@@ -40,7 +40,11 @@ public sealed class ChangeTypeConverter : IValueConverter
     /// <param name="parameter">The converter parameter; it is not needed for reverse conversion.</param>
     /// <param name="culture">The culture used for conversion.</param>
     /// <returns>The converted value, or <see cref="Binding.DoNothing"/> when conversion fails.</returns>
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+    public object? ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) =>
         BclConversion.TryChangeType(value, targetType, culture, out var result)
             ? result
             : Binding.DoNothing;

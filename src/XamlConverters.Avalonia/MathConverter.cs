@@ -19,11 +19,18 @@ public sealed class MathConverter : IValueConverter, IMultiValueConverter
         Evaluate([value], targetType, parameter, culture);
 
     /// <inheritdoc/>
-    object? IMultiValueConverter.Convert(IList<object?> values, Type targetType, object? parameter, CultureInfo culture) =>
-        Evaluate(values, targetType, parameter, culture);
+    object? IMultiValueConverter.Convert(
+        IList<object?> values,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => Evaluate(values, targetType, parameter, culture);
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 
     /// <summary>Evaluates the configured arithmetic expression.</summary>
     /// <param name="values">The converter input values.</param>
@@ -31,7 +38,11 @@ public sealed class MathConverter : IValueConverter, IMultiValueConverter
     /// <param name="parameter">The arithmetic expression.</param>
     /// <param name="culture">The conversion culture.</param>
     /// <returns>The evaluated value or an Avalonia binding sentinel.</returns>
-    private object Evaluate(IList<object?> values, Type targetType, object? parameter, CultureInfo culture)
+    private object Evaluate(
+        IList<object?> values,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture)
     {
         var text = parameter?.ToString();
         if (string.IsNullOrWhiteSpace(text))
@@ -47,9 +58,18 @@ public sealed class MathConverter : IValueConverter, IMultiValueConverter
                 _expressions[text] = expression;
             }
 
-            return ConversionHelpers.ConvertDecimal(expression.Evaluate(values, culture), targetType, culture);
+            return ConversionHelpers.ConvertDecimal(
+                expression.Evaluate(values, culture),
+                targetType,
+                culture);
         }
-        catch (Exception ex) when (ex is ArgumentException or DivideByZeroException or FormatException or InvalidCastException or OverflowException)
+        catch (Exception ex)
+            when (ex
+                    is ArgumentException
+                        or DivideByZeroException
+                        or FormatException
+                        or InvalidCastException
+                        or OverflowException)
         {
             return ConversionHelpers.UnsetValue;
         }

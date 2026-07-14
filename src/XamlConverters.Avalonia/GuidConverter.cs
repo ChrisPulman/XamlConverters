@@ -12,10 +12,15 @@ namespace CP.Xaml.Converters.Avalonia;
 public sealed class GuidConverter : IValueConverter
 {
     /// <inheritdoc/>
-    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) => ConvertCore(value, targetType, parameter, culture);
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        ConvertCore(value, targetType, parameter, culture);
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConvertCore(value, targetType, parameter, culture);
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConvertCore(value, targetType, parameter, culture);
 
     /// <summary>Converts between GUID values and text.</summary>
     /// <param name="value">The source value.</param>
@@ -23,7 +28,11 @@ public sealed class GuidConverter : IValueConverter
     /// <param name="parameter">The converter parameter.</param>
     /// <param name="culture">The conversion culture.</param>
     /// <returns>The converted value or an Avalonia binding sentinel.</returns>
-    private static object ConvertCore(object? value, Type targetType, object? parameter, CultureInfo culture)
+    private static object ConvertCore(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture)
     {
         if (value is Guid guid)
         {
@@ -52,7 +61,11 @@ public sealed class GuidConverter : IValueConverter
             return new Guid(bytes);
         }
 
-        return ConversionHelpers.TryConvert(value, targetType == typeof(string) ? typeof(Guid) : targetType, culture, out var converted)
+        return ConversionHelpers.TryConvert(
+            value,
+            targetType == typeof(string) ? typeof(Guid) : targetType,
+            culture,
+            out var converted)
             ? converted!
             : ConversionHelpers.DoNothing;
     }

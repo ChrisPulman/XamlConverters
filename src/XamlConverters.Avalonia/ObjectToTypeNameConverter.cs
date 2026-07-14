@@ -20,9 +20,15 @@ public sealed class ObjectToTypeNameConverter : IValueConverter
         }
 
         var type = value.GetType();
-        return string.Equals(parameter?.ToString(), "full", StringComparison.OrdinalIgnoreCase) ? type.FullName ?? type.Name : type.Name;
+        return string.Equals(parameter?.ToString(), "full", StringComparison.OrdinalIgnoreCase)
+            ? type.FullName ?? type.Name
+            : type.Name;
     }
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 }

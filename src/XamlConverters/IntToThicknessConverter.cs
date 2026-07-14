@@ -8,19 +8,19 @@ using System.Windows.Data;
 
 namespace CP.Xaml.Converters;
 
-/// <summary>Converts an integer into a thickness value, building on top of the converter parameter if specified.</summary>
+/// <summary>Converts an integer to a thickness, optionally using the converter parameter.</summary>
 public class IntToThicknessConverter : IValueConverter
 {
-    /// <summary>Gets an instance of <see cref="IntToThicknessConverter"/> that only sets the bottom side of the thickness.</summary>
+    /// <summary>Gets a converter that sets only the bottom side.</summary>
     public static IntToThicknessConverter BottomOnly { get; } = new() { Bottom = true };
 
-    /// <summary>Gets an instance of <see cref="IntToThicknessConverter"/> that only sets the left side of the thickness.</summary>
+    /// <summary>Gets a converter that sets only the left side.</summary>
     public static IntToThicknessConverter LeftOnly { get; } = new() { Left = true };
 
-    /// <summary>Gets an instance of <see cref="IntToThicknessConverter"/> that only sets the right side of the thickness.</summary>
+    /// <summary>Gets a converter that sets only the right side.</summary>
     public static IntToThicknessConverter RightOnly { get; } = new() { Right = true };
 
-    /// <summary>Gets an instance of <see cref="IntToThicknessConverter"/> that only sets the top side of the thickness.</summary>
+    /// <summary>Gets a converter that sets only the top side.</summary>
     public static IntToThicknessConverter TopOnly { get; } = new() { Top = true };
 
     /// <summary>Gets or sets a value indicating whether this <see cref="IntToThicknessConverter"/> is bottom.</summary>
@@ -79,5 +79,9 @@ public class IntToThicknessConverter : IValueConverter
     /// <param name="parameter">The converter parameter to use.</param>
     /// <param name="culture">The culture to use in the converter.</param>
     /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Binding.DoNothing;
+    public object ConvertBack(
+        object value,
+        Type targetType,
+        object parameter,
+        CultureInfo culture) => Binding.DoNothing;
 }

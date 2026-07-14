@@ -22,12 +22,23 @@ public sealed class EqualityConverter : IValueConverter
         var text = parameter?.ToString() ?? string.Empty;
         var invert = text.StartsWith("!", StringComparison.Ordinal);
         var candidate = invert ? text[1..] : parameter;
-        var result = ConversionHelpers.TryConvert(candidate, value.GetType(), culture, out var converted)
+        var result = ConversionHelpers.TryConvert(
+            candidate,
+            value.GetType(),
+            culture,
+            out var converted)
             ? Equals(value, converted)
-            : string.Equals(value.ToString(), candidate?.ToString(), StringComparison.OrdinalIgnoreCase);
+            : string.Equals(
+                value.ToString(),
+                candidate?.ToString(),
+                StringComparison.OrdinalIgnoreCase);
         return invert ? !result : result;
     }
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 }

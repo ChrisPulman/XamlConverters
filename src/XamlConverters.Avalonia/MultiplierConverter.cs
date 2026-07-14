@@ -12,10 +12,15 @@ namespace CP.Xaml.Converters.Avalonia;
 public sealed class MultiplierConverter : IValueConverter
 {
     /// <inheritdoc/>
-    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) => Apply(value, parameter, targetType, culture, divide: false);
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        Apply(value, parameter, targetType, culture, divide: false);
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => Apply(value, parameter, targetType, culture, divide: true);
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => Apply(value, parameter, targetType, culture, divide: true);
 
     /// <summary>Multiplies or divides a numeric value by the converter parameter.</summary>
     /// <param name="value">The source value.</param>
@@ -24,14 +29,24 @@ public sealed class MultiplierConverter : IValueConverter
     /// <param name="culture">The conversion culture.</param>
     /// <param name="divide">Whether to divide instead of multiply.</param>
     /// <returns>The calculated value or an Avalonia binding sentinel.</returns>
-    private static object Apply(object? value, object? parameter, Type targetType, CultureInfo culture, bool divide)
+    private static object Apply(
+        object? value,
+        object? parameter,
+        Type targetType,
+        CultureInfo culture,
+        bool divide)
     {
-        if (!ConversionHelpers.TryDecimal(value, culture, out var number) ||
-            !ConversionHelpers.TryDecimal(parameter, culture, out var multiplier) || (divide && multiplier == 0))
+        if (
+            !ConversionHelpers.TryDecimal(value, culture, out var number)
+            || !ConversionHelpers.TryDecimal(parameter, culture, out var multiplier)
+            || (divide && multiplier == 0))
         {
             return ConversionHelpers.UnsetValue;
         }
 
-        return ConversionHelpers.ConvertDecimal(divide ? number / multiplier : number * multiplier, targetType, culture);
+        return ConversionHelpers.ConvertDecimal(
+            divide ? number / multiplier : number * multiplier,
+            targetType,
+            culture);
     }
 }

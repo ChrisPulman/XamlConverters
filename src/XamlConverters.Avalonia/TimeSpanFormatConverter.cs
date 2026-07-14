@@ -16,9 +16,17 @@ public sealed class TimeSpanFormatConverter : IValueConverter
 
     /// <inheritdoc/>
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
-        value is TimeSpan timeSpan ? timeSpan.ToString(parameter?.ToString() ?? Format, culture) : string.Empty;
+        value is TimeSpan timeSpan
+            ? timeSpan.ToString(parameter?.ToString() ?? Format, culture)
+            : string.Empty;
 
     /// <inheritdoc/>
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
-        ConversionHelpers.TryConvert(value, targetType, culture, out var result) ? result : ConversionHelpers.UnsetValue;
+    public object? ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) =>
+        ConversionHelpers.TryConvert(value, targetType, culture, out var result)
+            ? result
+            : ConversionHelpers.UnsetValue;
 }

@@ -30,7 +30,13 @@ public sealed partial class ArithmeticConverter : IValueConverter
         }
 
         var match = Expression.Match(parameter?.ToString() ?? string.Empty);
-        if (!match.Success || !decimal.TryParse(match.Groups[NumberGroupName].Value, NumberStyles.Any, culture, out var right))
+        if (
+            !match.Success
+            || !decimal.TryParse(
+                match.Groups[NumberGroupName].Value,
+                NumberStyles.Any,
+                culture,
+                out var right))
         {
             return ConversionHelpers.UnsetValue;
         }
@@ -43,12 +49,24 @@ public sealed partial class ArithmeticConverter : IValueConverter
             "/" when right != 0 => left / right,
             _ => (decimal?)null,
         };
-        return result is { } number ? ConversionHelpers.ConvertDecimal(number, targetType, culture) : ConversionHelpers.UnsetValue;
+        return result is { } number
+            ? ConversionHelpers.ConvertDecimal(number, targetType, culture)
+            : ConversionHelpers.UnsetValue;
     }
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 
-    [GeneratedRegex("^\\s*(?<" + OperatorGroupName + ">[+\\-*/])\\s*(?<" + NumberGroupName + ">[+\\-]?(?:\\d+(?:[.,]\\d*)?|[.,]\\d+))\\s*$", RegexOptions.Compiled)]
+    [GeneratedRegex(
+        "^\\s*(?<"
+            + OperatorGroupName
+            + ">[+\\-*/])\\s*(?<"
+            + NumberGroupName
+            + ">[+\\-]?(?:\\d+(?:[.,]\\d*)?|[.,]\\d+))\\s*$",
+        RegexOptions.Compiled)]
     private static partial Regex MyRegex();
 }

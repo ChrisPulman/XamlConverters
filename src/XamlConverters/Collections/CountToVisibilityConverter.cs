@@ -9,7 +9,8 @@ using System.Windows.Data;
 namespace CP.Xaml.Converters;
 
 /// <summary>
-/// Converts collection Count to Visibility using comparison parameter (see CountToBooleanConverter). Optional token 'H' to use Hidden.
+/// Converts collection Count to Visibility using comparison parameter (see CountToBooleanConverter). Optional token 'H'
+/// to use Hidden.
 /// </summary>
 public sealed class CountToVisibilityConverter : IValueConverter
 {
@@ -29,7 +30,12 @@ public sealed class CountToVisibilityConverter : IValueConverter
         var parm = parameter?.ToString() ?? string.Empty;
         var useHidden = parm.Contains('H');
         var comparisonPart = parm.Replace("H", string.Empty);
-        var result = (bool)_bool.Convert(value, targetType, string.IsNullOrWhiteSpace(comparisonPart) ? null : comparisonPart, culture);
+        var result = (bool)
+            _bool.Convert(
+                value,
+                targetType,
+                string.IsNullOrWhiteSpace(comparisonPart) ? null : comparisonPart,
+                culture);
         if (result)
         {
             return Visibility.Visible;
@@ -46,5 +52,9 @@ public sealed class CountToVisibilityConverter : IValueConverter
     /// <returns>
     /// A converted value. If the method returns null, the valid null value is used.
     /// </returns>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Binding.DoNothing;
+    public object ConvertBack(
+        object value,
+        Type targetType,
+        object parameter,
+        CultureInfo culture) => Binding.DoNothing;
 }

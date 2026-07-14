@@ -56,7 +56,10 @@ public class IsGreaterThanOrEqualToConverter : IValueConverter, IMultiValueConve
     /// </returns>
     public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
     {
-        if (values is null || values.Length < 2 || !values.All(x => x != DependencyProperty.UnsetValue))
+        if (
+            values is null
+            || values.Length < 2
+            || !values.All(x => x != DependencyProperty.UnsetValue))
         {
             return false;
         }
@@ -73,7 +76,11 @@ public class IsGreaterThanOrEqualToConverter : IValueConverter, IMultiValueConve
     /// <param name="parameter">The converter parameter to use.</param>
     /// <param name="culture">The culture to use in the converter.</param>
     /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Binding.DoNothing;
+    public object ConvertBack(
+        object value,
+        Type targetType,
+        object parameter,
+        CultureInfo culture) => Binding.DoNothing;
 
     /// <summary>Converts a binding target value to the source binding values.</summary>
     /// <param name="value">The value that the binding target produces.</param>
@@ -86,5 +93,9 @@ public class IsGreaterThanOrEqualToConverter : IValueConverter, IMultiValueConve
     /// <returns>
     /// An array of values that have been converted from the target value back to the source values.
     /// </returns>
-    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) => [value];
+    public object[] ConvertBack(
+        object value,
+        Type[] targetTypes,
+        object parameter,
+        CultureInfo culture) => [value];
 }

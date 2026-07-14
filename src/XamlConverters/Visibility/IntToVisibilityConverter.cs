@@ -12,7 +12,7 @@ namespace CP.Xaml.Converters;
 /// <seealso cref="System.Windows.Data.IValueConverter"/>
 public class IntToVisibilityConverter : IValueConverter
 {
-    /// <summary>Enable the visibility of the UI element in base of a boolean value (true---&gt;visible//false--&gt;Collapsed).</summary>
+    /// <summary>Converts a positive integer to visible and other values to collapsed.</summary>
     /// <param name="value">The value.</param>
     /// <param name="targetType">Type of the target.</param>
     /// <param name="parameter">The parameter.</param>

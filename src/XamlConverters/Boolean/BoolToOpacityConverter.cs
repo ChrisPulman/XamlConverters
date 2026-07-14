@@ -12,7 +12,7 @@ namespace CP.Xaml.Converters;
 public class BoolToOpacityConverter : IValueConverter
 {
     /// <summary>The opacity representing a fully visible element.</summary>
-    private const double FullyOpaque = 1d;
+    private const double FullyOpaque = 1D;
 
     /// <summary>The integral opacity representing a fully visible element.</summary>
     private const int FullyOpaqueInteger = 1;
@@ -21,7 +21,7 @@ public class BoolToOpacityConverter : IValueConverter
     private const double DoubleTolerance = 1e-9;
 
     /// <summary>The tolerance used when comparing single-precision opacity values.</summary>
-    private const float FloatTolerance = 1e-6f;
+    private const float FloatTolerance = 1e-6F;
 
     /// <summary>Converts the specified value.</summary>
     /// <param name="value">The value.</param>

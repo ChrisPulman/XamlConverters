@@ -24,7 +24,9 @@ public sealed class DateTimeFormatConverter : IValueConverter
             return dateTime.ToString(format, culture);
         }
 
-        return value is DateTimeOffset dateTimeOffset ? dateTimeOffset.ToString(format, culture) : Binding.DoNothing;
+        return value is DateTimeOffset dateTimeOffset
+            ? dateTimeOffset.ToString(format, culture)
+            : Binding.DoNothing;
     }
 
     /// <summary>Parses formatted text back to <see cref="System.DateTime"/> or <see cref="DateTimeOffset"/>.</summary>
@@ -33,7 +35,11 @@ public sealed class DateTimeFormatConverter : IValueConverter
     /// <param name="parameter">An optional exact date/time format.</param>
     /// <param name="culture">The culture used for parsing.</param>
     /// <returns>The parsed date/time value, or <see cref="Binding.DoNothing"/> when parsing fails.</returns>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture)
     {
         var text = value as string;
         if (string.IsNullOrWhiteSpace(text))
@@ -46,16 +52,34 @@ public sealed class DateTimeFormatConverter : IValueConverter
         if (destinationType == typeof(DateTime))
         {
             var parsed = string.IsNullOrWhiteSpace(format)
-                ? System.DateTime.TryParse(text, culture, DateTimeStyles.AllowWhiteSpaces, out var dateTime)
-                : System.DateTime.TryParseExact(text, format, culture, DateTimeStyles.AllowWhiteSpaces, out dateTime);
+                ? System.DateTime.TryParse(
+                    text,
+                    culture,
+                    DateTimeStyles.AllowWhiteSpaces,
+                    out var dateTime)
+                : System.DateTime.TryParseExact(
+                    text,
+                    format,
+                    culture,
+                    DateTimeStyles.AllowWhiteSpaces,
+                    out dateTime);
             return parsed ? dateTime : Binding.DoNothing;
         }
 
         if (destinationType == typeof(DateTimeOffset))
         {
             var parsed = string.IsNullOrWhiteSpace(format)
-                ? DateTimeOffset.TryParse(text, culture, DateTimeStyles.AllowWhiteSpaces, out var dateTimeOffset)
-                : DateTimeOffset.TryParseExact(text, format, culture, DateTimeStyles.AllowWhiteSpaces, out dateTimeOffset);
+                ? DateTimeOffset.TryParse(
+                    text,
+                    culture,
+                    DateTimeStyles.AllowWhiteSpaces,
+                    out var dateTimeOffset)
+                : DateTimeOffset.TryParseExact(
+                    text,
+                    format,
+                    culture,
+                    DateTimeStyles.AllowWhiteSpaces,
+                    out dateTimeOffset);
             return parsed ? dateTimeOffset : Binding.DoNothing;
         }
 

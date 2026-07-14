@@ -9,7 +9,8 @@ using System.Windows.Data;
 namespace CP.Xaml.Converters;
 
 /// <summary>
-/// Returns true if collection count satisfies comparison in parameter. Parameter forms: ">0", "==0", "!= 1" etc. Default is >0.
+/// Returns true if collection count satisfies comparison in parameter. Parameter forms: ">0", "==0", "!= 1" etc.
+/// Default is >0.
 /// </summary>
 public sealed class CountToBooleanConverter : IValueConverter
 {
@@ -52,7 +53,11 @@ public sealed class CountToBooleanConverter : IValueConverter
     /// <returns>
     /// A converted value. If the method returns null, the valid null value is used.
     /// </returns>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Binding.DoNothing;
+    public object ConvertBack(
+        object value,
+        Type targetType,
+        object parameter,
+        CultureInfo culture) => Binding.DoNothing;
 
     /// <summary>Represents a parsed count comparison.</summary>
     /// <param name="Op">The comparison operator.</param>
@@ -83,15 +88,16 @@ public sealed class CountToBooleanConverter : IValueConverter
         /// <summary>Evaluates the comparison.</summary>
         /// <param name="lhs">The left-hand operand.</param>
         /// <returns>The comparison result.</returns>
-        public bool Evaluate(int lhs) => Op switch
-        {
-            ">" => lhs > Rhs,
-            ">=" => lhs >= Rhs,
-            "<" => lhs < Rhs,
-            "<=" => lhs <= Rhs,
-            "==" => lhs == Rhs,
-            "!=" => lhs != Rhs,
-            _ => false
-        };
+        public bool Evaluate(int lhs) =>
+            Op switch
+            {
+                ">" => lhs > Rhs,
+                ">=" => lhs >= Rhs,
+                "<" => lhs < Rhs,
+                "<=" => lhs <= Rhs,
+                "==" => lhs == Rhs,
+                "!=" => lhs != Rhs,
+                _ => false,
+            };
     }
 }

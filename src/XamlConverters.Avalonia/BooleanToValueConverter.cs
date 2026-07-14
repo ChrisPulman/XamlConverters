@@ -18,9 +18,16 @@ public sealed class BooleanToValueConverter : IValueConverter
     public object? FalseValue { get; set; }
 
     /// <inheritdoc/>
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
-        ConversionHelpers.IsTrue(value, culture) ? TrueValue : FalseValue;
+    public object? Convert(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.IsTrue(value, culture) ? TrueValue : FalseValue;
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => Equals(value, TrueValue);
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => Equals(value, TrueValue);
 }

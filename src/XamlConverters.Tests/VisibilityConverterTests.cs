@@ -19,9 +19,22 @@ public class VisibilityConverterTests
     {
         var converter = new InvertVisibilityConverter();
 
-        await Assert.That(converter.Convert(Visibility.Visible, typeof(Visibility), null!, InvariantCulture)).IsEqualTo(Visibility.Collapsed);
-        await Assert.That(converter.Convert(Visibility.Visible, typeof(Visibility), "hidden", InvariantCulture)).IsEqualTo(Visibility.Hidden);
-        await Assert.That(converter.Convert(Visibility.Collapsed, typeof(Visibility), null!, InvariantCulture)).IsEqualTo(Visibility.Visible);
+        await Assert
+            .That(
+                converter.Convert(Visibility.Visible, typeof(Visibility), null!, InvariantCulture))
+            .IsEqualTo(Visibility.Collapsed);
+        await Assert
+            .That(
+                converter.Convert(
+                    Visibility.Visible,
+                    typeof(Visibility),
+                    "hidden",
+                    InvariantCulture))
+            .IsEqualTo(Visibility.Hidden);
+        await Assert
+            .That(
+                converter.Convert(Visibility.Collapsed, typeof(Visibility), null!, InvariantCulture))
+            .IsEqualTo(Visibility.Visible);
     }
 
     /// <summary>Maps empty and populated strings to visibility values.</summary>
@@ -31,10 +44,18 @@ public class VisibilityConverterTests
     {
         var converter = new StringNullOrEmptyToVisibilityConverter();
 
-        await Assert.That(converter.Convert(string.Empty, typeof(Visibility), null!, InvariantCulture)).IsEqualTo(Visibility.Collapsed);
-        await Assert.That(converter.Convert("value", typeof(Visibility), null!, InvariantCulture)).IsEqualTo(Visibility.Visible);
-        await Assert.That(converter.Convert(string.Empty, typeof(Visibility), "hidden", InvariantCulture)).IsEqualTo(Visibility.Hidden);
-        await Assert.That(converter.Convert(string.Empty, typeof(Visibility), "invert", InvariantCulture)).IsEqualTo(Visibility.Visible);
+        await Assert
+            .That(converter.Convert(string.Empty, typeof(Visibility), null!, InvariantCulture))
+            .IsEqualTo(Visibility.Collapsed);
+        await Assert
+            .That(converter.Convert("value", typeof(Visibility), null!, InvariantCulture))
+            .IsEqualTo(Visibility.Visible);
+        await Assert
+            .That(converter.Convert(string.Empty, typeof(Visibility), "hidden", InvariantCulture))
+            .IsEqualTo(Visibility.Hidden);
+        await Assert
+            .That(converter.Convert(string.Empty, typeof(Visibility), "invert", InvariantCulture))
+            .IsEqualTo(Visibility.Visible);
     }
 
     /// <summary>Maps zero and non-zero values to visibility.</summary>
@@ -47,7 +68,11 @@ public class VisibilityConverterTests
     [Arguments(-1, Visibility.Collapsed)]
     public async Task ConvertsZeroToVisibility(int input, Visibility expected)
     {
-        var result = new ZeroToVisibilityConverter().Convert(input, typeof(Visibility), null!, InvariantCulture);
+        var result = new ZeroToVisibilityConverter().Convert(
+            input,
+            typeof(Visibility),
+            null!,
+            InvariantCulture);
 
         await Assert.That(result).IsEqualTo(expected);
     }
@@ -59,8 +84,14 @@ public class VisibilityConverterTests
     {
         var converter = new ValueNotNullToVisibilityConverter();
 
-        await Assert.That(converter.Convert(new object(), typeof(Visibility), null!, InvariantCulture)).IsEqualTo(Visibility.Visible);
-        await Assert.That(converter.Convert(null!, typeof(Visibility), null!, InvariantCulture)).IsEqualTo(Visibility.Collapsed);
-        await Assert.That(converter.Convert(null!, typeof(Visibility), "reverse", InvariantCulture)).IsEqualTo(Visibility.Visible);
+        await Assert
+            .That(converter.Convert(new object(), typeof(Visibility), null!, InvariantCulture))
+            .IsEqualTo(Visibility.Visible);
+        await Assert
+            .That(converter.Convert(null!, typeof(Visibility), null!, InvariantCulture))
+            .IsEqualTo(Visibility.Collapsed);
+        await Assert
+            .That(converter.Convert(null!, typeof(Visibility), "reverse", InvariantCulture))
+            .IsEqualTo(Visibility.Visible);
     }
 }

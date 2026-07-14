@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace CP.Xaml.Converters;
 
-/// <summary>Value converter that translates true to <see cref="Visibility.Visible"/> and false to <see cref="Visibility.Collapsed"/>.</summary>
+/// <summary>Converts true to visible and false to collapsed.</summary>
 public sealed class BoolToVisibilityConverter : IValueConverter
 {
     /// <summary>Converts a value.</summary>

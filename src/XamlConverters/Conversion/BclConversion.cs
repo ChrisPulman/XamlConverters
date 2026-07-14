@@ -20,10 +20,14 @@ internal static class BclConversion
     private const NumberStyles FloatingStyles = NumberStyles.Float | NumberStyles.AllowThousands;
 
     /// <summary>The number styles used for decimal values.</summary>
-    private const NumberStyles DecimalStyles = NumberStyles.Number | NumberStyles.AllowCurrencySymbol | NumberStyles.AllowParentheses;
+    private const NumberStyles DecimalStyles =
+        NumberStyles.Number | NumberStyles.AllowCurrencySymbol | NumberStyles.AllowParentheses;
 
-    /// <summary>Converters for well-known types that are not handled consistently by <see cref="System.Convert"/>.</summary>
-    private static readonly Dictionary<Type, Func<object, string?, CultureInfo, ConversionAttempt>> SpecialConverters = new()
+    /// <summary>Converters for well-known types not handled consistently by <see cref="System.Convert"/>.</summary>
+    private static readonly Dictionary<
+        Type,
+        Func<object, string?, CultureInfo, ConversionAttempt>
+    > SpecialConverters = new()
     {
         [typeof(Guid)] = TryConvertGuid,
         [typeof(Uri)] = TryConvertUri,
@@ -35,20 +39,21 @@ internal static class BclConversion
     };
 
     /// <summary>Parsers for the built-in numeric types.</summary>
-    private static readonly Dictionary<TypeCode, Func<string, CultureInfo, object>> NumericParsers = new()
-    {
-        [TypeCode.Byte] = (text, culture) => byte.Parse(text, IntegerStyles, culture),
-        [TypeCode.Decimal] = (text, culture) => decimal.Parse(text, DecimalStyles, culture),
-        [TypeCode.Double] = (text, culture) => double.Parse(text, FloatingStyles, culture),
-        [TypeCode.Int16] = (text, culture) => short.Parse(text, IntegerStyles, culture),
-        [TypeCode.Int32] = (text, culture) => int.Parse(text, IntegerStyles, culture),
-        [TypeCode.Int64] = (text, culture) => long.Parse(text, IntegerStyles, culture),
-        [TypeCode.SByte] = (text, culture) => sbyte.Parse(text, IntegerStyles, culture),
-        [TypeCode.Single] = (text, culture) => float.Parse(text, FloatingStyles, culture),
-        [TypeCode.UInt16] = (text, culture) => ushort.Parse(text, IntegerStyles, culture),
-        [TypeCode.UInt32] = (text, culture) => uint.Parse(text, IntegerStyles, culture),
-        [TypeCode.UInt64] = (text, culture) => ulong.Parse(text, IntegerStyles, culture),
-    };
+    private static readonly Dictionary<TypeCode, Func<string, CultureInfo, object>> NumericParsers =
+        new()
+        {
+            [TypeCode.Byte] = (text, culture) => byte.Parse(text, IntegerStyles, culture),
+            [TypeCode.Decimal] = (text, culture) => decimal.Parse(text, DecimalStyles, culture),
+            [TypeCode.Double] = (text, culture) => double.Parse(text, FloatingStyles, culture),
+            [TypeCode.Int16] = (text, culture) => short.Parse(text, IntegerStyles, culture),
+            [TypeCode.Int32] = (text, culture) => int.Parse(text, IntegerStyles, culture),
+            [TypeCode.Int64] = (text, culture) => long.Parse(text, IntegerStyles, culture),
+            [TypeCode.SByte] = (text, culture) => sbyte.Parse(text, IntegerStyles, culture),
+            [TypeCode.Single] = (text, culture) => float.Parse(text, FloatingStyles, culture),
+            [TypeCode.UInt16] = (text, culture) => ushort.Parse(text, IntegerStyles, culture),
+            [TypeCode.UInt32] = (text, culture) => uint.Parse(text, IntegerStyles, culture),
+            [TypeCode.UInt64] = (text, culture) => ulong.Parse(text, IntegerStyles, culture),
+        };
 
     /// <summary>Represents the outcome of a direct conversion attempt.</summary>
     private enum ConversionResult
@@ -63,13 +68,17 @@ internal static class BclConversion
         Failed,
     }
 
-    /// <summary>Attempts to convert a value to the requested target type without throwing conversion exceptions.</summary>
+    /// <summary>Attempts to convert a value without throwing conversion exceptions.</summary>
     /// <param name="value">The source value.</param>
     /// <param name="targetType">The requested target type.</param>
     /// <param name="culture">The culture to use for parsing and formatting.</param>
     /// <param name="result">The converted result when conversion succeeds.</param>
     /// <returns><see langword="true"/> when conversion succeeds; otherwise, <see langword="false"/>.</returns>
-    public static bool TryChangeType(object? value, Type targetType, CultureInfo culture, out object? result)
+    public static bool TryChangeType(
+        object? value,
+        Type targetType,
+        CultureInfo culture,
+        out object? result)
     {
         if (targetType is null)
         {
@@ -79,7 +88,13 @@ internal static class BclConversion
         var nullableType = Nullable.GetUnderlyingType(targetType);
         var destinationType = nullableType ?? targetType;
         var text = value as string;
-        var directResult = TryDirectConversion(value, destinationType, nullableType, text, culture, out result);
+        var directResult = TryDirectConversion(
+            value,
+            destinationType,
+            nullableType,
+            text,
+            culture,
+            out result);
         if (directResult != ConversionResult.NotHandled)
         {
             return directResult == ConversionResult.Succeeded;
@@ -146,7 +161,9 @@ internal static class BclConversion
         if (IsNullValue(value))
         {
             result = null;
-            return CanAcceptNull(destinationType, nullableType) ? ConversionResult.Succeeded : ConversionResult.Failed;
+            return CanAcceptNull(destinationType, nullableType)
+                ? ConversionResult.Succeeded
+                : ConversionResult.Failed;
         }
 
         if (IsDirectlyAssignable(value!, destinationType))
@@ -182,12 +199,14 @@ internal static class BclConversion
     /// <param name="destinationType">The non-nullable destination type.</param>
     /// <param name="nullableType">The nullable destination type, when applicable.</param>
     /// <returns><see langword="true"/> when null is accepted; otherwise, <see langword="false"/>.</returns>
-    private static bool CanAcceptNull(Type destinationType, Type? nullableType) => nullableType is not null || !destinationType.IsValueType;
+    private static bool CanAcceptNull(Type destinationType, Type? nullableType) =>
+        nullableType is not null || !destinationType.IsValueType;
 
     /// <summary>Determines whether a value is already assignable to the destination type.</summary>
     /// <param name="value">The source value.</param>
     /// <param name="destinationType">The destination type.</param>
-    /// <returns><see langword="true"/> when the value is directly assignable; otherwise, <see langword="false"/>.</returns>
+    /// <returns><see langword="true"/> when the value is directly assignable; otherwise, <see langword="false"/>.
+    /// </returns>
     private static bool IsDirectlyAssignable(object value, Type destinationType) =>
         destinationType == typeof(object) || destinationType.IsInstanceOfType(value);
 
@@ -195,16 +214,18 @@ internal static class BclConversion
     /// <param name="text">The source text.</param>
     /// <param name="nullableType">The nullable destination type, when applicable.</param>
     /// <returns><see langword="true"/> when the nullable text is empty; otherwise, <see langword="false"/>.</returns>
-    private static bool IsEmptyNullableText(string? text, Type? nullableType) => nullableType is not null && string.IsNullOrWhiteSpace(text);
+    private static bool IsEmptyNullableText(string? text, Type? nullableType) =>
+        nullableType is not null && string.IsNullOrWhiteSpace(text);
 
     /// <summary>Converts a string or numeric value to an enum.</summary>
     /// <param name="value">The source value.</param>
     /// <param name="enumType">The enum type.</param>
     /// <param name="text">The source text, when applicable.</param>
     /// <returns>The enum value.</returns>
-    private static object ConvertEnum(object value, Type enumType, string? text) => text is not null
-        ? Enum.Parse(enumType, text, ignoreCase: true)
-        : Enum.ToObject(enumType, value);
+    private static object ConvertEnum(object value, Type enumType, string? text) =>
+        text is not null
+            ? Enum.Parse(enumType, text, ignoreCase: true)
+            : Enum.ToObject(enumType, value);
 
     /// <summary>Attempts a conversion through the strategy registered for a well-known destination type.</summary>
     /// <param name="value">The source value.</param>
@@ -213,7 +234,12 @@ internal static class BclConversion
     /// <param name="culture">The conversion culture.</param>
     /// <param name="result">The converted result.</param>
     /// <returns><see langword="true"/> when conversion succeeds; otherwise, <see langword="false"/>.</returns>
-    private static bool TrySpecialConversion(object value, string? text, Type destinationType, CultureInfo culture, out object? result)
+    private static bool TrySpecialConversion(
+        object value,
+        string? text,
+        Type destinationType,
+        CultureInfo culture,
+        out object? result)
     {
         if (SpecialConverters.TryGetValue(destinationType, out var converter))
         {
@@ -232,9 +258,15 @@ internal static class BclConversion
     /// <param name="culture">The parsing culture.</param>
     /// <param name="result">The parsed result.</param>
     /// <returns><see langword="true"/> when parsing is available; otherwise, <see langword="false"/>.</returns>
-    private static bool TryConvertNumeric(string? text, Type destinationType, CultureInfo culture, out object? result)
+    private static bool TryConvertNumeric(
+        string? text,
+        Type destinationType,
+        CultureInfo culture,
+        out object? result)
     {
-        if (text is null || !NumericParsers.TryGetValue(Type.GetTypeCode(destinationType), out var parser))
+        if (
+            text is null
+            || !NumericParsers.TryGetValue(Type.GetTypeCode(destinationType), out var parser))
         {
             result = null;
             return false;
@@ -250,7 +282,11 @@ internal static class BclConversion
     /// <param name="culture">The conversion culture.</param>
     /// <param name="result">The converted result.</param>
     /// <returns><see langword="true"/> when a type converter succeeds; otherwise, <see langword="false"/>.</returns>
-    private static bool TryTypeConverters(object value, Type destinationType, CultureInfo culture, out object? result)
+    private static bool TryTypeConverters(
+        object value,
+        Type destinationType,
+        CultureInfo culture,
+        out object? result)
     {
         var destinationConverter = TypeDescriptor.GetConverter(destinationType);
         if (destinationConverter.CanConvertFrom(value.GetType()))
@@ -295,7 +331,10 @@ internal static class BclConversion
     private static ConversionAttempt TryConvertUri(object value, string? text, CultureInfo culture)
     {
         _ = culture;
-        var success = Uri.TryCreate(text ?? value.ToString(), UriKind.RelativeOrAbsolute, out var uri);
+        var success = Uri.TryCreate(
+            text ?? value.ToString(),
+            UriKind.RelativeOrAbsolute,
+            out var uri);
         return new(success, uri);
     }
 
@@ -304,7 +343,10 @@ internal static class BclConversion
     /// <param name="text">The source text, when applicable.</param>
     /// <param name="culture">The conversion culture.</param>
     /// <returns>The conversion status and result.</returns>
-    private static ConversionAttempt TryConvertTimeSpan(object value, string? text, CultureInfo culture)
+    private static ConversionAttempt TryConvertTimeSpan(
+        object value,
+        string? text,
+        CultureInfo culture)
     {
         var success = TimeSpan.TryParse(text ?? value.ToString(), culture, out var timeSpan);
         return new(success, success ? timeSpan : null);
@@ -315,14 +357,21 @@ internal static class BclConversion
     /// <param name="text">The source text, when applicable.</param>
     /// <param name="culture">The conversion culture.</param>
     /// <returns>The conversion status and result.</returns>
-    private static ConversionAttempt TryConvertDateTimeOffset(object value, string? text, CultureInfo culture)
+    private static ConversionAttempt TryConvertDateTimeOffset(
+        object value,
+        string? text,
+        CultureInfo culture)
     {
         if (value is DateTime dateTime)
         {
             return new(true, new DateTimeOffset(dateTime));
         }
 
-        var success = DateTimeOffset.TryParse(text ?? value.ToString(), culture, DateTimeStyles.AllowWhiteSpaces, out var offset);
+        var success = DateTimeOffset.TryParse(
+            text ?? value.ToString(),
+            culture,
+            DateTimeStyles.AllowWhiteSpaces,
+            out var offset);
         return new(success, success ? offset : null);
     }
 
@@ -331,7 +380,10 @@ internal static class BclConversion
     /// <param name="text">The source text, when applicable.</param>
     /// <param name="culture">The conversion culture.</param>
     /// <returns>The conversion status and result.</returns>
-    private static ConversionAttempt TryConvertDateTime(object value, string? text, CultureInfo culture)
+    private static ConversionAttempt TryConvertDateTime(
+        object value,
+        string? text,
+        CultureInfo culture)
     {
         _ = text;
         _ = culture;
@@ -348,7 +400,9 @@ internal static class BclConversion
     {
         _ = value;
         _ = culture;
-        var result = text is null ? null : Type.GetType(text, throwOnError: false, ignoreCase: true);
+        var result = text is null
+            ? null
+            : Type.GetType(text, throwOnError: false, ignoreCase: true);
         return new(result is not null, result);
     }
 
@@ -357,7 +411,10 @@ internal static class BclConversion
     /// <param name="text">The source text, when applicable.</param>
     /// <param name="culture">The conversion culture.</param>
     /// <returns>The conversion status and result.</returns>
-    private static ConversionAttempt TryConvertBoolean(object value, string? text, CultureInfo culture)
+    private static ConversionAttempt TryConvertBoolean(
+        object value,
+        string? text,
+        CultureInfo culture)
     {
         _ = value;
         _ = culture;
@@ -366,21 +423,31 @@ internal static class BclConversion
             return new(true, boolean);
         }
 
-        if (string.Equals(text, "yes", StringComparison.OrdinalIgnoreCase) || string.Equals(text, "on", StringComparison.OrdinalIgnoreCase))
+        if (
+            string.Equals(text, "yes", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(text, "on", StringComparison.OrdinalIgnoreCase))
         {
             return new(true, true);
         }
 
-        return string.Equals(text, "no", StringComparison.OrdinalIgnoreCase) || string.Equals(text, "off", StringComparison.OrdinalIgnoreCase)
-            ? new ConversionAttempt(true, false)
-            : new ConversionAttempt(false, null);
+        return
+            string.Equals(text, "no", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(text, "off", StringComparison.OrdinalIgnoreCase)
+                ? new ConversionAttempt(true, false)
+                : new ConversionAttempt(false, null);
     }
 
     /// <summary>Determines whether an exception represents a recoverable conversion failure.</summary>
     /// <param name="exception">The exception to inspect.</param>
-    /// <returns><see langword="true"/> for a recoverable conversion failure; otherwise, <see langword="false"/>.</returns>
+    /// <returns><see langword="true"/> for a recoverable conversion failure; otherwise, <see langword="false"/>.
+    /// </returns>
     private static bool IsConversionException(Exception exception) =>
-        exception is ArgumentException or FormatException or InvalidCastException or NotSupportedException or OverflowException;
+        exception
+            is ArgumentException
+                or FormatException
+                or InvalidCastException
+                or NotSupportedException
+                or OverflowException;
 
     /// <summary>Stores the outcome of a special conversion attempt.</summary>
     private sealed class ConversionAttempt

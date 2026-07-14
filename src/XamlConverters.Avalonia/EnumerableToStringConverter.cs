@@ -34,14 +34,19 @@ public sealed class EnumerableToStringConverter : IValueConverter
         var values = new List<string>();
         foreach (var item in enumerable)
         {
-            values.Add(item is IFormattable formattable
-                ? formattable.ToString(null, culture)
-                : item?.ToString() ?? string.Empty);
+            values.Add(
+                item is IFormattable formattable
+                    ? formattable.ToString(null, culture)
+                    : item?.ToString() ?? string.Empty);
         }
 
         return string.Join(separator, values);
     }
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 }

@@ -15,10 +15,16 @@ public sealed class StringNullOrEmptyToBoolConverter : IValueConverter
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         var result = !string.IsNullOrEmpty(value as string);
-        var invert = parameter is true || string.Equals(parameter?.ToString(), "invert", StringComparison.OrdinalIgnoreCase);
+        var invert =
+            parameter is true
+            || string.Equals(parameter?.ToString(), "invert", StringComparison.OrdinalIgnoreCase);
         return invert ? !result : result;
     }
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 }

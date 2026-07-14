@@ -20,7 +20,8 @@ public sealed class CollectionContainsConverter : IValueConverter
         if (value is string text)
         {
             var searchText = parameter?.ToString();
-            return searchText is not null && culture.CompareInfo.IndexOf(text, searchText, CompareOptions.None) >= 0;
+            return searchText is not null
+                && culture.CompareInfo.IndexOf(text, searchText, CompareOptions.None) >= 0;
         }
 
         if (value is not IEnumerable enumerable)
@@ -40,7 +41,11 @@ public sealed class CollectionContainsConverter : IValueConverter
     }
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 
     /// <summary>Determines whether a collection item equals the requested value directly or after conversion.</summary>
     /// <param name="item">The collection item.</param>
@@ -49,8 +54,13 @@ public sealed class CollectionContainsConverter : IValueConverter
     /// <returns><see langword="true"/> when the values are equal; otherwise, <see langword="false"/>.</returns>
     private static bool ItemsEqual(object? item, object? requestedValue, CultureInfo culture) =>
         Equals(item, requestedValue)
-        || (item is not null
+        || (
+            item is not null
             && requestedValue is not null
-            && ConversionHelpers.TryConvert(requestedValue, item.GetType(), culture, out var converted)
+            && ConversionHelpers.TryConvert(
+                requestedValue,
+                item.GetType(),
+                culture,
+                out var converted)
             && Equals(item, converted));
 }

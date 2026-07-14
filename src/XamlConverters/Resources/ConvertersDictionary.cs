@@ -18,8 +18,9 @@ namespace CP.Xaml.Converters;
 public class ConvertersDictionary : ResourceDictionary
 {
     /// <summary>The pack URI of the shared converter resource dictionary.</summary>
-    private const string DictionaryUri = "pack://application:,,,/CP.Xaml.Converters;component/Resources/Converters.xaml";
+    private const string DictionaryUri =
+        "pack://application:,,,/CP.Xaml.Converters;component/Resources/Converters.xaml";
 
-    /// <summary>Initializes a new instance of the <see cref="ConvertersDictionary"/> class. Default constructor defining <see cref="ResourceDictionary.Source"/> of the <c>XamlConverters</c> Converters dictionary.</summary>
+    /// <summary>Initializes a new instance of the <see cref="ConvertersDictionary"/> class.</summary>
     public ConvertersDictionary() => Source = new(DictionaryUri, UriKind.Absolute);
 }

@@ -51,5 +51,9 @@ public sealed class StringNullOrEmptyToVisibilityConverter : IValueConverter
     /// <returns>
     /// Binding.DoNothing.
     /// </returns>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Binding.DoNothing;
+    public object ConvertBack(
+        object value,
+        Type targetType,
+        object parameter,
+        CultureInfo culture) => Binding.DoNothing;
 }

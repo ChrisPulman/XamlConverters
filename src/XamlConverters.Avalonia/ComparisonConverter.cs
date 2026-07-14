@@ -39,7 +39,11 @@ public sealed partial class ComparisonConverter : IValueConverter
     }
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 
     /// <summary>Compares a value with the textual right operand.</summary>
     /// <param name="value">The left operand.</param>
@@ -48,8 +52,11 @@ public sealed partial class ComparisonConverter : IValueConverter
     /// <returns>A value indicating the operands' relative order.</returns>
     private static int Compare(object value, string rightText, CultureInfo culture)
     {
-        return ConversionHelpers.TryDecimal(value, culture, out var left) &&
-            decimal.TryParse(rightText, NumberStyles.Any, culture, out var right) ? left.CompareTo(right) : string.Compare(value.ToString(), rightText, StringComparison.OrdinalIgnoreCase);
+        return
+            ConversionHelpers.TryDecimal(value, culture, out var left)
+            && decimal.TryParse(rightText, NumberStyles.Any, culture, out var right)
+                ? left.CompareTo(right)
+                : string.Compare(value.ToString(), rightText, StringComparison.OrdinalIgnoreCase);
     }
 
     [GeneratedRegex("^(?<invert>!?)(?<op>>=|<=|==|!=|>|<)\\s*(?<rhs>.+)$", RegexOptions.Compiled)]

@@ -9,7 +9,8 @@ using System.Windows.Data;
 namespace CP.Xaml.Converters;
 
 /// <summary>
-/// Creates a uniform (or partially uniform) Thickness from a numeric value. Parameter tokens: L,R,T,B,H,V to enable specific sides.
+/// Creates a uniform (or partially uniform) Thickness from a numeric value. Parameter tokens: L,R,T,B,H,V to enable
+/// specific sides.
 /// Examples: parameter="LRT" sets Left/Right/Top only. Empty or null parameter sets all sides.
 /// </summary>
 public sealed class ThicknessUniformConverter : IValueConverter
@@ -76,5 +77,9 @@ public sealed class ThicknessUniformConverter : IValueConverter
     /// <param name="parameter">The converter parameter to use (unused).</param>
     /// <param name="culture">The culture to use in the converter (unused).</param>
     /// <returns><see cref="Binding.DoNothing"/>.</returns>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Binding.DoNothing;
+    public object ConvertBack(
+        object value,
+        Type targetType,
+        object parameter,
+        CultureInfo culture) => Binding.DoNothing;
 }

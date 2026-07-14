@@ -12,9 +12,16 @@ namespace CP.Xaml.Converters.Avalonia;
 public sealed class MultiBooleanAndConverter : IMultiValueConverter
 {
     /// <inheritdoc/>
-    public object Convert(IList<object?> values, Type targetType, object? parameter, CultureInfo culture)
+    public object Convert(
+        IList<object?> values,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture)
     {
         ArgumentNullException.ThrowIfNull(values);
-        return values.Count > 0 && values.Where(value => !ConversionHelpers.IsUnset(value)).All(value => ConversionHelpers.IsTrue(value, culture));
+        return values.Count > 0
+            && values
+                .Where(value => !ConversionHelpers.IsUnset(value))
+                .All(value => ConversionHelpers.IsTrue(value, culture));
     }
 }

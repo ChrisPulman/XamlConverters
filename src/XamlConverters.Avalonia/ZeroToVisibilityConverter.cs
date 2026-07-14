@@ -16,5 +16,9 @@ public sealed class ZeroToVisibilityConverter : IValueConverter
         ConversionHelpers.TryDecimal(value, culture, out var number) && number == 0;
 
     /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => ConversionHelpers.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => ConversionHelpers.DoNothing;
 }

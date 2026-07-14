@@ -26,7 +26,8 @@ public sealed class CollectionItemConverter : IValueConverter
                 : Binding.DoNothing;
         }
 
-        if (!BclConversion.TryChangeType(parameter, typeof(int), culture, out var convertedIndex)
+        if (
+            !BclConversion.TryChangeType(parameter, typeof(int), culture, out var convertedIndex)
             || convertedIndex is not int index
             || index < 0)
         {
@@ -47,7 +48,11 @@ public sealed class CollectionItemConverter : IValueConverter
     /// <param name="parameter">The converter parameter.</param>
     /// <param name="culture">The culture used by the binding.</param>
     /// <returns><see cref="Binding.DoNothing"/>.</returns>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => Binding.DoNothing;
+    public object ConvertBack(
+        object? value,
+        Type targetType,
+        object? parameter,
+        CultureInfo culture) => Binding.DoNothing;
 
     /// <summary>Gets an item from an enumerable by index.</summary>
     /// <param name="enumerable">The enumerable source.</param>
@@ -58,10 +63,12 @@ public sealed class CollectionItemConverter : IValueConverter
         var currentIndex = 0;
         foreach (var item in enumerable)
         {
-            if (currentIndex++ == index)
+            if (currentIndex == index)
             {
                 return item;
             }
+
+            currentIndex++;
         }
 
         return Binding.DoNothing;

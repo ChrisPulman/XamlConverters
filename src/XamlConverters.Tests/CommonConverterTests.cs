@@ -18,8 +18,16 @@ public class CommonConverterTests
     [Test]
     public async Task ConvertsTextCasing()
     {
-        var upper = new ToUpperConverter().Convert("Mixed Case", typeof(string), null!, InvariantCulture);
-        var lower = new ToLowerConverter().Convert("Mixed Case", typeof(string), null!, InvariantCulture);
+        var upper = new ToUpperConverter().Convert(
+            "Mixed Case",
+            typeof(string),
+            null!,
+            InvariantCulture);
+        var lower = new ToLowerConverter().Convert(
+            "Mixed Case",
+            typeof(string),
+            null!,
+            InvariantCulture);
 
         await Assert.That(upper).IsEqualTo("MIXED CASE");
         await Assert.That(lower).IsEqualTo("mixed case");
@@ -36,8 +44,12 @@ public class CommonConverterTests
     {
         var converter = new BoolNegationConverter();
 
-        await Assert.That((bool)converter.Convert(input, typeof(bool), null!, InvariantCulture)).IsEqualTo(expected);
-        await Assert.That((bool)converter.ConvertBack(input, typeof(bool), null!, InvariantCulture)).IsEqualTo(expected);
+        await Assert
+            .That((bool)converter.Convert(input, typeof(bool), null!, InvariantCulture))
+            .IsEqualTo(expected);
+        await Assert
+            .That((bool)converter.ConvertBack(input, typeof(bool), null!, InvariantCulture))
+            .IsEqualTo(expected);
     }
 
     /// <summary>Compares values with optional inversion.</summary>
@@ -48,10 +60,18 @@ public class CommonConverterTests
         var equality = new EqualityConverter();
         var objectEquality = new ObjectEqualsParameterConverter();
 
-        await Assert.That((bool)equality.Convert(TestValues.Answer, typeof(bool), "42", InvariantCulture)).IsTrue();
-        await Assert.That((bool)equality.Convert(TestValues.Answer, typeof(bool), "!42", InvariantCulture)).IsFalse();
-        await Assert.That((bool)objectEquality.Convert("VALUE", typeof(bool), "value", InvariantCulture)).IsTrue();
-        await Assert.That((bool)objectEquality.Convert("VALUE", typeof(bool), "!value", InvariantCulture)).IsFalse();
+        await Assert
+            .That((bool)equality.Convert(TestValues.Answer, typeof(bool), "42", InvariantCulture))
+            .IsTrue();
+        await Assert
+            .That((bool)equality.Convert(TestValues.Answer, typeof(bool), "!42", InvariantCulture))
+            .IsFalse();
+        await Assert
+            .That((bool)objectEquality.Convert("VALUE", typeof(bool), "value", InvariantCulture))
+            .IsTrue();
+        await Assert
+            .That((bool)objectEquality.Convert("VALUE", typeof(bool), "!value", InvariantCulture))
+            .IsFalse();
     }
 
     /// <summary>Reports simple and fully-qualified type names.</summary>
@@ -61,8 +81,12 @@ public class CommonConverterTests
     {
         var converter = new ObjectToTypeNameConverter();
 
-        await Assert.That(converter.Convert(TestValues.Answer, typeof(string), null!, InvariantCulture)).IsEqualTo("Int32");
-        await Assert.That(converter.Convert(TestValues.Answer, typeof(string), "full", InvariantCulture)).IsEqualTo("System.Int32");
+        await Assert
+            .That(converter.Convert(TestValues.Answer, typeof(string), null!, InvariantCulture))
+            .IsEqualTo("Int32");
+        await Assert
+            .That(converter.Convert(TestValues.Answer, typeof(string), "full", InvariantCulture))
+            .IsEqualTo("System.Int32");
     }
 
     /// <summary>Multiplies and divides numeric values symmetrically.</summary>
@@ -71,11 +95,25 @@ public class CommonConverterTests
     public async Task MultipliesAndDividesNumericValues()
     {
         var converter = new MultiplierConverter();
-        var converted = converter.Convert(TestValues.MultiplierInput, typeof(double), "2.5", InvariantCulture);
-        var convertedBack = converter.ConvertBack(converted, typeof(double), "2.5", InvariantCulture);
+        var converted = converter.Convert(
+            TestValues.MultiplierInput,
+            typeof(double),
+            "2.5",
+            InvariantCulture);
+        var convertedBack = converter.ConvertBack(
+            converted,
+            typeof(double),
+            "2.5",
+            InvariantCulture);
 
-        await Assert.That((double)converted).IsEqualTo(TestValues.MultipliedValue).Within(TestValues.FloatingPointTolerance);
-        await Assert.That((double)convertedBack).IsEqualTo(TestValues.MultiplierInput).Within(TestValues.FloatingPointTolerance);
+        await Assert
+            .That((double)converted)
+            .IsEqualTo(TestValues.MultipliedValue)
+            .Within(TestValues.FloatingPointTolerance);
+        await Assert
+            .That((double)convertedBack)
+            .IsEqualTo(TestValues.MultiplierInput)
+            .Within(TestValues.FloatingPointTolerance);
     }
 
     /// <summary>Supports both value/parameter and multi-value comparisons.</summary>
@@ -84,8 +122,16 @@ public class CommonConverterTests
     public async Task ComparesGreaterThanOrEqualValues()
     {
         var converter = new IsGreaterThanOrEqualToConverter();
-        var singleResult = ((IValueConverter)converter).Convert(TestValues.ComparisonBoundary, typeof(bool), TestValues.ComparisonBoundary, InvariantCulture);
-        var multiResult = ((IMultiValueConverter)converter).Convert([TestValues.BelowComparisonBoundary, TestValues.ComparisonBoundary], typeof(bool), null!, InvariantCulture);
+        var singleResult = ((IValueConverter)converter).Convert(
+            TestValues.ComparisonBoundary,
+            typeof(bool),
+            TestValues.ComparisonBoundary,
+            InvariantCulture);
+        var multiResult = ((IMultiValueConverter)converter).Convert(
+            [TestValues.BelowComparisonBoundary, TestValues.ComparisonBoundary],
+            typeof(bool),
+            null!,
+            InvariantCulture);
 
         await Assert.That((bool)singleResult).IsTrue();
         await Assert.That((bool)multiResult).IsFalse();
