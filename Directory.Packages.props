@@ -12,7 +12,7 @@
     <PackageVersion Include="Polyfill" Version="11.0.2" />
     <PackageVersion Include="StyleSharp.Analyzers" Version="3.28.1" />
     <PackageVersion Include="System.Security.Cryptography.Xml" Version="10.0.10" />
-    <PackageVersion Include="Roslynator.Analyzers" Version="4.15.0" />
+    <PackageVersion Include="Roslynator.Analyzers" Version="4.16.0" />
     <PackageVersion Include="TUnit" Version="1.63.25" />
   </ItemGroup>
 </Project>
