@@ -6,7 +6,7 @@
   <ItemGroup>
     <PackageVersion Include="Avalonia" Version="12.1.2" />
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="10.0.400" />
-    <PackageVersion Include="MinVer" Version="7.0.0" />
+    <PackageVersion Include="MinVer" Version="8.0.0" />
     <PackageVersion Include="Nuke.Common" Version="10.1.0" />
     <PackageVersion Include="NuGet.Packaging" Version="7.9.0" />
     <PackageVersion Include="Polyfill" Version="11.2.0" />
